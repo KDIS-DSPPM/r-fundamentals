@@ -22,6 +22,10 @@ I am currently working on an open-access textbook titled [“Computational Think
 
 The software needed for the course is as follows:
 
+- Bash 
+
+- Git 
+
 - R and RStudio (latest versions)
 
 - Pandoc and LaTeX (for R markdown)
