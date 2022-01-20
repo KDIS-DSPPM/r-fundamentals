@@ -147,7 +147,7 @@ This class is committed to creating an environment in which everyone can partici
 
 2. Lecture/section related questions: use the Slack workspace.
 
-3. Logistics related personal requests: only in this case contact me via [email](jkim@kdischool.ac.kr)
+3. Logistics related personal requests: only in this case contact me via [email](jkim@kdischool.ac.kr).
 
 In the 1 & 2 cases, other students may have similar issues. Therefore, I would like to solve these collective problems collectively.
 
