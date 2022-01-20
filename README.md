@@ -11,8 +11,8 @@ R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fa
 
 ## Instructor 
 
-Professor: Jae Yeon Kim
-E-mail: jkim@kdischool.ac.kr
+* Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management 
+* E-mail: jkim@kdischool.ac.kr
 
 ## Textbook
 
