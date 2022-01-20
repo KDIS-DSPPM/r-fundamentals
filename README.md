@@ -194,7 +194,7 @@ This class is committed to creating an environment in which everyone can partici
 * Reading: lecture notes
 * Extra reading: [Kim ch5](https://jaeyk.github.io/comp_thinking_social_science/functional_programming.html)
 * Extra video:
-  - [Managing many models with R](https://www.youtube.com/watch?v=rz3_FDVt9eg) by Hadley_Wickham
+  - [Managing many models with R](https://www.youtube.com/watch?v=rz3_FDVt9eg) by Hadley Wickham
   - [Repeat Loops](https://www.youtube.com/watch?v=mgooqyWMTxk) by Mark Zuckerberg
 
 ### 11th Week: Reading period
