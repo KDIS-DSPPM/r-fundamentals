@@ -20,8 +20,6 @@ I am currently working on an open-access textbook titled “Computational Thinki
 
 * Jae Yeon Kim (2022). [Computational Thinking for Social Scientists](https://jaeyk.github.io/comp_thinking_social_science/)
 
-Although the course does not cover intermediate and advanced computational social science and civic data science subjects, I am happy to talk about them during the Q&A or office hours.
-
 ## Computer requirements
 
 The software needed for the course is as follows:
@@ -140,6 +138,16 @@ This class is committed to creating an environment in which everyone can partici
 3. Logistics related personal requests: only in this case contact me via [email](jkim@kdischool.ac.kr)
 
 In the 1 & 2 cases, other students may have similar issues. Therefore, I would like to solve these collective problems collectively.
+
+## Office hour
+
+Every Friday 1-5 PM. You can set up a 30 minutes appointment with me via [this Calendly link](https://calendly.com/jkim-46). The appointments are booked on a rolling basis. Depending on the COVID-19 situation and your current location, we may meet up via Zoom or in my office (**S320**).
+
+There are several uses for office hours. I list some examples below.
+
+1. You might wonder how computational methods apply to your research or work. In that case, I am happy to talk about computational social science and civic data science applications during office hours.
+2. You might find the course too challenging or easy. In that case, I am eager to provide you with additional learning guidelines.
+3. You can use this time to chat and help us get to know each other.
 
 ## Special thanks
 
