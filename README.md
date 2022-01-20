@@ -6,7 +6,7 @@ R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fa
 
 ## Textbook
 
-I use the canonical R textbook written by Grolemund and Wickham. Wickham is the mastermind behind the tidyverse, the most popular data analysis framework in the R ecosystem. The book is **free and accessible online.** Almost all of the course contents used in this course are **free and accessible online** so that more students can easily access those materials regardless of their backgrounds.
+I use the canonical R textbook written by Grolemund and Wickham. Wickham is the mastermind behind the tidyverse, the most popular data analysis framework in the R ecosystem. Almost all of the course contents used in this course, including the textbook, are **free and accessible online** so that more students can easily access those materials regardless of their backgrounds.
 
 * Garrett Grolemund and Hadley Wickham (2016). [R for Data Science](https://r4ds.had.co.nz/)
 
@@ -16,9 +16,7 @@ I use [the GitHub course repository](https://github.com/KDIS-DSPPM/r-fundamental
 
 ## References
 
-I am currently working on an open-access textbook titled “Computational Thinking for Social Scientists.” The book covers command-line tools, version control, data wrangling, visualization, functional programming, data product development, machine learning, and SQL. If you are interested in learning computational methods further, I recommend reading it. The course is a condensed version of the textbook's earlier parts. The book’s link is provided below.
-
-* Jae Yeon Kim (2022). [Computational Thinking for Social Scientists](https://jaeyk.github.io/comp_thinking_social_science/)
+I am currently working on an open-access textbook titled [“Computational Thinking for Social Scientists.”](https://jaeyk.github.io/comp_thinking_social_science/) The book covers command-line tools, version control, data wrangling, visualization, functional programming, data product development, machine learning, and SQL. If you are interested in learning computational methods further, I recommend reading it. The course is a condensed version of the book's earlier parts. 
 
 ## Computer requirements
 
@@ -151,6 +149,6 @@ There are several uses for office hours. I list some examples below.
 
 ## Special thanks
 
-This course is a remix version of [PS239T](https://github.com/rochelleterman/PS239T) originally developed by [Rochelle Terman](http://rochelleterman.com/) (currently Assisant Professor at the University of Chicago) then revised by [Rachel Bernhard](http://rachelbernhard.com/) (currently Assistant Professor at the University of California-Davis). I taught PS239T three times at Berkeley (TA for Rachel, lead instructor, and co-instructor with Nick Kuipers). Other teaching materials draw from the workshops I have created for [D-Lab](https://dlab.berkeley.edu/) at UC Berkeley.
+This course is a remix version of [PS239T](https://github.com/rochelleterman/PS239T) originally developed by [Rochelle Terman](http://rochelleterman.com/) (currently Assisant Professor at the University of Chicago) then revised by [Rachel Bernhard](http://rachelbernhard.com/) (currently Assistant Professor at the University of California-Davis). I taught PS239T three times at Berkeley (TA for Rachel, lead instructor, and co-instructor with Nick Kuipers). Other teaching materials draw from the workshops I created for [D-Lab](https://dlab.berkeley.edu/) at UC Berkeley, where I was a senior data science fellow, instructor, and consultant.
 
 ![](https://i.creativecommons.org/l/by/4.0/88x31.png) This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
