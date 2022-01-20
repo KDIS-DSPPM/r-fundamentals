@@ -102,7 +102,7 @@ This class is committed to creating an environment in which everyone can partici
 
 ### 1st Week
 
-* Why computational social science?
+* Why computational social science/civic data science?
 * Reading: lecture notes
 * Extra reading:
   - [Kim ch2](https://jaeyk.github.io/comp_thinking_social_science/motivation.html)
