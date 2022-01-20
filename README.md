@@ -2,7 +2,7 @@
 
 This course aims to introduce and demonstrate how fun and exciting data analysis with R could be. Mastering computational tools and techniques not only enable social scientists to collect, wrangle, analyze, and interpret data with less pain and more fun, but it also let them work on research projects that would previously seem impossible. Taking this workshop is the first step to move you in that direction. The course focuses on data wrangling: the most fundamental and time-consuming component of the data analysis workflow.
 
-Why R? R is free, easy to learn (thanks to tidverse), fast (thanks to rcpp), runs everywhere, open (16,000+ packages; counting only ones available at CRAN), and has a growing massive and inclusive community called #rstats.
+R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fast (thanks to [rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html#:~:text=The%20'Rcpp'%20package%20provides%20R,integration%20of%20third%2Dparty%20libraries.)), runs everywhere, open (16,000+ packages; counting only ones available at the [CRAN](https://cran.r-project.org/)), and has a growing massive and inclusive community called [#rstats](https://twitter.com/search?q=%23rstats&src=hashtag_click).
 
 # Textbook
 
