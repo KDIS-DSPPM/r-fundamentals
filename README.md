@@ -2,7 +2,7 @@
 
 Spring 2022
 
-This course introduces and demonstrates how fun and exciting data analysis with R could be. Mastering computational tools and techniques not only enable social scientists to collect, wrangle, analyze, and interpret data with less pain and more fun, but it also let them work on research projects that would previously seem impossible. Due to the time constraint, the course focuses on data wrangling: the most fundamental and time-consuming component of the data analysis workflow. After completing this course, students will know how to turn messy raw data into structured datasets using the R programming language.
+This course introduces and demonstrates how fun and exciting data analysis with R could be. Mastering computational tools and techniques not only enable social scientists to collect, wrangle, analyze, and interpret data with less pain and more fun, but it also let them work on research projects that would previously seem impossible. Due to the time constraint, the course focuses on data wrangling: the most fundamental and time-consuming component of the data analysis workflow. After completing this course, students will know how to turn messy raw data into structured datasets using the R programming language. In addition, the course will help students develop a framework for learning computational methods and using data to make the government work for everyone and empower citizens to negotiate power. 
 
 Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fast (thanks to [rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html#:~:text=The%20'Rcpp'%20package%20provides%20R,integration%20of%20third%2Dparty%20libraries.)), runs everywhere, open (16,000+ packages; counting only ones available at the [CRAN](https://cran.r-project.org/)), and has a growing massive and inclusive community called [#rstats](https://twitter.com/search?q=%23rstats&src=hashtag_click).
 
@@ -150,6 +150,7 @@ This class is committed to creating an environment in which everyone can partici
 * Extra reading:
   - [GW ch12](https://r4ds.had.co.nz/tidy-data.html)
   - Wickham, Hadley. ["Tidy data."](https://www.jstatsoft.org/index.php/jss/article/view/v059i10/v59i10.pdf) *Journal of Statistical Software* 59, no. 1 (2014): 1-23.
+  - Broman, Karl W., and Kara H. Woo. ["Data organization in spreadsheets."](https://www.tandfonline.com/doi/pdf/10.1080/00031305.2017.1375989?iOS=%25253Frefid%25253Dorganic) *The American Statistician* 72, no. 1 (2018): 2-10.
 * Extra video: [Tidy Data](https://www.youtube.com/watch?v=D48JHU4llkk) by Hadley Wickham
 * Assignment: assignment #2 due
 
