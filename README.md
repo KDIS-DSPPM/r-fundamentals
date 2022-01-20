@@ -16,7 +16,7 @@ Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org
 
 ### Instructor
 
-[Jae Yeon Kim](https://jaeyk.github.io/), Assistant Professor, KDI School of Public Policy and Management
+Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management
 
 * E-mail: jkim@kdischool.ac.kr
 * Homepage: https://jaeyk.github.io/
@@ -32,8 +32,8 @@ TBD
 
 You can set up a 30 minutes appointment with me via [this Calendly link](https://calendly.com/jkim-46). The appointments are booked on a rolling basis.
 
-In person: Professor Kim's Office (**S320**)
-Via zooom:
+* In person: Professor Kim's Office (**S320**)
+* Via Zoom: The Zoom meeting link will be provided when it becomes available.
 
 There are several uses for office hours. I listed some examples below.
 
@@ -102,10 +102,10 @@ This class is committed to creating an environment in which everyone can partici
 
 ### 1st Week
 
-* Why computational social science?
+* Why computational social science/civic data science?
 * Reading: lecture notes
 * Extra reading:
-  - [Kim ch2](https://jaeyk.github.io/comp_thinking_social_science/motivation.html),
+  - [Kim ch2](https://jaeyk.github.io/comp_thinking_social_science/motivation.html)
   - Rogati, Monica, [The AI Hierarchy of Needs](https://hackernoon.com/the-ai-hierarchy-of-needs-18f111fcc007), *hackernoon.com*, June 13 2017
 * Extra videos:
   - [An Introduction to Computational Social Science](https://www.youtube.com/watch?v=EF7X9wwl0q4) by Matthew J. Salganik
@@ -122,7 +122,7 @@ This class is committed to creating an environment in which everyone can partici
 * Flexible, efficient, and reproducible data analysis workflow using R
 * Reading: lecture notes
 * Extra reading:
-  - [Kim ch3](https://jaeyk.github.io/comp_thinking_social_science/git_bash.html),
+  - [Kim ch3](https://jaeyk.github.io/comp_thinking_social_science/git_bash.html)
   - Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D'Agostino McGowan, Romain François, Garrett Grolemund et al. ["Welcome to the Tidyverse."](https://joss.theoj.org/papers/10.21105/joss.01686.pdf) *Journal of Open Source Software* 4, no. 43 (2019): 1686.
   - [Data Science Project Organization](https://jhudatascience.org/tidyversecourse/intro.html#data-science-project-organization) by Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng (2021)
 * Extra videos:
@@ -195,7 +195,7 @@ This class is committed to creating an environment in which everyone can partici
 * Reading: lecture notes
 * Extra reading: [Kim ch5](https://jaeyk.github.io/comp_thinking_social_science/functional_programming.html)
 * Extra video:
-  - [Managing many models with R](https://www.youtube.com/watch?v=rz3_FDVt9eg) by Hadley_Wickham
+  - [Managing many models with R](https://www.youtube.com/watch?v=rz3_FDVt9eg) by Hadley Wickham
   - [Repeat Loops](https://www.youtube.com/watch?v=mgooqyWMTxk) by Mark Zuckerberg
 
 ### 11th Week: Reading period
