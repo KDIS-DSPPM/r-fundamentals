@@ -105,7 +105,7 @@ This class is committed to creating an environment in which everyone can partici
 * Why computational social science?
 * Reading: lecture notes
 * Extra reading:
-  - [Kim ch2](https://jaeyk.github.io/comp_thinking_social_science/motivation.html),
+  - [Kim ch2](https://jaeyk.github.io/comp_thinking_social_science/motivation.html)
   - Rogati, Monica, [The AI Hierarchy of Needs](https://hackernoon.com/the-ai-hierarchy-of-needs-18f111fcc007), *hackernoon.com*, June 13 2017
 * Extra videos:
   - [An Introduction to Computational Social Science](https://www.youtube.com/watch?v=EF7X9wwl0q4) by Matthew J. Salganik
