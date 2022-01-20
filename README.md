@@ -122,7 +122,7 @@ This class is committed to creating an environment in which everyone can partici
 * Flexible, efficient, and reproducible data analysis workflow using R
 * Reading: lecture notes
 * Extra reading:
-  - [Kim ch3](https://jaeyk.github.io/comp_thinking_social_science/git_bash.html),
+  - [Kim ch3](https://jaeyk.github.io/comp_thinking_social_science/git_bash.html)
   - Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D'Agostino McGowan, Romain François, Garrett Grolemund et al. ["Welcome to the Tidyverse."](https://joss.theoj.org/papers/10.21105/joss.01686.pdf) *Journal of Open Source Software* 4, no. 43 (2019): 1686.
   - [Data Science Project Organization](https://jhudatascience.org/tidyversecourse/intro.html#data-science-project-organization) by Carrie Wright, Shannon E. Ellis, Stephanie C. Hicks and Roger D. Peng (2021)
 * Extra videos:
