@@ -141,7 +141,7 @@ In the 1 & 2 cases, other students may have similar issues. Therefore, I would l
 
 Every Friday 1-5 PM. You can set up a 30 minutes appointment with me via [this Calendly link](https://calendly.com/jkim-46). The appointments are booked on a rolling basis. Depending on the COVID-19 situation and your current location, we may meet up via Zoom or in my office (**S320**).
 
-There are several uses for office hours. I list some examples below.
+There are several uses for office hours. I listed some examples below.
 
 1. You might wonder how computational methods apply to your research or work. In that case, I am happy to talk about computational social science and civic data science applications during office hours.
 2. You might find the course too challenging or easy. In that case, I am eager to provide you with additional learning guidelines.
