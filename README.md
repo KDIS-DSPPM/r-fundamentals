@@ -141,6 +141,6 @@ In the 1 & 2 cases, other students may have similar issues. Therefore, I would l
 
 ## Special thanks
 
-This course is a remix version of [PS239T](https://github.com/rochelleterman/PS239T) originally developed by [Rochelle Terman](http://rochelleterman.com/) (currently Assisant Professor at the University of Chicago) then revised by [Rachel Bernhard](http://rachelbernhard.com/) (currently Assistant Professor at the University of California-Davis). I taught PS239T three times at Berkeley (TA for Rachel, lead instructor, and co-instructor with Nick Kuipers). Other teaching materials draw from the workshops I have created for [D-Lab](https://dlab.berkeley.edu/) at UC Berkeley.
+This course is a remix version of [PS239T](https://github.com/rochelleterman/PS239T) originally developed by [Rochelle Terman](http://rochelleterman.com/) (currently Assisant Professor at the University of Chicago) then revised by [Rachel Bernhard](http://rachelbernhard.com/) (currently Assistant Professor at the University of California-Davis). I taught PS239T three times at Berkeley (TA for Rachel, lead instructor, and co-instructor with Nick Kuipers). Other teaching materials draw from the workshops I created for [D-Lab](https://dlab.berkeley.edu/) at UC Berkeley, where I was a senior data science fellow, instructor, and consultant.
 
 ![](https://i.creativecommons.org/l/by/4.0/88x31.png) This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
