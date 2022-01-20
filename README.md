@@ -30,7 +30,7 @@ The software needed for the course is as follows:
 
 - Pandoc and LaTeX (for R markdown)
 
-I provided an [installation guideline](https://github.com/KDIS-DSPPM/r-fundamentals/blob/main/software_setup.md) on the GitHub repository. To avoid installation and configuration issues during class, I provide all the lecture notes based on MyBinder (https://mybinder.org/), which helps code be reproducible by anyone, anywhere. For the assignments and final exam, you should code in R using your own machine.
+I provided an [installation guideline](https://github.com/KDIS-DSPPM/r-fundamentals/blob/main/software_setup.md) on the GitHub repository. To avoid installation and configuration issues during class, I will make all the lecture notes using [MyBinder](https://mybinder.org/). The binder helps the code embedded in the lecture notes be reproducible by anyone, anywhere. For the assignments and final exam, you should code in R using your own machine.
 
 ## Evaluation
 
@@ -143,6 +143,6 @@ In the 1 & 2 cases, other students may have similar issues. Therefore, I would l
 
 ## Special thanks
 
-This course is a remix version of [the course](https://github.com/rochelleterman/PS239T) originally developed by [Rochelle Terman](http://rochelleterman.com/) then revised by [Rachel Bernhard](http://rachelbernhard.com/). Other teaching materials draw from the workshops Jae Yeon Kim has created for [D-Lab](https://dlab.berkeley.edu/) and [Data Science Discovery Program](https://data.berkeley.edu/research/discovery-program-home) at UC Berkeley.
+This course is a remix version of [the course](https://github.com/rochelleterman/PS239T) originally developed by [Rochelle Terman](http://rochelleterman.com/) (currently Assisant Professor at the University of Chicago) then revised by [Rachel Bernhard](http://rachelbernhard.com/) (currently Assistant Professor at the University of California-Davis). I taught the course originally developed by Rochelle three times at Berkeley (TA, lead instructor, and co-instructor). Other teaching materials draw from the workshops I have created for [D-Lab](https://dlab.berkeley.edu/) at UC Berkeley.
 
 ![](https://i.creativecommons.org/l/by/4.0/88x31.png) This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
