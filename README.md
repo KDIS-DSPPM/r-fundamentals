@@ -4,6 +4,16 @@ This course aims to introduce and demonstrate how fun and exciting data analysis
 
 R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fast (thanks to [rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html#:~:text=The%20'Rcpp'%20package%20provides%20R,integration%20of%20third%2Dparty%20libraries.)), runs everywhere, open (16,000+ packages; counting only ones available at the [CRAN](https://cran.r-project.org/)), and has a growing massive and inclusive community called [#rstats](https://twitter.com/search?q=%23rstats&src=hashtag_click).
 
+## Logistics 
+
+* Time: TBA
+* Lecture Room: TBA
+
+## Instructor 
+
+Professor: Jae Yeon Kim
+E-mail: jkim@kdischool.ac.kr
+
 ## Textbook
 
 I use the canonical R textbook written by Grolemund and Wickham. Wickham is the mastermind behind the tidyverse, the most popular data analysis framework in the R ecosystem. Almost all of the course contents used in this course, including the textbook, are **free and accessible online** so that more students can easily access those materials regardless of their backgrounds.
