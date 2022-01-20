@@ -16,7 +16,7 @@ I use [the GitHub course repository](https://github.com/KDIS-DSPPM/r-fundamental
 
 ## References
 
-I am currently working on an open-access textbook titled [“Computational Thinking for Social Scientists.”](https://jaeyk.github.io/comp_thinking_social_science/) The book covers command-line tools, version control, data wrangling, visualization, functional programming, data product development, machine learning, and SQL. If you are interested in learning computational methods further, I recommend reading it. The course is a condensed version of the book's earlier parts. 
+I am currently working on an open-access textbook titled [“Computational Thinking for Social Scientists.”](https://jaeyk.github.io/comp_thinking_social_science/) The book covers command-line tools, version control, data wrangling, visualization, functional programming, data product development, machine learning, and SQL. If you are interested in learning computational methods further, I recommend reading it. The course is a condensed version of the book's earlier parts.
 
 ## Computer requirements
 
