@@ -6,7 +6,7 @@ R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fa
 
 ## Textbook
 
-I use the canonical R textbook written by Grolemund and Wickham. Wickham is the mastermind behind the tidyverse, the most popular data analysis framework in the R ecosystem. The book is **free and accessible online.** Almost all of the course contents used in this course are **free and accessible online** so that more students can easily access those materials regardless of their backgrounds.
+I use the canonical R textbook written by Grolemund and Wickham. Wickham is the mastermind behind the tidyverse, the most popular data analysis framework in the R ecosystem. Almost all of the course contents used in this course, including the textbook, are **free and accessible online** so that more students can easily access those materials regardless of their backgrounds.
 
 * Garrett Grolemund and Hadley Wickham (2016). [R for Data Science](https://r4ds.had.co.nz/)
 
