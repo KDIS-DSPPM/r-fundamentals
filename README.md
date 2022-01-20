@@ -32,8 +32,8 @@ TBD
 
 You can set up a 30 minutes appointment with me via [this Calendly link](https://calendly.com/jkim-46). The appointments are booked on a rolling basis.
 
-In person: Professor Kim's Office (**S320**)
-Via zooom:
+* In person: Professor Kim's Office (**S320**)
+* Via zooom: TBD
 
 There are several uses for office hours. I listed some examples below.
 
