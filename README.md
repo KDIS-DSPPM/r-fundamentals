@@ -103,7 +103,8 @@ This class is committed to creating an environment in which everyone can partici
 ### 1st Week 
 
 * Why computational social science/civic data science?
-* Reading: lecture notes [01_intro](https://rawcdn.githack.com/KDIS-DSPPM/r-fundamentals/8cda3d9002da541db2bc7901f10f48c1b05ad993/lecture_notes/01_intro.html)
+* Reading: lecture notes 
+  - [01_intro](https://rawcdn.githack.com/KDIS-DSPPM/r-fundamentals/8cda3d9002da541db2bc7901f10f48c1b05ad993/lecture_notes/01_intro.html)
 * Extra reading:
   - [Kim ch2](https://jaeyk.github.io/comp_thinking_social_science/motivation.html)
   - Rogati, Monica, [The AI Hierarchy of Needs](https://hackernoon.com/the-ai-hierarchy-of-needs-18f111fcc007), *hackernoon.com*, June 13 2017
