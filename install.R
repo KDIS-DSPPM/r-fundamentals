@@ -1,0 +1,10 @@
+install.packages(c("pacman",
+                   "tidyverse",
+                   "here",
+                   "glue",
+                   "purrr",
+                   "furrr",
+                   "tictoc",
+                   "broom",
+                   "ggplot2",
+                   "gapminder"))
