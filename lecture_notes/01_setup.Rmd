@@ -1,0 +1,239 @@
+---
+title: 'Setup'
+author: "Jae Yeon Kim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+# R and R Studio 
+
+## Why R?
+
+Short answer: R is *free* and *open.* R was designed to do statistics/data science from the conception and has evolved that way. You can teach a computer to perform a "data science" task using R.  
+
+![Data science workflow](https://teachdatascience.com/post/tidyverse/tidyverse-package-workflow.png)
+
+What did I mean by teaching a computer? Computers do four things at a very high level: running programming, storing data, communicating with each other, and interacting with us. You can interact with a computer (teach a computer to perform a task you desire) mainly using your mouse (Graphic User Interface; point and click) or typing (Command-Line Interface).
+
+Q: I heard that Python is very popular, why R not Python? 
+
+A: Either language can help you do data science and learn how a programming language works. A more educated explanation comes from Hadley Wickham, the Chief Scientist of RStudio. 
+
+>> "For R and Python, Python is first and foremost a programming language. And that has a lot of good features, but it tends to mean, that if you are going to do data science in Python, you have to first learn how to program in Python. Whereas I think you are going to get up and running faster with R, than with Python because there's just a bunch more stuff built in and you don't have to learn as many programming concepts. You can focus on being a great political scientist or whatever you do and learning enough R that you don't have to become an expert programmer as well to get stuff done." - Hadley Wickham
+       
+- However, this feature of the R community also raises a challenge. 
+      
+>> Compared to other programming languages, the R community tends to be more focused on results instead of processes. Knowledge of software engineering best practices is patchy: for instance, not enough R programmers use source code control or automated testing. Inconsistency is rife across contributed packages, even within base R. You are confronted with over 20 years of evolution every time you use R. R is not a particularly fast programming language, and poorly written R code can be terribly slow. R is also a profligate user of memory. - Hadley Wickham
+  
+- RStudio, especially the tidyverse team, has made heroic efforts to amend the problems listed above. Throughout this course, we will learn some of these recent advances in the R ecosystem.
+
+## R Installation 
+
+The installation method varies by your OS. For more information, visit [The R Project website](https://www.r-project.org/).
+
+Credit: Thanks to [Software Carpentry](http://software-carpentry.org/workshops/) for providing installation guidelines.
+
+- Windows
+Install R by downloading and running this .exe file from CRAN. Also, please install the RStudio IDE. Then, all you need is RStudio Desktop.
+
+- Mac OS X
+Install R by downloading and running this .pkg file from CRAN. Also, please install the RStudio IDE. After that, all you need is RStudio Desktop. Please note that you will have to reinstall any previously installed packages if you already have R and update to a newer version.
+
+- Linux
+You can download the binary files for your distribution from CRAN. Or you can use your package manager (e.g., for Debian/Ubuntu run sudo apt-get install r-base and for Fedora, run sudo yum install R). Also, please install the RStudio IDE. Then, all you need is RStudio Desktop.
+
+## What's RStudio?
+
+RStudio (dashboard) is a tool that can help you interact with R (engine). For more information, visit the [RStudio homepage](https://www.rstudio.com/). As in the case of R installation, RStudio installation varies by your OS.
+
+![Analogy of difference between R and RStudio. (Source: moderndrive)](https://moderndive.netlify.app/images/shutterstock/R_vs_RStudio_1.png)
+The other worth noticing thing about RStudio is that it's specially designed for R. If you intend to learn R and are a beginning programmer, then RStudio is a good choice.
+
+# Getting started in R
+
+There are two main ways of interacting with R in R Studio: using the console or using script files (plain text files containing your code).
+
+As for the source files, you can use a pure R script or an R markdown file (that's a mix of code and texts).
+
+## R markdown
+
+- What is R markdown? An R package, developed by [Yihui Xie](https://yihui.org/en/), provides an authoring framework for data science. Xie is also a developer of many widely popular R packages such as `knitr`, [`xaringan`](https://GitHub.com/yihui/xaringan) (cool kids use xaringan not [Beamer](https://en.wikipedia.org/wiki/Beamer_(LaTeX)) these days), `blogdown`, and `bookdown` among many others.
+
+  - Many applications: [reports](https://rstudio.GitHub.io/distill/basics.html), [presentations](https://bookdown.org/yihui/rmarkdown/xaringan.html), [dashboards](https://rmarkdown.rstudio.com/flexdashboard/), [websites](https://bookdown.org/yihui/rmarkdown/websites.html)  
+  - Check out [Communicating with R markdown workshop](https://ysc-rmarkdown.netlify.app/) by [Alison Hill](https://alison.rbind.io/) (RStudio)
+    - Alison Hill is a co-author of [`blogdown: Creating Websites with R Markdown.`](https://bookdown.org/yihui/blogdown/) 
+  - Key strengths: dynamic reporting + reproducible science + easy deployment
+
+![Concept map for R Markdown. By Gabriela Sandoval, Florencia D'Andrea, Yanina Bellini Saibene, Monica Alonso.](https://GitHub.com/rstudio/concept-maps/raw/master/en/rmarkdown.svg)
+
+- R Markdown basic syntax 
+
+```{r}
+# Header 1
+## Header 2
+### Header 3
+```
+
+- Use these section headers to indicate workflow.
+
+```{r}
+# Import packages and data
+# Tidy data
+# Wrangle data
+# Model data
+# Visualize data
+```
+
+## Console 
+
+If R is ready to accept commands, the R console shows a `>` prompt. If it receives a command (by typing, copy-pasting, or sent from the script editor using `Ctrl-Enter`; `Command-Enter` will also work on Macs), R will try to execute it, and when ready, show the results and come back with a new `>`-prompt to wait for further commands. This is the equivalent of the `$` in your terminal. 
+
+## Basic Syntax
+
+**Comments**
+
+Use `#` signs to comment. Comment liberally in your R scripts. Anything to the right of a `#` is ignored by R. For those of you familiar with other languages, there is no doc string, or equivalent to `"""` in R.
+
+**Assignment operator**
+
+`<-` is the assignment operator. It assigns values on the right to objects on the left. So, after executing `x <- 3`, the value of `x` is `3`. The arrow can be read as 3 **goes into** `x`.  You can also use `=` for assignments. 
+
+```{r}
+USweird <- "Why use lb for pound!" # Use this
+"Why use lb for pound!" = USweird
+```
+
+Nonetheless, *can* does not mean you *should*. It is good practice to use `<-` for assignments. `=` should only be used to specify the values of arguments of functions. This is what Google and Hadley Wickham recommend as well. If they don't convince you enough, here's [a real example](https://csgillespie.wordpress.com/2010/11/16/assignment-operators-in-r-vs/).
+
+```{r}
+mean(x = 1:10) # Does it save x?
+rm(x)
+mean(x <- 1:10) # Does it save x?
+rm(x)
+```
+
+**Printing**
+
+In R, an object's contents can be printed by either simply executing the object name or calling the ```print()``` function.
+
+**Help**
+
+* `?` + object opens a help page for that specific object
+* `??` + object searches help pages containing the name of the object
+
+```{r, eval = FALSE}
+?mean
+??mean
+help(mean)
+# The above three will do the same. 
+example(ls) # provides an example(s) for how to use ls 
+help.search("visualization") # search functions and packages that have "visualization" in their descriptions
+```
+
+## Environment 
+
+Environment = a collection of pairs 
+
+### Objects 
+
+- List objects in your current environment
+
+```{r, eval = FALSE}
+# Create a numeric object 
+x <- c(1,2,3,4,5)
+# List the object 
+ls()
+# Remove the object 
+rm(x)
+```
+
+- Remove objects from your current environment
+
+```{r, eval = TRUE, echo = TRUE}
+# Create an object 
+x <- 5
+# Remove the object 
+rm(x)
+```
+
+- Remove all objects from your current environment
+
+```{r, eval = FALSE}
+# Create an object 
+a <- 7
+b <- 3
+# Remove the object 
+rm(list = ls())
+```
+
+- Force memory release 
+
+```{r, eval = FALSE}
+# Garbage collect; for more information, type ?gc() 
+gc()
+```
+
+### Packages 
+
+`install.packages(package-name)` will download a package from one of the CRAN mirrors, assuming that a binary is available for your operating system. 
+
+```{r, eval = FALSE}
+# From CRAN
+install.packages("dplyr") 
+# Load package 
+library(dplyr)
+
+# From GitHub 
+#devtools::install_GitHub("jaeyk/tidytweetjson") # my own package 
+# Unload package 
+# detach("package:stats", unload=TRUE)
+```
+
+**Tips**
+
+If you have multiple packages to install, then please consider using pacman package. The following is the example. First, you install pacman. Then, you load several libraries by using `p_load()` method.
+
+```{r, eval = FALSE}
+# Lots of copying and pasting
+#install.packages("ggplot2")
+#install.packages("dplyr")
+#install.packages("broom")
+#install.packages("gapminder")
+
+#library(ggplot2)
+#library(dplyr)
+#library(broom)
+#library(gapminder)
+
+if(!require(pacman)) install.packages("pacman")
+
+pacman::p_load(
+  ggplot2,
+  dplyr, 
+  broom,
+  gapminder
+)
+```
+
+If you don't like to use `pacman`, the other option is to create a list (we're going to learn what is list soon).
+
+```{r, eval = FALSE}
+pkgs <- c("ggplot2", "dplyr", "broom", "gapminder")
+install.packages(pkgs)
+```
+  
+Still, we have to write two lines. The simpler, the better, right? Here's another approach that can simplify the code further.
+
+Note that `lapply()` applies (there's a family of apply functions) a function to a list. In this case, library to pkgs. apply is an advanced concept that is related to anonymous functions. We will learn about it later when we study functions.
+
+```{r, eval = FALSE}
+inst <- lapply(pkgs, library, 
+               character.only = TRUE)
+```
