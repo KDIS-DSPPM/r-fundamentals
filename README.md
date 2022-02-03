@@ -1,5 +1,7 @@
 # R Fundamentals for Public Policy
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KDIS-DSPPM/r-fundamentals/HEAD?urlpath=rstudio)
+
 Spring 2022
 
 This course introduces and demonstrates how fun and exciting data analysis with R could be. Mastering computational tools and techniques not only enable social scientists to collect, wrangle, analyze, and interpret data with less pain and more fun, but it also let them work on research projects that would previously seem impossible. Due to the time constraint, the course focuses on data wrangling: the most fundamental and time-consuming component of the data analysis workflow. After completing this course, students will know how to turn messy raw data into structured datasets using the R programming language. In addition, the course will help students develop a framework for learning computational methods and using data to make the government work for everyone and empower citizens to negotiate power. 
