@@ -5,4 +5,5 @@ install.packages(c("pacman",
                    "broom",
                    "ggplot2",
                    "purrr",
-                   "gapminder"))
+                   "gapminder",
+                   "nycflights13"))

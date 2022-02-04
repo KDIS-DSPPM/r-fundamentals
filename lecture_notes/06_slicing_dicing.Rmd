@@ -1,0 +1,347 @@
+---
+title: 'Slicing and dicing'
+author: "Jae Yeon Kim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+# Manipulating (dplyr)
+
+## Setup 
+
+```{r}
+pacman::p_load(tidyverse, gapminder)
+```
+
+## Big ideas 
+
+![Concept map for dplyr. By Monica Alonso, Greg Wilson.](https://education.rstudio.com/blog/2020/09/concept-maps/dplyr.png)
+
+`dplyr` is better than the base R approaches to data processing:
+
+- fast to run (due to the C++ backed) and intuitive to type
+- works well with tidy data and databases (thanks to [`dbplyr`](https://dbplyr.tidyverse.org/))
+
+## Rearranging
+
+-   Arrange
+-   Order rows
+
+```{r}
+dplyr::arrange(mtcars, mpg) # Low to High (default)
+
+dplyr::arrange(mtcars, desc(mpg)) # High to Row
+```
+
+-   Rename
+-   Rename columns
+
+```{r}
+df <- tibble(y = c(2011, 2012, 2013))
+
+df %>%
+  rename(
+    Year = # NEW name
+      y
+  ) # OLD name
+```
+
+### Subset observations (rows)
+
+-   Choose row by logical condition
+-   Single condition
+
+```{r}
+starwars %>%
+  dplyr::filter(gender == "feminine") %>%
+  arrange(desc(height))
+```
+
+The following filtering example was inspired by [the suzanbert's dplyr blog post](https://suzan.rbind.io/2018/02/dplyr-tutorial-3/).
+
+-   Multiple conditions (numeric)
+
+```{r}
+# First example
+starwars %>%
+  dplyr::filter(height < 180, height > 160) %>%
+  nrow()
+
+# Same as above
+starwars %>%
+  dplyr::filter(height < 180 & height > 160) %>%
+  nrow()
+
+# Not same as above
+starwars %>%
+  dplyr::filter(height < 180 | height > 160) %>%
+  nrow()
+```
+
+**Challenge**
+
+(1) Use `filter(between())` to find characters whose heights are between 180 and 160 and (2) count the number of these observations.
+
+-   Minimum reproducible example
+
+```{r}
+df <- tibble(
+  heights = c(160:180),
+  char = rep("none", length(c(160:180)))
+)
+
+df %>%
+  dplyr::filter(between(heights, 161, 179))
+```
+
+-   Multiple conditions (character)
+
+```{r}
+# Filter names include ars; `grepl` is a base R function
+
+starwars %>%
+  dplyr::filter(grepl("ars", tolower(name)))
+
+# Or, if you prefer dplyr way
+
+starwars %>%
+  dplyr::filter(str_detect(tolower(name), "ars"))
+
+# Filter brown and black hair_color
+
+starwars %>%
+  dplyr::filter(hair_color %in% c("black", "brown"))
+```
+
+**Challenge**
+
+Use `str_detect()` to find characters whose names include "Han".
+
+-   Choose row by position (row index)
+
+```{r}
+starwars %>%
+  arrange(desc(height)) %>%
+  slice(1:6)
+```
+
+-   Sample by a fraction
+
+```{r}
+# For reproducibility
+set.seed(1234)
+
+# Old way
+
+starwars %>%
+  sample_frac(0.10,
+    replace = FALSE
+  ) # Without replacement
+
+# New way
+
+starwars %>%
+  slice_sample(
+    prop = 0.10,
+    replace = FALSE
+  )
+```
+
+-   Sample by number
+
+```{r}
+# Old way
+
+starwars %>%
+  sample_n(20,
+    replace = FALSE
+  ) # Without replacement
+
+# New way
+
+starwars %>%
+  slice_sample(
+    n = 20,
+    replace = FALSE
+  ) # Without replacement
+```
+
+-   Top 10 rows orderd by height
+
+```{r}
+# Old way
+starwars %>%
+  top_n(10, height)
+
+# New way
+starwars %>%
+  slice_max(height, n = 10) # Variable first, Argument second
+```
+
+### Subset variables (columns)
+
+```{r}
+names(msleep)
+```
+
+-   Select only numeric columns
+
+```{r}
+# Only numeric
+msleep %>%
+  dplyr::select(where(is.numeric))
+```
+
+**Challenge**
+
+Use `select(where())` to find only non-numeric columns
+
+-   Select the columns that include "sleep" in their names
+
+```{r}
+msleep %>%
+  dplyr::select(contains("sleep"))
+```
+
+-   Select the columns that include either "sleep" or "wt" in their names
+
+-   Basic R way
+
+`grepl` is one of the R base pattern matching functions.
+
+```{r}
+msleep[grepl("sleep|wt", names(msleep))]
+```
+
+**Challenge**
+
+Use `select(match())` to find columns whose names include either "sleep" or "wt".
+
+-   Select the columns that start with "b"
+
+```{r}
+msleep %>%
+  dplyr::select(starts_with("b"))
+```
+
+-   Select the columns that end with "wt"
+
+```{r}
+msleep %>%
+  dplyr::select(ends_with("wt"))
+```
+
+-   Select the columns using both beginning and end string patterns
+
+The key idea is you can use Boolean operators (`!`, `&`, `|`)to combine different string pattern matching statements.
+
+```{r}
+msleep %>%
+  dplyr::select(starts_with("b") & ends_with("wt"))
+```
+
+-   Select the order and move it before everything
+
+```{r}
+# By specifying a column
+msleep %>%
+  dplyr::select(order, everything())
+```
+
+-   Select variables from a character vector.
+
+```{r}
+msleep %>%
+  dplyr::select(any_of(c("name", "order"))) %>%
+  colnames()
+```
+
+-   Select the variables named in character + number pattern
+
+```{r}
+msleep$week8 <- NA
+
+msleep$week12 <- NA
+
+msleep$week_extra <- 0
+
+msleep %>%
+  dplyr::select(num_range("week", c(1:12)))
+```
+
+**Additional tips**
+
+`msleep` data has nicely cleaned column names. But real-world data are usually messier. The `janitor` package is useful to fix this kind of problem.
+
+```{r}
+messy_df <- tibble::tribble(
+  ~"ColNum1", ~"COLNUM2", ~"COL & NUM3",
+  1, 2, 3
+)
+
+messy_df
+
+pacman::p_load(janitor)
+
+janitor::clean_names(messy_df)
+```
+
+`janitor::tabyl()` is helpful for doing crosstabulation and a nice alternative to `table()` function. 
+
+```{r}
+# Frequency table; The default output class is table
+table(gapminder$country)
+
+# Frequency table (unique value, n, percentage)
+janitor::tabyl(gapminder$country)
+
+# If you want to add percentage ...
+gapminder %>%
+  tabyl(country) %>%
+  adorn_pct_formatting(digits = 0, affix_sign = TRUE)
+```
+
+# Creating variables 
+
+```{r include=FALSE, eval=FALSE}
+mutate(
+  .data, # data.frame
+  ...
+) # new column
+
+mutate(mtcars, column0 = 0)
+```
+
+## Change values using conditions 
+
+You can think of `case_when()` (multiple conditions) as an extended version of `ifelse()` (binary conditions). 
+
+```{r}
+mtcars <- mtcars %>%
+  mutate(cyl_dummy = case_when(
+    cyl > median(cyl) ~ "High", # if condition
+    cyl < median(cyl) ~ "Low", # else if condition
+    TRUE ~ "Median"
+  )) # else condition
+
+mtcars %>% pull(cyl_dummy)
+```
+
+## Change values manually 
+
+```{r}
+mtcars %>%
+  mutate(cyl_dummy = recode(cyl_dummy, # Target column
+    "High" = "2", # Old - New
+    "Low" = "0",
+    "Median" = "1"
+  )) %>%
+  pull(cyl_dummy)
+```
