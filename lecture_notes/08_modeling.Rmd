@@ -1,0 +1,230 @@
+---
+title: 'Modeling'
+author: "Jae Yeon Kim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+# Setup 
+
+```{r}
+pacman::p_load(tidyverse, gapminder, broom, infer)
+```
+
+# Modeling (broom)
+
+## Nesting
+
+### nest
+
+The following example comes from [R for Data Science](https://r4ds.had.co.nz/many-models.html) by Garrett Grolemund and Hadley Wickham.
+
+-   How can you run multiple models simultaneously? Using a nested data frame.
+
+```{=html}
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rz3_FDVt9eg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p> Hadley Wickham: Managing many models with R </p>
+```
+
+-   **Grouped data: each row = an observation**
+
+-   **Nested data: each row = a group**
+
+**Challenge**
+
+Why did we use `country` and `continent` for nesting variables in the following example?
+
+```{r}
+
+nested <- gapminder %>%
+  group_by(country, continent) %>%
+  nest()
+
+head(nested)
+
+nested$data %>% pluck(1)
+```
+
+-   Custom function
+
+```{r}
+lm_model <- function(df) {
+  lm(lifeExp ~ year, data = df)
+}
+```
+
+-   Apply function to the nested data
+
+```{r}
+# Apply m_model to the nested data
+
+nested <- nested %>%
+  mutate(models = map(data, lm_model)) # Add the list object as a new column
+
+head(nested)
+```
+
+S3 is part of R's object-oriented systems. If you need further information, check out [this section](http://adv-r.had.co.nz/S3.html) in Hadley's Advanced R.
+
+### unnest
+
+- glance() 
+
+`glance()` function from `broom` package inspects the quality of a statistical model.
+
+**Additional tips**
+
+-   `broom::glance(model)`: for evaluating model quality and/or complexity
+-   `broom::tidy(model)`: for extracting each coefficient in the model (the estimates + its variability)
+-   `broom::augment(model, data)`: for getting extra values (residuals, and influence statistics). A convenient tool if you want to plot fitted values and raw data together. 
+
+![Broom: Converting Statistical Models to Tidy Data Frames by David Robinson](https://www.youtube.com/watch?v=7VGPUBWGv6g&ab_channel=Work-Bench)
+
+```{r}
+
+glanced <- nested %>%
+  mutate(glance = map(models, broom::glance))
+
+# Pluck the first item on the list
+glanced$glance %>% pluck(1)
+
+# Pull p.value
+glanced$glance %>%
+  pluck(1) %>%
+  pull(p.value)
+```
+
+`unnest()` unpacks the list objects stored in the `glanced` column
+
+```{r}
+
+glanced %>%
+  unnest(glance) %>%
+  arrange(r.squared)
+
+glanced %>%
+  unnest(glance) %>%
+  ggplot(aes(continent, r.squared)) +
+  geom_jitter(width = 0.5)
+```
+
+- tidy() 
+
+```{r}
+nested <- gapminder %>%
+  group_by(continent) %>%
+  nest()
+
+nested <- nested %>%
+  mutate(models = map(data, ~ lm(lifeExp ~ year + country, data = .)))
+
+tidied <- nested %>%
+  mutate(tidied = map(models, broom::tidy))
+
+model_out <- tidied %>%
+  unnest(tidied) %>%
+  mutate(term = str_replace(term, "country", "")) %>%
+  dplyr::select(continent, term, estimate, p.value) %>%
+  mutate(p_threshold = ifelse(p.value < 0.05, 1, 0))
+
+model_out %>%
+  dplyr::filter(p_threshold == 1) %>%
+  pull(term) %>%
+  unique()
+model_out %>%
+  dplyr::filter(p_threshold == 0) %>%
+  pull(term) %>%
+  unique()
+```
+
+## Mapping
+
+We tasted a bit of how `map()` function works. Let's dig into it more in-depth, as this family of functions is useful. See Rebecca Barter's excellent tutorial on the `purrr` package for more information. In her words, this is "the tidyverse's answer to apply functions for iteration". `map()` function can take a vector (of any type), a list, and a dataframe for input.
+
+```{r}
+multiply <- function(x) {
+  x * x
+}
+
+df <- list(
+  first_obs = rnorm(7, 1, sd = 1),
+  second_obs = rnorm(7, 2, sd = 2)
+) # normal distribution
+```
+
+**Challenge**
+
+Try `map_df(.x = df, .f = multiply)` and tell me what's the difference between the output you got and what you saw earlier.
+
+If you want to know more about the power and joy of functional programming in R (e.g., `purrr::map()`), then please take ["How to Automate Repeated Things in R"](https://github.com/dlab-berkeley/R-functional-programming) workshop.
+
+# Hypothesis testing 
+
+Statistical inference: does the effect/difference in observed data occur by chance?
+
+Null hypothesis: everything was random 
+Alternative hypothesis: everything was not random. Note that this does not mean that a particular factor influenced the outcome of interest. Statistical inference != Causal inference (causes and effects)
+
+$Y = X_{1} + X_{2} + X_{3} \epsilon$
+
+[`infer`](https://github.com/tidymodels/infer) is for tidyverse-friendly statistical inference. 
+
+**Workflow**
+
+1. `specify()` specify a formula 
+2. `hypothesize()` declare the null hypothesis 
+3. `generate()` generate data based on the null hypothesis 
+4. `calculate()` calculate a distribution of statistics from the generated data to form the null distribution 
+
+![From infer package](https://raw.githubusercontent.com/tidymodels/infer/master/figs/ht-diagram.png)
+
+```{r}
+gapminder <- gapminder %>%
+  mutate(log_pop = log(pop))
+
+ggplot(aes(x = log_pop, y = lifeExp), data = gapminder) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+# Calculate the observed statistic: Observed slopes
+observed_slopes <- gapminder %>%
+  # specify(formula = lifeExp ~ log_pop) %>%
+  specify(formula = lifeExp ~ log_pop) %>%
+  calculate(stat = "slope")
+
+# Generate the null distribution: Null slopes
+null_slopes <- gapminder %>%
+  # Specify a formula
+  specify(formula = lifeExp ~ log_pop) %>%
+  # Hypothesize (point estimation)
+  hypothesize(null = "point", mu = 0) %>%
+  # Generate sampling distributions (bootstrapping)
+  generate(reps = 1000, type = "bootstrap") %>%
+  # Calculate statistics
+  calculate(stat = "slope")
+
+# Return data
+null_slopes %>%
+  # p-value is just the probability that observed pattern could arise if the null hypothesis was true
+  # In social science convention, if alpha is below 0.005 (note: this is totally arbitrary), then the observed distribution is statistically significant.
+  get_p_value(
+    obs_stat = observed_slopes,
+    direction = "both"
+  )
+
+# Visualize output
+visualize(null_slopes) +
+  shade_p_value(
+    obs_stat = observed_slopes,
+    direction = "both"
+  )
+```
