@@ -1,5 +1,5 @@
 ---
-title: 'Setup'
+title: 'Computational reproducibility'
 author: "Jae Yeon Kim"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -16,7 +16,7 @@ output:
 
 ## Motivation 
 
-Why do you need to make your research computationally reproducible?: for you and others. 
+Why do you need to make your research computationally reproducible?:
 
 ![](https://GitHub.com/dlab-berkeley/efficient-reproducible-project-management-in-R/blob/master/misc/screenshot.png?raw=true)
 
@@ -73,9 +73,9 @@ name_of_the_project
 
 ```{r eval = FALSE}
 
-# Don't name it a project. Instead, use a more informative name. For instance, `us_election`, not `my_project.`
+# Don't name it a project. Instead, use a more informative name. For instance, `world_bank_2022`, not `my_project.`
 
-dir.create("../us_election")
+dir.create("../world_bank_2022")
 
 ```
 
@@ -85,68 +85,6 @@ Step 4. Organize files by putting them in separate subdirectories and sensibly n
 
 - Treat raw data as read-only (raw data should be RAW!) and put it in the `data` subdirectory.
 
-    - Again, note that version control does not need to replace backup. You still need to back up your raw data. 
-
-```{r eval = FALSE}
-
-dir.create(here::here("us_election", "data"))
-
-```
-
-- Separate read-only data from processed data and put in the `processed_data` subdirectory.
-
-```{r eval = FALSE}
-
-dir.create(here::here("us_election", "processed_data"))
-
-```
-
-- Put your code in the `src` subdirectory. 
-
-```{r eval = FALSE}
-
-dir.create(here::here("us_election", "src"))
-
-```
-
-- Put generated outputs (e.g., tables, figures) in the `outputs` subdirectory and treat them as disposable.
-
-```{r eval = FALSE}
-
-dir.create(here::here("us_election", "outputs"))
-
-```
-
-- Put your custom functions in the `functions` subdirectory. Then, you can gather some of these functions and distribute them as an open-source library. 
-
-```{r eval = FALSE}
-
-dir.create(here::here("us_election", "functions"))
-
-```
-
-Are you tired of creating these directories one by one? Why not automate? See the following example. You can save this function as a rscript (e.g., `setup.r`) and run it in the terminal using `Rscript <script name>.`
-
-```{r eval = FALSE}
-
-if (!require(pacman)) install.packages("pacman")
-
-# Load here
-pacman::p_load(
-  purrr, # functional programming
-  here # computational reproducibility
-)
-
-# Custom function
-create_dirs <- function(name) {
-  dir.create(here(name))
-}
-
-# Apply function 
-purrr::map(c("data", "processed_data", "src", "outputs", "functions"), create_dirs)
-
-```
-
 **Challenge**
 
 Set a project structure for a project named "starwars." 
@@ -155,7 +93,7 @@ Set a project structure for a project named "starwars."
 
 - In addition to environment, **workflow** is an essential component of project efficiency and reproducibility. 
 
-If you care about computational reproducibility, you might be interested in using RStudio project and `here` package. The key idea is what should be treated as permanent (i.e., READ-ONLY raw data) and what should be treated as disposable (e.g., sessions, outputs). 
+- If you care about computational reproducibility, you might be interested in using RStudio project and `here` package. The key idea is what should be treated as permanent (i.e., READ-ONLY raw data) and what should be treated as disposable (e.g., sessions, outputs). 
 
 - First, I will demonstrate how RStudio project works and then how you should set up your RStudio global settings for workspace.
 
@@ -240,5 +178,4 @@ here::here("project", "outputs")
 **Challenge**
 
 1. Can you define computational reproducibility? 
-2. Can you explain why sharing code and data is not enough for computational reproducibility
-
+2. Can you explain why sharing code and data is not enough for computational reproducibility?
