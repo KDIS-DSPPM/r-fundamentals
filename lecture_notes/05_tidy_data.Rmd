@@ -1,0 +1,406 @@
+---
+title: 'Tidy data'
+author: "Jae Yeon Kim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+# Tidyverse
+
+## The Big Picture
+
+> "Tidy data sets are easy to manipulate, model and visualize, and have a specific structure: each variable is a column, each observation is a row, and each type of observational unit is a table." - Hadley Wickham
+
+1.  Variables -\> **Columns**
+2.  Observations -\> **Rows**
+3.  Values -\> **Cells**
+
+![Tidy Data Example (Source: R for Data Science)](https://garrettgman.github.io/images/tidy-1.png)
+
+If dataframes are tidy, it's easy to transform, visualize, model, and program them using tidyverse packages (a whole workflow).
+
+![Tidyverse: an opinionated collection of R packages](https://miro.medium.com/max/960/0*mlPyX0NE0WQwEzpS.png)
+
+-   Nevertheless, don't be **religious**.
+
+> In summary, tidy data is a useful conceptual idea and is often the right way to go for general, small data sets, but may not be appropriate for all problems. - Jeff Leek
+
+For instance, in many data science applications, linear algebra-based computations are essential (e.g., [Principal Component Analysis](https://www.math.upenn.edu/~kazdan/312S13/JJ/PCA-JJ.pdf)). These computations are optimized to work on matrices, not tidy data frames (for more information, read [Jeff Leek's blog post](https://simplystatistics.org/2016/02/17/non-tidy-data/)).
+
+This is what tidy data looks like.
+
+```{r}
+library(tidyverse)
+
+table1
+```
+
+
+**Additional tips** 
+
+There are so many different ways of looking at data in R. Can you discuss the pros and cons of each approach? Which one do you prefer and why?
+
+
+* `str(table1)`
+
+* `glimpse(table1)`: similar to `str()` cleaner output 
+
+* `skim(table1)`: `str()` + `summary()` + more 
+
+
+- The big picture 
+    - Tidying data with **tidyr**
+    - Processing data with **dplyr**
+    
+These two packages don't do anything new but simplify most common tasks in data manipulation. Plus, they are fast, consistent, and more readable.
+
+Practically, this approach is right because you will have consistency in data format across all the projects you're working on. Also, tidy data works well with key packages (e.g., `dplyr,` `ggplot2`) in R.
+
+Computationally, this approach is useful for vectorized programming because "different variables from the same observation are always paired". Vectorized means a function applies to a vector that treats each element individually (=operations working in parallel).
+
+# Tidying (tidyr)
+
+## Reshaping
+
+**Signs of messy datasets**
+
+* 1. Column headers are values, not variable names.
+* 2. Multiple variables are not stored in one column.
+* 3. Variables are stored in both rows and columns.
+* 4. Multiple types of observational units are stored in the same table.
+* 5. A single observational unit is stored in multiple tables.
+
+Let's take a look at the cases of untidy data.
+
+![Messy Data Case 1 (Source: R for Data Science)](https://garrettgman.github.io/images/tidy-5.png)
+
+-   Make It Longer
+
+    | Col1 | Col2 | Col3 |
+    |------|------|------|
+    |      |      |      |
+    |      |      |      |
+    |      |      |      |
+
+**Challenge**: Why is this data not tidy?
+
+```{r}
+table4a
+```
+
+-   Let's pivot (rotate by 90 degrees).
+
+![Concept map for pivoting. By Florian Schmoll, Monica Alonso.](https://github.com/rstudio/concept-maps/raw/master/en/pivoting.svg)
+
+-   [`pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html) increases the number of rows (longer) and decreases the number of columns. The inverse function is `pivot_wider()`. These functions improve the usability of `gather()` and `spread()`.
+
+![What pivot\_longer() does (Source: <https://www.storybench.org>)](https://www.storybench.org/wp-content/uploads/2019/08/pivot-longer-image.png)
+
+![Concept map for pipe operator. By Jeroen Janssens, Monica Alonso.](https://education.rstudio.com/blog/2020/09/concept-maps/pipe-operator.png)
+
+- The pipe operator `%>%` originally comes from the `magrittr` package. The idea behind the pipe operator is [similar to](https://www.datacamp.com/community/tutorials/pipe-r-tutorial) what we learned about chaining functions in high school. f: B -> C and g: A -> B can be expressed as $f(g(x))$. The pipe operator chains operations. When reading the pipe operator, read as "and then" (Wickham's recommendation). The keyboard shortcut is ctrl + shift + M. The key idea here is not creating temporary variables and focusing on verbs (functions). We'll learn more about this functional programming paradigm later on.
+
+```{r}
+table4a
+
+# Old way, less intuitive
+table4a %>%
+  gather(
+    key = "year", # Current column names
+    value = "cases", # The values matched to cases
+    c("1999", "2000")
+  ) # Selected columns
+```
+
+```{r}
+# New way, more intuitive
+table4a %>%
+  pivot_longer(
+    cols = c("1999", "2000"), # Selected columns
+    names_to = "year", # Shorter columns (the columns going to be in one column called year)
+    values_to = "cases"
+  ) # Longer rows (the values are going to be in a separate column called named cases)
+```
+
+-   There's another problem, did you catch it?
+
+-   The data type of `year` variable should be `numeric` not `character`. By default, `pivot_longer()` transforms uninformative columns to character.
+
+-   You can fix this problem by using `names_transform` argument.
+
+```{r}
+table4a %>%
+  pivot_longer(
+    cols = c("1999", "2000"), # Put two columns together
+    names_to = "year", # Shorter columns (the columns going to be in one column called year)
+    values_to = "cases", # Longer rows (the values are going to be in a separate column called named cases)
+    names_transform = list(year = readr::parse_number)
+  ) # Transform the variable
+```
+
+**Additional tips**
+
+`parse_number()` also keeps only numeric information in a variable.
+
+```{r}
+parse_number("reply1994")
+```
+
+A flat file (e.g., CSV) is a rectangular shaped combination of strings. [Parsing](https://cran.r-project.org/web/packages/readr/vignettes/readr.html) determines the type of each column and turns into a vector of a more specific type. Tidyverse has `parse_` functions (from `readr` package) that are flexible and fast (e.g., `parse_integer()`, `parse_double()`, `parse_logical()`, `parse_datetime()`, `parse_date()`, `parse_time()`, `parse_factor()`, etc).
+
+-   Let's do another practice.
+
+**Challenge**
+
+1.  Why is this data not tidy? (This exercise comes from [`pivot` function vigenette](https://tidyr.tidyverse.org/articles/pivot.html).) Too long or too wide?
+
+```{r}
+billboard
+```
+
+2.  How can you fix it? Which pivot?
+
+```{r}
+# Old way
+billboard %>%
+  gather(
+    key = "week",
+    value = "rank",
+    starts_with("wk")
+  ) %>% # Use regular expressions
+  drop_na() # Drop NAs
+```
+
+-   Note that `pivot_longer()` is more versatile than `gather()`.
+
+```{r}
+# New way
+billboard %>%
+  pivot_longer(
+    cols = starts_with("wk"), # Use regular expressions
+    names_to = "week",
+    values_to = "rank",
+    values_drop_na = TRUE # Drop NAs
+  )
+```
+
+-   Make It Wider
+
+-   Why is this data not tidy?
+
+```{r}
+table2
+```
+
+-   Each observation is spread across two rows.
+
+-   How can you fix it?: `pivot_wider()`.
+
+**Two differences between `pivot_longer()` and `pivot_wider()`**
+
+-   In `pivot_longer()`, the arguments are named `names_to` and `values_to` (*to*).
+
+-   In `pivot_wider()`, this pattern is opposite. The arguments are named `names_from` and `values_from` (*from*).
+
+-   The number of required arguments for `pivot_longer()` is 3 (col, names\_to, values\_to).
+
+-   The number of required arguments for `pivot_wider()` is 2 (names\_from, values\_from).
+
+![What pivot\_wider() does (Source: <https://www.storybench.org>)](https://www.storybench.org/wp-content/uploads/2019/08/pivot-wider-image.png)
+
+```{r}
+# Old way
+table2 %>%
+  spread(
+    key = type,
+    value = count
+  )
+```
+
+```{r}
+# New way
+table2 %>%
+  pivot_wider(
+    names_from = type, # first
+    values_from = count # second
+  )
+```
+
+Sometimes, a consultee came to me and asked: "I don't have missing values in my original dataframe. Then R said that I had missing values after doing some data transformations. What happened?"
+
+Here's an answer.
+
+R defines missing values in two ways.
+
+-   *Implicit missing values*: simply not present in the data.
+
+-   *Explicit missing values*: flagged with NA
+
+**Challenge**
+
+The example comes from [*R for Data Science*](https://r4ds.had.co.nz/tidy-data.html).
+
+```{r}
+stocks <- tibble(
+  year = c(2019, 2019, 2019, 2020, 2020, 2020),
+  qtr = c(1, 2, 3, 2, 3, 4),
+  return = c(1, 2, 3, NA, 2, 3)
+)
+
+stocks
+```
+
+-   Where is the explicit missing value?
+
+-   Does `stocks` have implicit missing values?
+
+```{r}
+# implicit missing values become explicit
+stocks %>%
+  pivot_wider(
+    names_from = year,
+    values_from = return
+  )
+```
+
+**Challenge**
+
+-   This exercise comes from [`pivot` function vigenette](https://tidyr.tidyverse.org/articles/pivot.html).
+
+-   Could you make `station` a series of dummy variables using `pivot_wider()`?
+
+```{r}
+fish_encounters
+```
+
+1.  Which pivot should you use?
+
+2.  Are there explicit missing values?
+
+3.  How could you turn these NAs into 0s? Check `values_fill` argument in the `pivot_wider()` function.
+
+-   Separate
+
+![Messy Data Case 2 (Source: R for Data Science)](https://garrettgman.github.io/images/tidy-6.png)
+
+```{r}
+# Toy example
+df <- data.frame(x = c(NA, "Dad.apple", "Mom.orange", "Daughter.banana"))
+
+df
+```
+
+```{r}
+# Separate
+df %>%
+  separate(x, into = c("Name", "Preferred_fruit"))
+
+# Don't need the first variable
+
+df %>%
+  separate(x, into = c(NA, "Preferred_fruit"))
+```
+
+**Practice**
+
+```{r}
+table3
+```
+
+-   Note `sep` argument. You can specify how to separate joined values.
+
+```{r}
+table3 %>%
+  separate(rate,
+    into = c("cases", "population"),
+    sep = "/"
+  )
+```
+
+-   Note `convert` argument. You can specify whether automatically convert the new values or not.
+
+```{r}
+table3 %>%
+  separate(rate,
+    into = c("cases", "population"),
+    sep = "/",
+    convert = TRUE
+  ) # cases and population become integers
+```
+
+-   Unite
+
+`pivot_longer()` \<-\> `pivot_wider()`
+
+`separate()` \<-\> `unite()`
+
+```{r}
+
+# Create a toy example
+df <- data.frame(
+  name = c("Jae", "Sun", "Jane", NA),
+  birthmonth = c("April", "April", "June", NA)
+)
+
+# Include missing values
+df %>% unite(
+  "contact",
+  c("name", "birthmonth")
+)
+
+# Do not include missing values
+df %>% unite("contact",
+  c("name", "birthmonth"),
+  na.rm = TRUE
+)
+```
+
+## Filling
+
+This is a relatively less-known function of the tidyr package. However, I found this function super useful to complete time-series data. For instance, how can you replace NA in the following example (this use case is drawn from the [tidyr package vignette](https://tidyr.tidyverse.org/reference/fill.html).)?
+
+```{r}
+# Example
+stock <- tibble::tribble(
+  ~quarter, ~year, ~stock_price,
+  "Q1", 2000, 10000,
+  "Q2", NA, 10001, # Replace NA with 2000
+  "Q3", NA, 10002, # Replace NA with 2000
+  "Q4", NA, 10003, # Replace NA with 2000
+  "Q1", 2001, 10004,
+  "Q2", NA, 10005, # Replace NA with 2001
+  "Q3", NA, 10006, # Replace NA with 2001
+  "Q4", NA, 10007, # Replace NA with 2001
+)
+
+fill(stock, year)
+```
+
+Let's take a slightly more complex example. 
+
+```{r}
+# Example
+yelp_rate <- tibble::tribble(
+  ~neighborhood, ~restraurant_type, ~popularity_rate,
+  "N1", "Chinese", 5,
+  "N2", NA, 4,
+  "N3", NA, 3,
+  "N4", NA, 2,
+  "N1", "Indian", 1,
+  "N2", NA, 2,
+  "N3", NA, 3,
+  "N4", NA, 4,
+  "N1", "Mexican", 5
+)
+
+fill(yelp_rate, restraurant_type) # default is direction = .down
+
+fill(yelp_rate, restraurant_type, .direction = "up")
+```

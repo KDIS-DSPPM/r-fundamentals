@@ -4,4 +4,5 @@ install.packages(c("pacman",
                    "glue",
                    "broom",
                    "ggplot2",
+                   "purrr",
                    "gapminder"))
