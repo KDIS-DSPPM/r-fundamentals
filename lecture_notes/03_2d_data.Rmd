@@ -1,0 +1,621 @@
+---
+title: 'Base R: 2D Data'
+author: "Jae Yeon Kim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+# 2D data: Matrices and dataframes 
+
+1. Matrices:  data structures for storing 2d data that is all the same class.
+2. Dataframes: teaches you about the dataframe, the most important data structure for storing data in R, because it stores different kinds of (2d) data.
+
+## Matrices
+
+Matrices are created when we combine multiple vectors with the same class (e.g., numeric). This creates a dataset with rows and columns. By definition, if you want to combine multiple classes of vectors, you want a dataframe. You can coerce a matrix to become a dataframe and vice-versa, but as with all vector coercions, the results can be unpredictable, so be sure you know how each variable (column) will convert.
+
+```{r}
+m <- matrix(nrow = 2, ncol = 2)
+
+m
+
+dim(m)
+```
+
+Matrices are filled column-wise. 
+
+```{r}
+m <- matrix(1:6, nrow = 2, ncol = 3)
+
+m
+```
+
+Other ways to construct a matrix
+
+```{r}
+m <- 1:10
+
+dim(m) <- c(2, 5)
+
+m
+
+dim(m) <- c(5, 2)
+
+m
+```
+
+You can transpose a matrix (or dataframe) with `t()`
+
+```{r}
+m <- 1:10
+
+dim(m) <- c(2, 5)
+
+m
+
+t(m)
+```
+
+Another way is to bind columns or rows using `cbind()` and `rbind()`.
+
+```{r}
+x <- 1:3
+
+y <- 10:12
+
+cbind(x, y)
+
+# or
+
+rbind(x, y)
+```
+
+You can also use the `byrow` argument to specify how the matrix is filled. From R's own documentation:
+
+```{r}
+mdat <- matrix(c(1, 2, 3, 11, 12, 13),
+  nrow = 2,
+  ncol = 3,
+  byrow = TRUE,
+  dimnames = list(
+    c("row1", "row2"),
+    c("C.1", "C.2", "C.3")
+  )
+)
+
+mdat
+```   
+
+Notice that we gave `names` to the dimensions in `mdat`.
+
+```{r}
+dimnames(mdat)
+
+rownames(mdat)
+
+colnames(mdat)
+```
+
+## Dataframes 
+
+A data frame is an essential data type in R. It's pretty much the **de facto** data structure for most tabular data and what we use for statistics. 
+
+### Creation
+
+You create a data frame using `data.frame()`, which takes named vectors as input:
+
+```{r}
+vec1 <- 1:3
+
+vec2 <- c("a", "b", "c")
+
+df <- data.frame(vec1, vec2)
+
+df
+
+str(df)
+```
+
+Beware: `data.frame()`'s default behavior which turns strings into factors. Remember to use `stringAsFactors = FALSE` to suppress this behavior as needed:
+
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"),
+  stringsAsFactors = FALSE
+)
+
+str(df)
+```
+
+In reality, we rarely type up our datasets ourselves, and certainly not in R. The most common way to make a data.frame is by calling a file using `read.csv` (which relies on the `foreign` package), `read.dta` (if you're using a Stata file), or some other kinds of data file input.
+
+### Structure and Attributes
+
+Under the hood, a data frame is a list of equal-length vectors. This makes it a 2-dimensional structure, so it shares properties of both the matrix and the list. 
+
+```{r}
+vec1 <- 1:3
+
+vec2 <- c("a", "b", "c")
+
+df <- data.frame(vec1, vec2)
+
+str(df)
+```
+
+This means that a dataframe has `names()`, `colnames()`, and `rownames()`, although `names()` and `colnames()` are the same thing. 
+
+** Summary **
+
+- Set column names: `names()` in data frame, `colnames()` in matrix 
+- Set row names: `row.names()` in data frame, `rownames()` in matrix
+
+```{r}
+vec1 <- 1:3
+vec2 <- c("a", "b", "c")
+df <- data.frame(vec1, vec2)
+
+# these two are equivalent
+names(df)
+colnames(df)
+
+# change the colnames
+colnames(df) <- c("Number", "Character")
+df
+```
+
+```{r}
+names(df) <- c("Number", "Character")
+df
+```
+
+```{r}
+# change the rownames
+rownames(df)
+rownames(df) <- c("donut", "pickle", "pretzel")
+df
+```
+
+The `length()` of a dataframe is the length of the underlying list and so is the same as `ncol()`; `nrow()` gives the number of rows. 
+
+```{r}
+vec1 <- 1:3
+vec2 <- c("a", "b", "c")
+df <- data.frame(vec1, vec2)
+
+# these two are equivalent - number of columns
+length(df)
+
+ncol(df)
+
+# get number of rows
+nrow(df)
+
+# get number of both columns and rows
+dim(df)
+```
+
+### Testing and coercion
+
+To check if an object is a dataframe, use `class()` or test explicitly with `is.data.frame()`:
+
+```{r}
+class(df)
+is.data.frame(df)
+```
+
+You can coerce an object to a dataframe with `as.data.frame()`:
+
+* A vector will create a one-column dataframe.
+
+* A list will create one column for each element; it's an error if they're 
+  not all the same length.
+  
+* A matrix will create a data frame with the same number of columns and rows as the matrix.
+
+### Combining dataframes
+
+You can combine dataframes using `cbind()` and `rbind()`:
+
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"),
+  stringsAsFactors = FALSE
+)
+
+cbind(df, data.frame(z = 3:1))
+rbind(df, data.frame(x = 10, y = "z"))
+```
+
+When combining column-wise, the number of rows must match, but row names are ignored. When combining row-wise, both the number and names of columns must match. (If you want to combine rows that don't have the same columns, other functions/packages in R can help.)
+
+It's a common mistake to try and create a dataframe by `cbind()`ing vectors together. This doesn't work because `cbind()` will create a matrix unless one of the arguments is already a dataframe. Instead use `data.frame()` directly:
+
+```{r}
+bad <- (cbind(x = 1:2, y = c("a", "b")))
+bad
+str(bad)
+
+good <- data.frame(
+  x = 1:2, y = c("a", "b"),
+  stringsAsFactors = FALSE
+)
+good
+str(good)
+```
+
+The conversion rules for `cbind()` are complicated and best avoided by ensuring all inputs are of the same type.
+
+**Other objects**
+
+Missing values are specified with `NA,` which is a logical vector of length 1. `NA` will always be coerced to the correct type if used inside `c()`
+
+```{r}
+x <- c(NA, 1)
+x
+typeof(NA)
+typeof(x)
+```
+
+`Inf` is infinity. You can have either positive or negative infinity.
+
+```{r}
+1 / 0
+1 / Inf
+```
+
+`NaN` means Not a number. It's an undefined value.
+
+```{r}
+0 / 0
+```
+
+# Subset
+
+When working with data, you'll need to subset objects early and often. Luckily, R's subsetting operators are powerful and fast. Mastery of subsetting allows you to succinctly express complex operations in a way that few other languages can match. Subsetting is hard to learn because you need to master several interrelated concepts:
+
+* The three subsetting operators, `[`, `[[`, and `$`.
+
+* Important differences in behavior for different objects (e.g., vectors, lists, factors, matrices, and data frames).
+
+* The use of subsetting in conjunction with assignment.
+
+This unit helps you master subsetting by starting with the simplest type of subsetting: subsetting an atomic vector with `[`. It then gradually extends your knowledge to more complicated data types (like dataframes and lists) and then to the other subsetting operators, `[[` and `$`. You'll then learn how subsetting and assignment can be combined to modify parts of an object, and, finally, you'll see a large number of useful applications.
+
+## Atomic vectors
+
+Let's explore the different types of subsetting with a simple vector, `x`. 
+
+```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+```
+
+Note that the number after the decimal point gives the original position in the vector.
+
+**NB:** In R, positions start at 1, unlike Python, which starts at 0. Fun!**
+
+There are five things that you can use to subset a vector: 
+
+## Positive integers
+
+```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+x
+x[1]
+x[c(3, 1)]
+
+# `order(x)` gives the positions of smallest to largest values.
+order(x)
+x[order(x)]
+x[c(1, 3, 2, 4)]
+
+# Duplicated indices yield duplicated values
+x[c(1, 1)]
+```
+
+## Negative integers
+
+```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+x[-1]
+x[-c(3, 1)]
+```
+
+You can't mix positive and negative integers in a single subset:
+
+```{r, error = TRUE}
+x <- c(2.1, 4.2, 3.3, 5.4)
+x[c(-1, 2)]
+```
+
+## Logical vectors
+
+```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+
+x[c(TRUE, TRUE, FALSE, FALSE)]
+```
+
+This is probably the most useful type of subsetting because you write the expression that creates the logical vector.
+
+```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+
+# this returns a logical vector
+x > 3
+x
+
+# use a conditional statement to create an implicit logical vector
+x[x > 3]
+```
+
+You can combine conditional statements with `&` (and), `|` (or), and `!` (not)
+
+```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+
+# combing two conditional statements with &
+x > 3 & x < 5
+
+
+x[x > 3 & x < 5]
+
+# combing two conditional statements with |
+x < 3 | x > 5
+x[x < 3 | x > 5]
+
+# combining conditional statements with !
+!x > 5
+x[!x > 5]
+```
+
+Another way to generate implicit conditional statements is using the `%in%` operator, which works like the `in` keywords in Python.
+
+```{r}
+# generate implicit logical vectors through the %in% operator
+x %in% c(3.3, 4.2)
+x
+x[x %in% c(3.3, 4.2)]
+```
+
+## Character vectors
+
+```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+
+# apply names
+names(x) <- c("a", "b", "c", "d")
+x
+
+# subset using names
+x[c("d", "c", "a")]
+
+# Like integer indices, you can repeat indices
+x[c("a", "a", "a")]
+
+# Careful! names are always matched exactly
+x <- c(abc = 1, def = 2)
+x
+x[c("a", "d")]
+```
+
+## More on string operations 
+
+```{r}
+firstName <- "Jae Yeon"
+lastName <- "Kim"
+```
+
+Unlike in Python, R does not have a reserved operator for string concatenation such as `+`.  Furthermore, using the usual concatenation operator ```c()``` on two or more character strings will not create a single character string, but rather a **vector** of character strings. 
+
+```{r}
+fullName <- c(firstName, lastName)
+
+print(fullName)
+
+length(fullName)
+```
+
+To combine two or more character strings into one larger character string, we use the ```paste()``` function.  This function takes character strings or vectors and collapses their values into a single character string, with each value separated by a character string selected by the user.
+
+```{r eval = FALSE}
+fullName <- paste(firstName, lastName)
+
+print(fullName)
+
+fullName <- paste(firstName, lastName, sep = "+")
+
+print(fullName)
+
+fullName <- paste(firstName, lastName, sep = "___")
+print(fullName)
+```
+
+As with Python, R can also extract substrings based on the index position of its characters.  There are, however, two critical differences.  First, **index positions in R start at 1**.  This is in contrast to Python, where indexation begins at 0.  
+
+Second, **object subsets using index positions in R contain all the elements in the specified range**.  If some object called ```data``` contains five elements, ```data[2:4]``` will return the elements at the second, third, and fourth positions.  By contrast, the same subset in Python would return the objects at the third and fourth positions (or second and third positions, depending upon whether your index starts at 0 or 1).  
+
+Third, **R does not allow indexing of character strings***. Instead, you must use the ```substr()``` function.  Note that this function must receive both the ```start``` and ```stop``` arguments.  So if you want to get all the characters between some index and the end of the string, you must use the ```nchar()``` function, which will tell you the length of a character string.
+
+```{r}
+
+fullName <- paste(firstName, lastName)
+
+# this won't work like in Python
+fullName[1] # R sees the string as a unitary object - it can't be indexed this way
+fullName[1:4]
+
+# So use this instead
+substr(x = fullName, start = 1, stop = 2)
+substr(x = fullName, start = 5, stop = 5)
+substr(x = fullName, start = 1, stop = 10)
+substr(x = fullName, start = 11, stop = nchar(fullName))
+```
+
+Like Python, R has a number of string methods, though these exist as individual rather than "mix-and-match" functions. For example:
+
+```{r}
+toupper(x = fullName)
+tolower(x = fullName)
+
+strsplit(x = fullName, split = " ")
+strsplit(x = fullName, split = "n")
+
+gsub(pattern = "Kim", replacement = "Choi", x = fullName)
+gsub(pattern = "Jae Yeon", replacement = "Danny", x = fullName)
+
+# Note the importance of cases! This doesn't throw an error, so you won't realize your function didn't work unless you double-check several entries.
+
+gsub(pattern = " ", replacement = "", x = fullName) # The same function is used for replacements and stripping
+```
+
+## Lists
+
+Subsetting a list works in the same way as subsetting an atomic vector. Using `[` will always return a list; `[[` and `$`, as described below, let you pull out the list's components.
+
+```{r}
+l <- list("a" = 1, "b" = 2)
+l
+
+l[1]
+l[[1]]
+l["a"]
+```
+
+## Matrices
+
+The most common way of subsetting matrices (2d) is a simple generalization of 1d subsetting: you supply a 1d index for each dimension, separated by a comma. Blank subsetting is now useful because it lets you keep all rows or all columns.
+
+```{r}
+a <- matrix(1:9, nrow = 3)
+colnames(a) <- c("A", "B", "C")
+a
+
+# rows come first, then columns
+a[c(1, 2), ]
+a[c(T, F, T), c("B", "A")]
+a[0, -2]
+a[c(1, 2), -2]
+```
+
+## Data frames
+
+Data from data frames can be addressed like matrices (with row and column indicators separated by a comma).
+
+```{r}
+df <- data.frame(x = 4:6, y = 3:1, z = letters[1:3])
+df
+
+# return only the rows where x == 6
+df[df$x == 6, ]
+
+# return the first and third row
+df[c(1, 3), ]
+
+# return the first and third row and the first and second column
+df[c(1, 3), c(1, 2)]
+```
+
+Data frames possess both lists and matrices' characteristics: if you subset with a single vector, they behave like lists and return only the columns.
+
+```{r}
+# There are two ways to select columns from a data frame
+# Like a list:
+df[c("x", "z")]
+# Like a matrix
+df[, c("x", "z")]
+```
+
+But there's a significant difference when selecting a single column: matrix subsetting simplifies by default, list subsetting does not.
+
+```{r}
+(df["x"])
+class((df["x"]))
+
+(df[, "x"])
+class((df[, "x"]))
+```
+
+See the bottom section on [Simplying and Preserving to know more](#simplify-preserve)
+
+## Subsetting operators 
+
+There are two other subsetting operators: `[[` and `$`. 
+
+* `[[` is similar to `[`, except it can only return a single value, and it allows you to pull pieces out of a list. 
+* `$` is a useful shorthand for `[[` combined with character subsetting. 
+
+##### `[[`
+
+You need `[[` when working with lists. When `[` is applied to a list it always returns a list: it never gives you the list's contents. To get the contents, you need `[[`:
+
+>  "If list `x` is a train carrying objects, then `x[[5]]` is
+> the object in car 5; `x[4:6]` is a train of cars 4-6." 
+>
+> --- @RLangTip
+
+Because data frames are lists of columns, you can use `[[` to extract a column from data frames:
+
+```{r}
+mtcars
+
+# these two are equivalent
+mtcars[[1]]
+mtcars[, 1]
+
+# which differs from this:
+mtcars[1]
+```
+
+## `$`
+
+`$` is a shorthand operator, where `x$y` is equivalent to `x[["y", exact = FALSE]]`.  It's often used to access variables in a data frame:
+
+```{r}
+# these two are equivalent
+mtcars[["cyl"]]
+mtcars$cyl
+```
+
+One common mistake with `$` is to try and use it when you have the name of a column stored in a variable:
+
+```{r}
+var <- "cyl"
+# Doesn't work - mtcars$var translated to mtcars[["var"]]
+mtcars$var
+
+# Instead use [[
+mtcars[[var]]
+```
+
+## Subassignment
+
+All subsetting operators can be combined with an assignment operator to modify selected values of the input vector.
+
+```{r, error = TRUE}
+x <- 1:5
+x
+x[c(1, 2)] <- 2:3
+x
+
+# The length of the LHS needs to match the RHS!
+x[-1] <- 4:1
+x
+
+x[1] <- 4:1
+
+# This is mostly useful when conditionally modifying vectors
+df <- data.frame(a = c(1, 10, NA))
+df
+df$a[df$a < 5] <- 0
+df
+```
