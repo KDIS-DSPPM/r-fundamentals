@@ -24,9 +24,13 @@ Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management
 * Homepage: https://jaeyk.github.io/
 * GitHub: https://github.com/jaeyk
 
+### Teaching Assistant 
+
+Minju Yeo (yeominju92@gmail.com)
+
 ### Course Assistant
 
-TBD
+Ravi Shankar Pandit (ravipandit6@gmail.com)
 
 ## Office Hours
 
