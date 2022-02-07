@@ -104,7 +104,7 @@ The final exam is a take-home exam that I expect you to work on your work. On th
 
 This class is committed to creating an environment in which everyone can participate, regardless of background, discipline, or disability. If you have a particular concern, please come to me as soon as possible so that we can make special arrangements.
 
-## Course outline [Lecture notes](https://github.com/KDIS-DSPPM/r-fundamentals/tree/main/lecture_notes)
+## Course outline [[Lecture notes](https://github.com/KDIS-DSPPM/r-fundamentals/tree/main/lecture_notes)]
 
 ### 1st Week 
 
