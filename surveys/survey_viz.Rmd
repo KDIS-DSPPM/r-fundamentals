@@ -1,0 +1,57 @@
+---
+title: "survey_analysis"
+author: "Jae Yeon Kim"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+# Install packages 
+
+```{r}
+if (!require(pacman)) install.packages("pacman")
+
+pacman::p_load(tidyverse, here, ggthemes, glue)
+```
+
+# Load file 
+
+```{r}
+background <- read_csv(here("surveys", list.files(here("surveys"))[str_detect(list.files(here("surveys")), "background")]))
+```
+
+# Wrangle responses
+
+```{r}
+wrangled <- background[,-1] %>%
+    pivot_longer(is.numeric, 
+                 names_to = "Q",
+                 values_to = "Response") %>%
+    group_by(Q) %>%
+    summarize(mean = mean(Response),
+              sd = sd(Response),
+              se = sd/sqrt(length(Response)))
+```
+
+# Visualize data 
+
+```{r}
+wrangled %>%
+    ggplot(aes(x = fct_reorder(Q, mean), y = mean, ymax = mean + 1.96*se, 
+               ymin = mean - 1.96*se)) +
+    geom_pointrange() +
+    coord_flip() +
+    theme_fivethirtyeight() +
+    labs(title = glue("Background survey, N: {nrow(background)}"),
+         x = "Q",
+         y = "Average response") +
+    geom_hline(yintercept = 3, linetype = "dashed", col = "red")
+
+ggsave(here("surveys", "background_survey.png"), width = 10)
+```
