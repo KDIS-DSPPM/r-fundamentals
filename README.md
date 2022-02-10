@@ -47,6 +47,10 @@ There are several uses for office hours. I listed some examples below.
 2. You might find the course too challenging or easy. In that case, I am eager to provide you with additional learning guidelines.
 3. You can use this time to chat and help us get to know each other.
 
+## Life hacks
+
+Please read [these slides](https://www.dropbox.com/s/4s0lnx42p2lmpia/Life%20hacks.pdf?dl=0) (by Professor Shana Gadarian in the Department of Political Science in the Maxwell School of Citizenship and Public Affairs, Syracuse University) to understand how to communicate professionally with me, TA, CA, and other class mates.
+
 ## Textbook
 
 I use the canonical R textbook written by Grolemund and Wickham. Wickham is the mastermind behind the tidyverse, the most popular data analysis framework in the R ecosystem. Almost all of the course contents used in this course, including the textbook, are **free and accessible online** so that more students can easily access those materials regardless of their backgrounds.
