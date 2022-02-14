@@ -8,7 +8,7 @@ This course introduces and demonstrates how fun and exciting data analysis with 
 
 Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fast (thanks to [rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html#:~:text=The%20'Rcpp'%20package%20provides%20R,integration%20of%20third%2Dparty%20libraries.)), runs everywhere, open (16,000+ packages; counting only ones available at the [CRAN](https://cran.r-project.org/)), and has a growing massive and inclusive community called [#rstats](https://twitter.com/search?q=%23rstats&src=hashtag_click).
 
-**I allow students to audit the course if they contact me by the first week of the course. I do not allow students to enroll in the course after the course as this course tends to move fast.**
+**I allow students to audit the course if they contact me by the first week of the course. I do not allow students to enroll in the course after the first week as this course tends to move fast.**
 
 ## Logistics
 
