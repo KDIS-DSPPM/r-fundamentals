@@ -20,7 +20,7 @@ Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org
 
 Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management
 
-* E-mail: jkim@kdischool.ac.kr
+* E-mail: jaeyeonkim@kdis.ac.kr
 * Homepage: https://jaeyk.github.io/
 * GitHub: https://github.com/jaeyk
 
