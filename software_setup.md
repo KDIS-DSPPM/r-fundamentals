@@ -79,7 +79,7 @@ Install Pandoc and Latex using the instructions [here](http://pandoc.org/install
 
 ## Testing your installation
 
-If you have trouble with installation, please come to the [Installfest](A_Syllabus.md#curriculum-outline--schedule).
+If you have trouble with installation, please leave a message in the #software-installation channel of the Slack workspace. The TA will consult with you.
 
 Open a command line window ('terminal' or, on windows, 'git bash'), and enter the following commands (without the $ sign):
 
