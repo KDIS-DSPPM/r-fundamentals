@@ -24,9 +24,7 @@ Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Managemen
 
 * E-mail: jaeyeonkim@kdis.ac.kr
 * Homepage: https://jaeyk.github.io/
-* GitHub: https://github.com/jaeyk
-
---- 
+* GitHub: https://github.com/jaeyk  
 
 ## Course Assistants
 
