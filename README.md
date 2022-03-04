@@ -20,11 +20,13 @@ Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org
 
 <img src="https://jaeyk.github.io/profile.jpg" style="margin-right:8px;" align="left" width="150">
 
-Instructor: Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management, E-mail: jaeyeonkim@kdis.ac.kr
+Instructor: Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management
 
-Teaching assistant: Minju Yeo (yeominju92@gmail.com)
+* E-mail: jaeyeonkim@kdis.ac.kr
 
-Class assistant: Ravi Shankar Pandit (ravipandit6@gmail.com)
+* Teaching assistant: Minju Yeo (yeominju92@gmail.com)
+
+* Class assistant: Ravi Shankar Pandit (ravipandit6@gmail.com)
 
 ## Office Hours
 
