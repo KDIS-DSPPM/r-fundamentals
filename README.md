@@ -26,6 +26,8 @@ Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Managemen
 * Homepage: https://jaeyk.github.io/
 * GitHub: https://github.com/jaeyk
 
+--- 
+
 ## Course Assistants
 
 ### Teaching Assistant (TA)
