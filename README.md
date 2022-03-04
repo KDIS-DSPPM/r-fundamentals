@@ -18,7 +18,7 @@ Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org
 
 ## Instructor
 
-<img src="https://jaeyk.github.io/profile.jpg" style="margin-right:10px;" align="left" width="150">
+<img src="https://jaeyk.github.io/profile.jpg" style="margin-right:8px;" align="left" width="150">
 
 Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management
 
