@@ -1,0 +1,338 @@
+prize_year,organization_country,won
+1901,Germany,1
+1902,Germany,1
+1902,United Kingdom,1
+1902,Netherlands,1
+1903,Sweden,1
+1903,Denmark,1
+1903,France,1
+1904,United Kingdom,1
+1904,Russia,1
+1905,Germany,1
+1906,France,1
+1906,Italy,1
+1906,Spain,1
+1906,United Kingdom,1
+1907,Germany,1
+1907,France,1
+1907,United States of America,1
+1908,United Kingdom,1
+1908,France,1
+1908,Germany,1
+1909,Germany,1
+1909,Switzerland,1
+1909,United Kingdom,1
+1909,"Alsace (then Germany, now France)",1
+1910,Germany,1
+1910,Netherlands,1
+1911,France,1
+1911,Sweden,1
+1911,Germany,1
+1912,France,1
+1912,United States of America,1
+1912,Sweden,1
+1913,Switzerland,1
+1913,France,1
+1913,Netherlands,1
+1914,United States of America,1
+1914,Austria,1
+1914,Germany,1
+1915,Germany,1
+1915,United Kingdom,1
+1917,United Kingdom,1
+1918,Germany,1
+1919,Belgium,1
+1919,Germany,1
+1920,Germany,1
+1920,Denmark,1
+1920,France,1
+1921,United Kingdom,1
+1921,Germany,1
+1922,United Kingdom,1
+1922,Germany,1
+1922,Denmark,1
+1923,Austria,1
+1923,Canada,1
+1923,United States of America,1
+1924,Netherlands,1
+1924,Sweden,1
+1925,Germany,1
+1926,Sweden,1
+1926,Denmark,1
+1926,France,1
+1927,Germany,1
+1927,Austria,1
+1927,United States of America,1
+1927,United Kingdom,1
+1928,Germany,1
+1928,United Kingdom,1
+1929,United Kingdom,1
+1929,Sweden,1
+1929,Netherlands,1
+1929,France,1
+1930,Germany,1
+1930,United States of America,1
+1930,India,1
+1931,Germany,1
+1931,United States of America,1
+1932,United States of America,1
+1932,United Kingdom,1
+1932,Germany,1
+1933,United States of America,1
+1933,Germany,1
+1933,United Kingdom,1
+1934,United States of America,1
+1935,France,1
+1935,Germany,1
+1935,United Kingdom,1
+1936,Germany,1
+1936,United Kingdom,1
+1936,Austria,1
+1936,United States of America,1
+1937,United Kingdom,1
+1937,Switzerland,1
+1937,Hungary,1
+1937,United States of America,1
+1938,Germany,1
+1938,Belgium,1
+1938,Italy,1
+1939,Germany,1
+1939,Switzerland,1
+1939,United States of America,1
+1943,Sweden,1
+1943,Denmark,1
+1943,United States of America,1
+1944,Germany,1
+1944,United States of America,1
+1945,Finland,1
+1945,United Kingdom,1
+1945,United States of America,1
+1946,United States of America,1
+1947,United Kingdom,1
+1947,United States of America,1
+1947,Argentina,1
+1948,Sweden,1
+1948,Switzerland,1
+1948,United Kingdom,1
+1949,United States of America,1
+1949,Switzerland,1
+1949,Portugal,1
+1949,Japan,1
+1950,Federal Republic of Germany,1
+1950,United States of America,1
+1950,Switzerland,1
+1950,United Kingdom,1
+1951,United States of America,1
+1951,United Kingdom,1
+1951,Ireland,1
+1952,United Kingdom,1
+1952,United States of America,1
+1953,Federal Republic of Germany,1
+1953,United Kingdom,1
+1953,United States of America,1
+1953,Netherlands,1
+1954,United States of America,1
+1954,United Kingdom,1
+1954,Federal Republic of Germany,1
+1955,United States of America,1
+1955,Sweden,1
+1956,United Kingdom,1
+1956,Union of Soviet Socialist Republics,1
+1956,United States of America,1
+1956,Federal Republic of Germany,1
+1957,United Kingdom,1
+1957,Italy,1
+1957,United States of America,1
+1958,United Kingdom,1
+1958,United States of America,1
+1958,Union of Soviet Socialist Republics,1
+1959,Czechoslovakia,1
+1959,United States of America,1
+1960,United States of America,1
+1960,Australia,1
+1960,United Kingdom,1
+1961,United States of America,1
+1961,Federal Republic of Germany,1
+1962,United Kingdom,1
+1962,United States of America,1
+1962,Union of Soviet Socialist Republics,1
+1963,Federal Republic of Germany,1
+1963,Italy,1
+1963,Australia,1
+1963,United Kingdom,1
+1963,United States of America,1
+1964,United Kingdom,1
+1964,United States of America,1
+1964,Federal Republic of Germany,1
+1964,Union of Soviet Socialist Republics,1
+1965,United States of America,1
+1965,France,1
+1965,Japan,1
+1966,United States of America,1
+1966,France,1
+1967,Federal Republic of Germany,1
+1967,United Kingdom,1
+1967,Sweden,1
+1967,United States of America,1
+1968,United States of America,1
+1969,United Kingdom,1
+1969,Norway,1
+1969,Netherlands,1
+1969,United States of America,1
+1970,Argentina,1
+1970,United States of America,1
+1970,United Kingdom,1
+1970,Sweden,1
+1970,France,1
+1971,Canada,1
+1971,United States of America,1
+1971,United Kingdom,1
+1972,United States of America,1
+1972,United Kingdom,1
+1973,Federal Republic of Germany,1
+1973,United Kingdom,1
+1973,United States of America,1
+1973,Austria,1
+1974,United States of America,1
+1974,Belgium,1
+1974,United Kingdom,1
+1975,United Kingdom,1
+1975,Switzerland,1
+1975,Union of Soviet Socialist Republics,1
+1975,United States of America,1
+1975,Denmark,1
+1976,United States of America,1
+1977,Belgium,1
+1977,United States of America,1
+1977,Sweden,1
+1977,United Kingdom,1
+1978,United Kingdom,1
+1978,United States of America,1
+1978,Switzerland,1
+1978,Union of Soviet Socialist Republics,1
+1979,United States of America,1
+1979,Federal Republic of Germany,1
+1979,United Kingdom,1
+1979,Italy,1
+1980,United Kingdom,1
+1980,United States of America,1
+1980,France,1
+1981,Japan,1
+1981,United States of America,1
+1981,Sweden,1
+1982,United Kingdom,1
+1982,United States of America,1
+1982,Sweden,1
+1983,United States of America,1
+1984,United States of America,1
+1984,United Kingdom,1
+1984,Switzerland,1
+1985,United States of America,1
+1985,Federal Republic of Germany,1
+1986,United States of America,1
+1986,Canada,1
+1986,Italy,1
+1986,Federal Republic of Germany,1
+1986,Switzerland,1
+1987,United States of America,1
+1987,France,1
+1987,Switzerland,1
+1988,United States of America,1
+1988,Federal Republic of Germany,1
+1988,France,1
+1988,United Kingdom,1
+1988,Switzerland,1
+1989,United States of America,1
+1989,Norway,1
+1989,Federal Republic of Germany,1
+1990,United States of America,1
+1991,Switzerland,1
+1991,United States of America,1
+1991,Federal Republic of Germany,1
+1991,France,1
+1992,United States of America,1
+1992,France,1
+1992,Switzerland,1
+1993,United States of America,1
+1993,Canada,1
+1994,United States of America,1
+1994,Federal Republic of Germany,1
+1994,Canada,1
+1995,Federal Republic of Germany,1
+1995,United States of America,1
+1996,United States of America,1
+1996,United Kingdom,1
+1996,Switzerland,1
+1997,United States of America,1
+1997,United Kingdom,1
+1997,Denmark,1
+1997,France,1
+1998,United States of America,1
+1998,United Kingdom,1
+1999,United States of America,1
+1999,Netherlands,1
+2000,United States of America,1
+2000,Japan,1
+2000,Sweden,1
+2000,Russia,1
+2001,United States of America,1
+2001,Japan,1
+2001,United Kingdom,1
+2002,United States of America,1
+2002,Japan,1
+2002,Switzerland,1
+2002,United Kingdom,1
+2003,United States of America,1
+2003,United Kingdom,1
+2003,Russia,1
+2004,Israel,1
+2004,United States of America,1
+2005,France,1
+2005,United States of America,1
+2005,Israel,1
+2005,Australia,1
+2005,Germany,1
+2006,United States of America,1
+2007,Germany,1
+2007,United States of America,1
+2007,United Kingdom,1
+2007,France,1
+2008,United States of America,1
+2008,Germany,1
+2008,France,1
+2008,Japan,1
+2009,United Kingdom,1
+2009,United States of America,1
+2009,Israel,1
+2009,China,1
+2010,United States of America,1
+2010,Japan,1
+2010,Denmark,1
+2010,United Kingdom,1
+2011,Israel,1
+2011,United States of America,1
+2011,France,1
+2011,Australia,1
+2012,United States of America,1
+2012,United Kingdom,1
+2012,Japan,1
+2012,France,1
+2013,France,1
+2013,United States of America,1
+2013,Belgium,1
+2013,United Kingdom,1
+2014,United States of America,1
+2014,Germany,1
+2014,France,1
+2014,United Kingdom,1
+2014,Norway,1
+2014,Japan,1
+2015,United Kingdom,1
+2015,United States of America,1
+2015,Japan,1
+2015,China,1
+2015,Canada,1
+2016,France,1
+2016,United States of America,1
+2016,Netherlands,1
+2016,Japan,1

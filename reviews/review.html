@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Assignment review</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jae Yeon Kim" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Assignment review
+## Week 1
+### Jae Yeon Kim
+
+---
+
+
+# Overview
+
+
+```r
+# load pkg
+pacman::p_load(here, dplyr)
+
+# find the file path 
+file_name &lt;- list.files(here("reviews"))[grep("2022_01", list.files(here("reviews")))]
+
+# assign the file to an object 
+ass1 &lt;- readxl::read_xlsx(here("reviews", file_name))
+
+ass1 &lt;- ass1 %&gt;%
+    filter(KorName != "김재연")
+```
+
+---
+
+
+```r
+score &lt;- ass1 %&gt;%
+    rename(score = `Assignment: Inspecting data (Real)`) %&gt;%
+    mutate(score = as.numeric(score)) %&gt;%
+    pull(score)
+
+h &lt;- hist(score)
+```
+
+![](review_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+```r
+plot(h, freq = FALSE)
+```
+
+![](review_files/figure-html/unnamed-chunk-2-2.png)&lt;!-- --&gt;
+
+---
+
+# Why do we have a bimodal distribution?
+
+- The assignment was not difficult. 
+
+- Three major problems explain the wide variation. Some of you did well, and others didn't. I'm sure most of you can do better in the next assignment.
+
+- Note that the assignment counts 50% of the total evaluation (final exam counts 25%). 
+
+- There will be three more assignments (in the same format, but they will be harder). 
+
+- Your performance will be graded on an absolute basis.
+
+---
+
+# Pr 1: Read the instruction carefully. 
+
+1. You need to submit the assignment using an RMD and an HTML rendered output (I addressed and emphasized this twice). Some of you only submitted the HTML file. The result is damaging. If you missed one of those files, you're likely to get the check minus, even if you did okay in the other areas.
+
+2. You need to answer all questions (!). This seems obvious, but some of you did not answer the final question (what would be the ideal data type of the `df$valid_start` and `df$valid_end.`)
+
+3. You need to provide your own reasoning for open-ended questions like the final question. Some of you provided the reasoning based on memory efficiency and others on workflow. If you didn't provide reasoning, you wouldn't get the check plus.
+
+---
+
+# Pr 2: Styles 
+
+- Use markdown properly. 
+
+`#, ##, ###` : these are section, subsection, and subsection headings. 
+
+- Use functions properly. 
+
+
+```r
+# good 
+tidytuesdayR::tt_load()
+
+# bad 
+tidytuesdayR::tt_load # () missing 
+library(tidytuesdayR, include.only = tt_load()) # too long 
+```
+
+---
+
+Use spacing properly. 
+
+
+```r
+# good 
+target &lt;- tt_load(2021, 30)
+
+# bad
+target&lt;-tt_load(201, 30)
+```
+
+This one is really problematic.
+
+
+```r
+# good 
+class(target)
+
+# bad 
+class (target)
+```
+
+---
+
+# Pr3: Substance 
+
+
+```r
+# Next time I will skip the tidytuesdayR pkg to avoid GitHub related issues 
+df &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-20/drought.csv')
+```
+
+```
+## Rows: 325728 Columns: 10
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: ","
+## chr  (2): state_abb, drought_lvl
+## dbl  (6): map_date, stat_fmt, area_pct, area_total, pop_pct, pop_total
+## date (2): valid_start, valid_end
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+---
+
+
+```r
+nrow(df)
+```
+
+```
+## [1] 325728
+```
+
+```r
+df$state_abb[1:5]
+```
+
+```
+## [1] "AK" "AK" "AK" "AK" "AK"
+```
+
+```r
+class(df$state_abb[1:5]) # don't print the whole thing!
+```
+
+```
+## [1] "character"
+```
+
+---
+
+
+```r
+names(df)
+```
+
+```
+##  [1] "map_date"    "state_abb"   "valid_start" "valid_end"   "stat_fmt"   
+##  [6] "drought_lvl" "area_pct"    "area_total"  "pop_pct"     "pop_total"
+```
+
+```r
+# df[,2][1:5] (this doesn't work!)
+class(df[1:5,2])
+```
+
+```
+## [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+---
+
+
+```r
+class(df[,2]) # dataframe 
+```
+
+```
+## [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+```r
+typeof(df[,2]) # heterogeneous and multiple dimensions 
+```
+
+```
+## [1] "list"
+```
+
+```r
+str(df[,2]) # useful, but sometimes too much information
+```
+
+```
+## tibble [325,728 × 1] (S3: tbl_df/tbl/data.frame)
+##  $ state_abb: chr [1:325728] "AK" "AK" "AK" "AK" ...
+```
+
+---
+
+# Takeaways. 
+
+1. Read instructions carefully. 
+
+2. For open ended-questions, provide your reasoning. 
+
+3. Style your code properly.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -16,23 +16,17 @@ Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org
 * Lecture Room: TBA
 * Zoom link: Check out the EKDI site.
 
-## Instructor and Course Assistant
+## Teaching crew 
 
-### Instructor
+<img src="https://jaeyk.github.io/profile.jpg" style="margin-right:8px;" align="left" width="150">
 
-Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management
+Instructor: Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy and Management
 
 * E-mail: jaeyeonkim@kdis.ac.kr
-* Homepage: https://jaeyk.github.io/
-* GitHub: https://github.com/jaeyk
 
-### Teaching Assistant 
+* Teaching assistant: Minju Yeo (yeominju92@gmail.com)
 
-Minju Yeo (yeominju92@gmail.com)
-
-### Course Assistant
-
-Ravi Shankar Pandit (ravipandit6@gmail.com)
+* Class assistant: Ravi Shankar Pandit (ravipandit6@gmail.com)
 
 ## Office Hours
 

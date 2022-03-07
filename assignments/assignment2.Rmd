@@ -1,0 +1,47 @@
+---
+title: "Assignment 2"
+name: "<inser your name>"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+1. Define what tidy data is. [10 points] 
+
+2. Create a project directory and save all the files you use for this assignment and your code there. Make the project directory an R project. Install the `here` and `readr` packages, if you haven't done yet. Read the "home_owners_wide.csv" file using the `readr::read_csv()` and `here::here()` functions and assign it to `home_owners_wide` object. Also, read the "sim_nobel_winners.csv" file using the read.csv() and here::here() functions and assign it to `sim_nobel_winners.csv` object. [15 points]
+
+```{r}
+# install and load packages
+
+# homeownership
+
+# nobel prize
+
+```
+
+4. Inspect the `home_owners_wide` object. Is this data tidy? If not, explain the problem is and fix it using the `pivot_longer()` function. (Don't forget to install and load the `tidyverse` package.) There are multiple ways to do this. If you can do it more efficiently (less effort = less typing), you will get a bonus point. [25 points]
+
+```{r}
+# Install and load pacakges
+
+# pivot longer
+
+```
+
+5. Inspect the `sim_nobel_winners` object. Here the goal is making each value in the `organization_country` column dummy variable. So if Germany won the Nobel prize in 1901, there should be `Germany` column, and the data entered should be 1. If it didn't win the prize in that particular year, the value should be 0. Do this using the pivot_wider() function. Don't forget that the dummy variable comprises 1s and 0s. Also, there are multiple ways to do this. If you can do it more efficiently (less effort = less typing), you will get a bonus point. [30 points] 
+
+```{r}
+# pivot longer 
+
+```
+
+6. Turn the R markdown file into an HTML file. Turn in both files. Don't forget the naming convention. You should include the lower case version of your name in both the R markdown and HTML files. Plus, don't use space. Instead, use either `_` or `-.` [20 points]
+
+**Notes**
+
+* There are 5 questions and 1 request. Pay attention to the instruction.
+
+**Grading rubrics** 
+
+* 1, 2, 6 are graded in a binary way. If you got it, you would get the whole point. If you didn't do it properly, you would get zero points. 
+* 3-5 are graded in a granular way. If you can't do it, you will get zero points. If you do it okay (the code works but is not efficient), you will get 70% of the whole point. Finally, if you write the code that works but is also efficient, you will get 100% of the whole point. 
+* So if you got 1, 2, 6 right and did okay with 3-5, you will get 70 points. If you failed to do this, you would get 50 points. If you did everything well, you would get 100 points.
