@@ -96,9 +96,6 @@ df <- tibble(
   heights = c(160:180),
   char = rep("none", length(c(160:180)))
 )
-
-df %>%
-  dplyr::filter(between(heights, 161, 179))
 ```
 
 -   Multiple conditions (character)
@@ -123,6 +120,11 @@ starwars %>%
 **Challenge**
 
 Use `str_detect()` to find characters whose names include "Han".
+
+```{r}
+# Your turn 
+
+```
 
 -   Choose row by position (row index)
 
@@ -202,6 +204,11 @@ msleep %>%
 **Challenge**
 
 Use `select(where())` to find only non-numeric columns
+
+```{r}
+# Your turn
+
+```
 
 -   Select the columns that include "sleep" in their names
 
