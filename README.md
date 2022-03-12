@@ -173,7 +173,7 @@ This class is committed to creating an environment in which everyone can partici
 * Extra reading:
   - [Kim ch4](https://jaeyk.github.io/comp_thinking_social_science/tidy_data.html)
   - - Wickham, Hadley. ["The split-apply-combine strategy for data analysis."](https://www.jstatsoft.org/index.php/jss/article/view/v040i01/v40i01.pdf) *Journal of Statistical Software* 40, no. 1 (2011): 1-29.
-* Assignment: Assignment #3 due
+* Assignment: assignment #3 due
 
 ### 8th Week
 
@@ -193,7 +193,7 @@ This class is committed to creating an environment in which everyone can partici
 * Extra reading: [Kim ch5](https://jaeyk.github.io/comp_thinking_social_science/functional_programming.html)
 * Extra video:
   - [What Makes a Good Function](https://www.youtube.com/watch?v=Qne86lxjgtg) by Hadley Wickham
-* Assignment: Assignment #4 due
+* Assignment: assignment #4 due
 
 ### 10th Week
 
