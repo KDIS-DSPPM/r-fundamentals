@@ -15,7 +15,7 @@ output:
 # Setup 
 
 ```{r}
-pacman::p_load(tidyverse, gapminder, nycflights13)
+pacman::p_load(tidyverse, gapminder, nycflights13, broom)
 ```
 
 # Counting
@@ -236,6 +236,29 @@ Note that this workshop does not cover creating and manipulating variables using
 1. Summarize the average GDP of countries whose names start with the alphabet "A."
 
 2. Turn the summary dataframe into a publishable table using either `kableExtra` or `flextable` package.
+
+**Additional tips**
+
+```{r}
+gapminder %>%
+    group_by(continent) %>%
+    do(tidy(lm(lifeExp ~ gdpPercap, data = .)))
+
+gapminder %>%
+    group_by(continent) %>%
+    do(tidy(lm(lifeExp ~ gdpPercap, data = .), conf.int = T))
+
+gapminder %>%
+    group_by(continent) %>%
+    do(tidy(lm(lifeExp ~ gdpPercap, data = .), conf.int = T)) %>%
+    filter(term == "gdpPercap") %>%
+    ggplot(aes(x = fct_reorder(continent, estimate),  y = estimate, 
+               ymax = conf.high, 
+               ymin = conf.low)) +
+    geom_pointrange() +
+    coord_flip() +
+    labs(x = "Continent", y = "Estimate")
+```
 
 # Grouping
 

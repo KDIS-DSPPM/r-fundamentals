@@ -17,12 +17,29 @@ output:
 ## Setup 
 
 ```{r}
-pacman::p_load(tidyverse, gapminder)
+pacman::p_load(tidyverse, 
+               gapminder) # dataset 
 ```
 
 ## Big ideas 
 
 ![Concept map for dplyr. By Monica Alonso, Greg Wilson.](https://education.rstudio.com/blog/2020/09/concept-maps/dplyr.png)
+selecting columns 
+
+```{r}
+
+names(gapminder)
+ 
+gapminder[,1] # index number
+gapminder$country # country 
+
+```
+
+filtering rows 
+
+```{r}
+gapminder[1,]
+```
 
 `dplyr` is better than the base R approaches to data processing:
 
@@ -37,20 +54,22 @@ pacman::p_load(tidyverse, gapminder)
 ```{r}
 dplyr::arrange(mtcars, mpg) # Low to High (default)
 
-dplyr::arrange(mtcars, desc(mpg)) # High to Row
+dplyr::arrange(mtcars, desc(mpg)) # High to Low
 ```
 
 -   Rename
 -   Rename columns
 
 ```{r}
-df <- tibble(y = c(2011, 2012, 2013))
+df <- tibble(y = c(2011, 2012, 2013),
+             z = c(1, 0, 1),
+             x = c("Korea", "Japan", "Korea"))
 
 df %>%
   rename(
-    Year = # NEW name
-      y
-  ) # OLD name
+    Year = y,
+    Country = x
+  ) 
 ```
 
 ### Subset observations (rows)
@@ -60,8 +79,38 @@ df %>%
 
 ```{r}
 starwars %>%
-  dplyr::filter(gender == "feminine") %>%
-  arrange(desc(height))
+    filter(gender == "feminine")
+```
+
+```{r}
+starwars[1,]
+```
+
+```{r}
+starwars[starwars$height == 172,]
+```
+
+```{r}
+starwars %>%
+    filter(height == 172)
+
+starwars
+```
+
+```{r}
+fair_starwards <- starwars[starwars$skin_color == "fair",]
+fair_blong_starwards <- fair_starwards[fair_starwards$hair_color == "blond",]
+```
+
+```{r}
+starwars %>%
+    filter(hair_color == "blond" & skin_color == "fair")
+```
+
+```{r}
+starwars %>%
+  dplyr::filter(gender == "feminine") %>% # feminine 
+  arrange(desc(height)) 
 ```
 
 The following filtering example was inspired by [the suzanbert's dplyr blog post](https://suzan.rbind.io/2018/02/dplyr-tutorial-3/).
@@ -74,11 +123,12 @@ starwars %>%
   dplyr::filter(height < 180, height > 160) %>%
   nrow()
 
-# Same as above
 starwars %>%
   dplyr::filter(height < 180 & height > 160) %>%
   nrow()
+```
 
+```{r}
 # Not same as above
 starwars %>%
   dplyr::filter(height < 180 | height > 160) %>%
@@ -110,11 +160,18 @@ starwars %>%
 
 starwars %>%
   dplyr::filter(str_detect(tolower(name), "ars"))
+```
 
+```{r}
 # Filter brown and black hair_color
 
 starwars %>%
-  dplyr::filter(hair_color %in% c("black", "brown"))
+    filter(hair_color == "black" | hair_color == "brown" | hair_color == "grey") %>%
+    nrow()
+
+starwars %>%
+  dplyr::filter(hair_color %in% c("black", "brown", "grey")) %>%
+  nrow()
 ```
 
 **Challenge**
@@ -123,7 +180,8 @@ Use `str_detect()` to find characters whose names include "Han".
 
 ```{r}
 # Your turn 
-
+starwars %>%
+    filter(str_detect(name, "Han"))
 ```
 
 -   Choose row by position (row index)
@@ -131,29 +189,22 @@ Use `str_detect()` to find characters whose names include "Han".
 ```{r}
 starwars %>%
   arrange(desc(height)) %>%
-  slice(1:6)
+  slice(1:10)
 ```
 
 -   Sample by a fraction
 
 ```{r}
 # For reproducibility
-set.seed(1234)
-
-# Old way
-
-starwars %>%
-  sample_frac(0.10,
-    replace = FALSE
-  ) # Without replacement
+set.seed(20220307)
 
 # New way
 
 starwars %>%
-  slice_sample(
+    slice_sample(
     prop = 0.10,
     replace = FALSE
-  )
+  ) 
 ```
 
 -   Sample by number
@@ -190,7 +241,7 @@ starwars %>%
 ### Subset variables (columns)
 
 ```{r}
-names(msleep)
+msleep
 ```
 
 -   Select only numeric columns
@@ -206,8 +257,24 @@ msleep %>%
 Use `select(where())` to find only non-numeric columns
 
 ```{r}
-# Your turn
+# Your turn)
+msleep %>%
+  dplyr::select(where(!is.numeric))
+```
 
+```{r}
+msleep %>%
+  dplyr::select(!where(is.numeric))
+```
+
+```{r}
+msleep %>%
+  dplyr::select(-where(is.numeric))
+```
+
+```{r}
+msleep %>%
+  dplyr::select(where(is.character)) # the only other data type is character
 ```
 
 -   Select the columns that include "sleep" in their names
@@ -231,6 +298,11 @@ msleep[grepl("sleep|wt", names(msleep))]
 
 Use `select(match())` to find columns whose names include either "sleep" or "wt".
 
+```{r}
+msleep %>%
+    select(matches("sleep|wt"))
+```
+
 -   Select the columns that start with "b"
 
 ```{r}
@@ -251,7 +323,8 @@ The key idea is you can use Boolean operators (`!`, `&`, `|`)to combine differen
 
 ```{r}
 msleep %>%
-  dplyr::select(starts_with("b") & ends_with("wt"))
+  dplyr::select(starts_with("b") | ends_with("wt")) %>%
+  ncol()
 ```
 
 -   Select the order and move it before everything
@@ -259,7 +332,7 @@ msleep %>%
 ```{r}
 # By specifying a column
 msleep %>%
-  dplyr::select(order, everything())
+  dplyr::select(everything())
 ```
 
 -   Select variables from a character vector.
@@ -280,7 +353,15 @@ msleep$week12 <- NA
 msleep$week_extra <- 0
 
 msleep %>%
+    select(starts_with("week"))
+```
+
+```{r}
+msleep %>%
   dplyr::select(num_range("week", c(1:12)))
+
+msleep %>%
+    select(order, sleep_rem, sleep_total)
 ```
 
 **Additional tips**
@@ -308,7 +389,9 @@ table(gapminder$country)
 
 # Frequency table (unique value, n, percentage)
 janitor::tabyl(gapminder$country)
+```
 
+```{r}
 # If you want to add percentage ...
 gapminder %>%
   tabyl(country) %>%
@@ -324,6 +407,15 @@ mutate(
 ) # new column
 
 mutate(mtcars, column0 = 0)
+
+mtcars$lhs <- "cool"
+mtcars$puy <- "cool"
+mtcars$laura <- "cool"
+
+mtcars %>%
+    dplyr::mutate(sys = 1,
+                  puy = "cool",
+                  laura = "cool")
 ```
 
 ## Change values using conditions 
@@ -332,23 +424,23 @@ You can think of `case_when()` (multiple conditions) as an extended version of `
 
 ```{r}
 mtcars <- mtcars %>%
-  mutate(cyl_dummy = case_when(
+  mutate(
+    cyl_dummy = case_when(
     cyl > median(cyl) ~ "High", # if condition
     cyl < median(cyl) ~ "Low", # else if condition
     TRUE ~ "Median"
   )) # else condition
-
-mtcars %>% pull(cyl_dummy)
 ```
 
 ## Change values manually 
 
 ```{r}
 mtcars %>%
-  mutate(cyl_dummy = recode(cyl_dummy, # Target column
+  mutate(cyl_dummy = recode(
+      cyl_dummy, # Target column
     "High" = "2", # Old - New
     "Low" = "0",
     "Median" = "1"
   )) %>%
-  pull(cyl_dummy)
+    pull(cyl_dummy)
 ```

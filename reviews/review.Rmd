@@ -20,17 +20,17 @@ pacman::p_load(here, dplyr)
 file_name <- list.files(here("reviews"))[grep("2022_01", list.files(here("reviews")))]
 
 # assign the file to an object 
-ass1 <- readxl::read_xlsx(here("reviews", file_name))
+ass2 <- readxl::read_xlsx(here("reviews", file_name))
 
-ass1 <- ass1 %>%
+ass2 <- ass2 %>%
     filter(KorName != "김재연")
 ```
 
 ---
 
 ```{r}
-score <- ass1 %>%
-    rename(score = `Assignment: Inspecting data (Real)`) %>%
+score <- ass2 %>%
+    rename(score = `Assignment: Reshaping data (Real)`) %>%
     mutate(score = as.numeric(score)) %>%
     pull(score)
 

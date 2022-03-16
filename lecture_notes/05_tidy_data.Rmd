@@ -368,6 +368,10 @@ df %>% unite("contact",
 This is a relatively less-known function of the tidyr package. However, I found this function super useful to complete time-series data. For instance, how can you replace NA in the following example (this use case is drawn from the [tidyr package vignette](https://tidyr.tidyverse.org/reference/fill.html).)?
 
 ```{r}
+library(tidyverse)
+```
+
+```{r}
 # Example
 stock <- tibble::tribble(
   ~quarter, ~year, ~stock_price,
@@ -381,17 +385,11 @@ stock <- tibble::tribble(
   "Q4", NA, 10007, # Replace NA with 2001
 )
 
-# How to replace NA with the year?
-## 2000 
-stock$year[2] <- stock$year[1]
-stock$year[3] <- stock$year[1]
-stock$year[4] <- stock$year[1]
-
 stock
 ```
 
 ```{r}
-fill(stock, year)
+stock
 ```
 
 Let's take a slightly more complex example. 
@@ -411,7 +409,14 @@ yelp_rate <- tibble::tribble(
   "N1", "Mexican", 5
 )
 
-fill(yelp_rate, restraurant_type) # default is direction = .down
+yelp_rate
+```
 
+```{r}
+
+fill(yelp_rate, restraurant_type) # default is direction = .down
+```
+
+```{r}
 fill(yelp_rate, restraurant_type, .direction = "up")
 ```
