@@ -12,7 +12,7 @@ Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org
 
 ## Logistics
 
-* Time: Monday & Wednesday 16:20-18:00 (KST)
+* Time: Monday & Wednesday 10:20-12:00 (KST)
 * Lecture Room: TBA
 * Zoom link: Check out the EKDI site.
 
@@ -24,13 +24,13 @@ Instructor: Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy a
 
 * E-mail: jaeyeonkim@kdis.ac.kr
 
-* Teaching assistant: Minju Yeo (yeominju92@gmail.com)
+* Teaching assistant: TBA
 
-* Class assistant: Ravi Shankar Pandit (ravipandit6@gmail.com)
+* Class assistant: TBA
 
 ## Office Hours
 
-**Friday 13:00-17:00** (KST)
+**Friday 14:00-16:00** (KST)
 
 You can set up a 30 minutes appointment with me via [this Calendly link](https://calendly.com/jkim-46). The appointments are booked on a rolling basis.
 
@@ -79,15 +79,37 @@ I provided an [installation guideline](https://github.com/KDIS-DSPPM/r-fundament
 
 This is a graded class based on the following:
 
-- Completion of assigned homework (50%)
+- Completion of assigned homework (60%)
 
-- Participation (25%)
+- Participation (10%)
 
-- Final exam (25%)
+- Final exam (30%)
+
+### Grading rubric 
+
+Note that you have 45 points for free. But you should earn the rest of them.
+
+- A (4.0): 90~
+- A- (3.67): 80~89.9
+- B+ (3.33): 70~79.9
+- B (3.0): 65~69.9
+- B- (2.67): 60~64.9
+- C+ (2.33): 55~59.9
+- C (2.0): 50~54.9 
+- C- (1.67): 45~49.9
+- F (0): ~45
+
+### Disciplinary measure 
+
+* I don't tolerate cheating. Plagiarism is cheating. Group discussion is encouraged, but assignment submission **MUST BE YOUR OWN**. If your responses are exactly the same as other students, I assume you are all involved in cheating. If you want to claim innocence, please bring me CLEAR and RELEVANT evidence.  
+
+* If it happens once, I will take off EVERY POINT related to that section in the assignment or exam. In this case, I will not use the check, check-, check+ grading system for the assignment. Instead, I will use your score. 
+
+* If it happens more than once, I will bring this matter to the disciplinary board. See [this document](https://www.kdischool.ac.kr/board.es?mid=a10501040000&bid=0010&act=view&list_no=10903) for the reference.
 
 ### 1. Assignment
 
-Students will complete four assignments during 9 weeks of the course. The assignments provide frequent learning opportunities. Each of these assignments should be fairly short and expected to be finished within 4-5 hours of effort. You are encouraged to work in group, but the work you turn in must be your own. Unless otherwise notified, the assignments should be rendered into an HTML output using R markdown and you should submit both of them via the EKDIS course website (not the GitHub repository). In addition, the R markdown files should be reproducible on our end, in the event we want to reproduce your work. I will cover what R markdown is and how to create an HTML output in the second week of the course. The final exam uses the same output format. The assignments will be graded on a check, check-plus, check-minus standards.
+Students will complete **three** assignments during 9 weeks of the course. The assignments provide frequent learning opportunities. Each of these assignments should be fairly short and expected to be finished within 4-5 hours of effort. You are encouraged to work in group, but the work you turn in must be your own. Unless otherwise notified, the assignments should be rendered into an HTML output using R markdown and you should submit both of them via the EKDIS course website (not the GitHub repository). In addition, the R markdown files should be reproducible on our end, in the event we want to reproduce your work. I will cover what R markdown is and how to create an HTML output in the second week of the course. The final exam uses the same output format. The assignments will be graded on a check, check-plus, check-minus standards.
 
 ### 2. Participation
 
@@ -158,13 +180,13 @@ This class is committed to creating an environment in which everyone can partici
   - Wickham, Hadley. ["Tidy data."](https://www.jstatsoft.org/index.php/jss/article/view/v059i10/v59i10.pdf) *Journal of Statistical Software* 59, no. 1 (2014): 1-23.
   - Broman, Karl W., and Kara H. Woo. ["Data organization in spreadsheets."](https://www.tandfonline.com/doi/pdf/10.1080/00031305.2017.1375989?iOS=%25253Frefid%25253Dorganic) *The American Statistician* 72, no. 1 (2018): 2-10.
 * Extra video: [Tidy Data](https://www.youtube.com/watch?v=D48JHU4llkk) by Hadley Wickham
-* Assignment: assignment #2 due
 
 ### 6th Week
 
 * Reshaping and cleaning data using tidyverse
 * Reading: lecture notes
 * Extra reading: [Kim ch4](https://jaeyk.github.io/comp_thinking_social_science/tidy_data.html)
+* Assignment: assignment #2 due
 
 ### 7th Week
 
@@ -173,7 +195,6 @@ This class is committed to creating an environment in which everyone can partici
 * Extra reading:
   - [Kim ch4](https://jaeyk.github.io/comp_thinking_social_science/tidy_data.html)
   - - Wickham, Hadley. ["The split-apply-combine strategy for data analysis."](https://www.jstatsoft.org/index.php/jss/article/view/v040i01/v40i01.pdf) *Journal of Statistical Software* 40, no. 1 (2011): 1-29.
-* Assignment: assignment #3 due
 
 ### 8th Week
 
@@ -193,7 +214,7 @@ This class is committed to creating an environment in which everyone can partici
 * Extra reading: [Kim ch5](https://jaeyk.github.io/comp_thinking_social_science/functional_programming.html)
 * Extra video:
   - [What Makes a Good Function](https://www.youtube.com/watch?v=Qne86lxjgtg) by Hadley Wickham
-* Assignment: assignment #4 due
+* Assignment: assignment #3 due
 
 ### 10th Week
 
