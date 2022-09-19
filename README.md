@@ -4,7 +4,7 @@
 
 Fall 2022
 
-This course introduces and demonstrates how fun and exciting data analysis with R could be. Mastering computational tools and techniques not only enable social scientists to collect, wrangle, analyze, and interpret data with less pain and more fun, but it also let them work on research projects that would previously seem impossible. Due to the time constraint, the course focuses on data wrangling: the most fundamental and time-consuming component of the data analysis workflow. After completing this course, students will know how to turn messy raw data into structured datasets using the R programming language. In addition, the course will help students develop a framework for learning computational methods and using data to make the government work for everyone and empower citizens to negotiate power. 
+This course introduces and demonstrates how fun and exciting data analysis with R could be. Mastering computational tools and techniques not only enable social scientists to collect, wrangle, analyze, and interpret data with less pain and more fun, but it also let them work on research projects that would previously seem impossible. Due to the time constraint, the course focuses on data wrangling: the most fundamental and time-consuming component of the data analysis workflow. After completing this course, students will know how to turn messy raw data into structured datasets using the R programming language. In addition, the course will help students develop a framework for learning computational methods and using data to make the government work for everyone and empower citizens to negotiate power.
 
 Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org/)), fast (thanks to [rcpp](https://cran.r-project.org/web/packages/Rcpp/index.html#:~:text=The%20'Rcpp'%20package%20provides%20R,integration%20of%20third%2Dparty%20libraries.)), runs everywhere, open (16,000+ packages; counting only ones available at the [CRAN](https://cran.r-project.org/)), and has a growing massive and inclusive community called [#rstats](https://twitter.com/search?q=%23rstats&src=hashtag_click).
 
@@ -16,7 +16,7 @@ Why R? R is free, easy to learn (thanks to [tidyverse](https://www.tidyverse.org
 * Lecture Room: TBA
 * Zoom link: Check out the EKDI site.
 
-## Teaching crew 
+## Teaching crew
 
 <img src="https://jaeyk.github.io/profile.jpg" style="margin-right:8px;" align="left" width="150">
 
@@ -26,7 +26,7 @@ Instructor: Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy a
 
 * Teaching assistant: TBA
 
-* Class assistant: TBA
+* Class assistant: Ranci Danis (rdanis@kdis.ac.kr)
 
 ## Office Hours
 
@@ -85,7 +85,7 @@ This is a graded class based on the following:
 
 - Final exam (30%)
 
-### Grading rubric 
+### Grading rubric
 
 Note that you have 45 points for free. But you should earn the rest of them.
 
@@ -95,15 +95,15 @@ Note that you have 45 points for free. But you should earn the rest of them.
 - B (3.0): 65~69.9
 - B- (2.67): 60~64.9
 - C+ (2.33): 55~59.9
-- C (2.0): 50~54.9 
+- C (2.0): 50~54.9
 - C- (1.67): 45~49.9
 - F (0): ~45
 
-### Disciplinary measure 
+### Disciplinary measure
 
 * I don't tolerate cheating. Plagiarism is cheating. Group discussion is encouraged, but assignment submission **MUST BE YOUR OWN**. If your responses are exactly the same as other students, I assume you are all involved in cheating. If you want to claim innocence, please bring me CLEAR and RELEVANT evidence.  
 
-* If it happens once, I will take off EVERY POINT related to that section in the assignment or exam. In this case, I will not use the check, check-, check+ grading system for the assignment. Instead, I will use your score. 
+* If it happens once, I will take off EVERY POINT related to that section in the assignment or exam. In this case, I will not use the check, check-, check+ grading system for the assignment. Instead, I will use your score.
 
 * If it happens more than once, I will bring this matter to the disciplinary board. See [this document](https://www.kdischool.ac.kr/board.es?mid=a10501040000&bid=0010&act=view&list_no=10903) for the reference.
 
@@ -128,10 +128,10 @@ This class is committed to creating an environment in which everyone can partici
 
 ## Course outline [[Lecture notes](https://github.com/KDIS-DSPPM/r-fundamentals/tree/main/lecture_notes)]
 
-### 1st Week 
+### 1st Week
 
 * Why computational social science/civic data science?
-* Reading: lecture notes 
+* Reading: lecture notes
 * Extra reading:
   - [Kim ch2](https://jaeyk.github.io/comp_thinking_social_science/motivation.html)
   - Rogati, Monica, [The AI Hierarchy of Needs](https://hackernoon.com/the-ai-hierarchy-of-needs-18f111fcc007), *hackernoon.com*, June 13 2017
