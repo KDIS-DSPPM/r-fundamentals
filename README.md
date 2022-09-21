@@ -24,9 +24,9 @@ Instructor: Dr. Jae Yeon Kim, Assistant Professor, KDI School of Public Policy a
 
 * E-mail: jaeyeonkim@kdis.ac.kr
 
-* Teaching assistant: Minju Yeo (yeominju92@gmail.com)
+* Teaching assistant: TBD
 
-* Class assistant: Ravi Shankar Pandit (ravipandit6@gmail.com)
+* Class assistant: TBD
 
 ## Office Hours
 
