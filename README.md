@@ -1,6 +1,6 @@
 # R Fundamentals for Public Policy
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KDIS-DSPPM/r-fundamentals/HEAD?urlpath=rstudio)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/KDIS-DSPPM/r-fundamentals/main/?urlpath=rstudio)
 
 Fall 2022
 
