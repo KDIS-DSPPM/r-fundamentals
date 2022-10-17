@@ -186,7 +186,6 @@ This class is committed to creating an environment in which everyone can partici
 * Reshaping and cleaning data using tidyverse
 * Reading: lecture notes
 * Extra reading: [Kim ch4](https://jaeyk.github.io/comp_thinking_social_science/tidy_data.html)
-* Assignment: assignment #2 due
 
 ### 7th Week
 
@@ -195,6 +194,7 @@ This class is committed to creating an environment in which everyone can partici
 * Extra reading:
   - [Kim ch4](https://jaeyk.github.io/comp_thinking_social_science/tidy_data.html)
   - - Wickham, Hadley. ["The split-apply-combine strategy for data analysis."](https://www.jstatsoft.org/index.php/jss/article/view/v040i01/v40i01.pdf) *Journal of Statistical Software* 40, no. 1 (2011): 1-29.
+* Assignment: assignment #2 due
 
 ### 8th Week
 
