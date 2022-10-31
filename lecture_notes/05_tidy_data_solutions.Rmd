@@ -50,10 +50,7 @@ There are so many different ways of looking at data in R. Can you discuss the pr
 -   `str(table1)`
 
 ```{r}
-install.packages("skimr")
-library(skimr)
-skim(table1)
-
+if(!require(skimr)) install.packages("skimr") ; library(skimr)
 skim(table1)
 ```
 
@@ -149,7 +146,7 @@ table4a %>%
     values_to = "cases"
   ) # Longer rows (the values are going to be in a separate column called named cases)
 
-df <- table4a %>%
+table4a %>%
     pivot_longer(
         cols = c("1999", "2000"),
         names_to = "year",
@@ -168,11 +165,9 @@ table4a %>%
   pivot_longer(
     cols = c("1999", "2000"), # Put two columns together
     names_to = "year", # Shorter columns (the columns going to be in one column called year)
-    values_to = "cases", # Longer rows (the values are going to be in a separate column called named cases))
+    values_to = "cases", # Longer rows (the values are going to be in a separate column called named cases)
     names_transform = list(year = readr::parse_number)
   ) # Transform the variable
-
-table4a
 ```
 
 **Additional tips**
@@ -180,7 +175,7 @@ table4a
 `parse_number()` also keeps only numeric information in a variable.
 
 ```{r}
-readr::parse_number("reply1994")
+parse_number("reply1994")
 ```
 
 A flat file (e.g., CSV) is a rectangular shaped combination of strings. [Parsing](https://cran.r-project.org/web/packages/readr/vignettes/readr.html) determines the type of each column and turns into a vector of a more specific type. Tidyverse has `parse_` functions (from `readr` package) that are flexible and fast (e.g., `parse_integer()`, `parse_double()`, `parse_logical()`, `parse_datetime()`, `parse_date()`, `parse_time()`, `parse_factor()`, etc).
@@ -217,8 +212,8 @@ billboard %>%
     cols = starts_with("wk"), # Use regular expressions
     names_to = "week",
     values_to = "rank",
-    values_drop_na = TRUE) # Drop NAs
-  #)
+    values_drop_na = TRUE # Drop NAs
+  )
 ```
 
 -   Make It Wider
@@ -289,10 +284,6 @@ stocks
 
 -   Where is the explicit missing value?
 
-```{r}
-stocks
-```
-
 -   Does `stocks` have implicit missing values?
 
 ```{r}
@@ -311,12 +302,7 @@ stocks %>%
 -   Could you make `station` a series of dummy variables using `pivot_wider()`?
 
 ```{r}
-fish_encounters %>%
-  pivot_wider(
-    names_from = station, 
-    values_from = seen,
-    values_fill = list(seen = 0)
-  )
+fish_encounters
 ```
 
 1.  Which pivot should you use?
@@ -339,12 +325,8 @@ df
 ```{r}
 # Separate
 df %>%
-  separate(x, 
-           into = c("Name", "Preferred_fruit"),
-           sep = "_")
-```
+  separate(x, into = c("Name", "Preferred_fruit"))
 
-```{r}
 # Don't need the first variable
 
 df %>%
@@ -392,20 +374,11 @@ df <- data.frame(
   birthmonth = c("April", "April", "June", NA)
 )
 
-df
-```
-
-```{r}
 # Include missing values
-df %>% 
-  unite(
+df %>% unite(
   "contact",
-  c("name", "birthmonth"),
-  sep = "."
+  c("name", "birthmonth")
 )
-```
-
-```{R}
 
 # Do not include missing values
 df %>% unite("contact",
@@ -435,11 +408,11 @@ stock <- tibble::tribble(
   "Q3", NA, 10006, # Replace NA with 2001
   "Q4", NA, 10007, # Replace NA with 2001
 )
+
+stock
 ```
 
 ```{r}
-fill(stock, year, .direction = "up")
-     
 stock
 ```
 
@@ -464,35 +437,10 @@ yelp_rate
 ```
 
 ```{r}
-fill(yelp_rate, restraurant_type) # default is direction = .down
 
-fill(yelp_rate,
-     restraurant_type)
+fill(yelp_rate, restraurant_type) # default is direction = .down
 ```
 
 ```{r}
 fill(yelp_rate, restraurant_type, .direction = "up")
-
-?tidyr::fill
-```
-
-
-```{r}
-df <- data.frame(x = c(NA, "Dad_apple", "Mom_orange", "Daughter_banana"))
-
-df %>%
-  separate(x, into = c("Name", "Preferred_fruit"),
-            sep = "_")
-
-
-df <- data.frame(x = c(NA, "Dad.apple", "Mom.orange", "Daughter.banana"))
-
-df
-```
-
-```{r}
-df %>%
-  separate(x, 
-           into = c("Name", "Preferred_fruit"),
-            sep = ".")
 ```

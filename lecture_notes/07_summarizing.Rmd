@@ -15,7 +15,10 @@ output:
 # Setup 
 
 ```{r}
-pacman::p_load(tidyverse, gapminder, nycflights13, broom)
+pacman::p_load(tidyverse, 
+               gapminder, 
+               nycflights13, 
+               broom)
 ```
 
 # Counting
@@ -32,8 +35,10 @@ gapminder %>%
 ```{r}
 # Just add a new argument `sort = TRUE`
 gapminder %>%
-  count(continent, sort = TRUE)
+  count(continent, sort = T)
+```
 
+```{r}
 # Same as above; How nice!
 gapminder %>%
   count(continent) %>%
@@ -43,6 +48,17 @@ gapminder %>%
 **Challenge**
 
 Count the number of observations per `continent` and `year` and arrange them in descending order.
+
+```{r}
+# solution 1
+gapminder %>%
+    count(continent, year) %>%
+    arrange(desc(n))
+
+# solution 2
+gapminder %>%
+    count(continent, year, sort = T)
+```
 
 Let's take a deeper look at how things work under the hood.
 
@@ -87,7 +103,9 @@ Do cases 1 and 2 in the below code chunk produce the same outputs? If so, why?
 gapminder %>%
   group_by(continent, year) %>%
   count()
+```
 
+```{r}
 # Case 2
 gapminder %>%
   group_by(continent) %>%
@@ -105,13 +123,15 @@ gapminder %>%
 
 ```{r}
 gapminder %>%
-  group_by(continent) %>%
+  group_by(continent) %>% 
   summarise(
     n = n(),
     mean_gdp = mean(gdpPercap),
     sd_gdp = sd(gdpPercap)
   )
+```
 
+```{r}
 tablea <- gapminder %>%
   group_by(continent) %>%
   summarise(
@@ -150,11 +170,17 @@ wide_gapminder <- gapminder %>%
     values_from = gdpPercap
   )
 
+wide_gapminder
+```
+
+```{r}
 # Apply summarise_all
 wide_gapminder %>%
-  dplyr::select(-c(1:4)) %>%
-  summarise_all(mean, na.rm = TRUE)
+  dplyr::select(-c(1:4)) %>% # STEP1 
+  summarise_all(mean, na.rm = TRUE) # STEP2
 ```
+
+Could you summarize the average gdp per capita per each country?
 
 - `summarise_if()`: using a logical condition
 
@@ -173,7 +199,9 @@ wide_gapminder %>%
     mean,
     na.rm = TRUE
   )
+```
 
+```{r}
 wide_gapminder %>%
   summarise_at(vars(contains("life")),
     mean,
@@ -218,7 +246,9 @@ wide_gapminder %>%
     mean,
     na.rm = TRUE
   ))
+```
 
+```{r}
 wide_gapminder %>%
   summarise(across(contains("life"),
     mean,
@@ -246,10 +276,6 @@ gapminder %>%
 
 gapminder %>%
     group_by(continent) %>%
-    do(tidy(lm(lifeExp ~ gdpPercap, data = .), conf.int = T))
-
-gapminder %>%
-    group_by(continent) %>%
     do(tidy(lm(lifeExp ~ gdpPercap, data = .), conf.int = T)) %>%
     filter(term == "gdpPercap") %>%
     ggplot(aes(x = fct_reorder(continent, estimate),  y = estimate, 
@@ -270,7 +296,7 @@ gapminder %>%
 
 ```{r}
 gapminder %>%
-  group_by(continent) %>% #
+  group_by(continent) %>% 
   summarise(mean_gdp = mean(gdpPercap))
 ```
 
@@ -370,6 +396,11 @@ Relational data = multiple tables of data
 - A **primary key** "uniquely identifies an observation in its table"
 
 ```{r}
+vec1 <- c(1,2,3)
+vec2 <- c(4,5,6)
+```
+
+```{r}
 # Example
 planes$tailnum %>% head()
 ```
@@ -399,6 +430,11 @@ df <- tibble(
   y = c(4:6)
 )
 
+df2 <- tibble(
+    x1 = c(2:4),
+    y1 = c(5:7)
+)
+
 # Add a row_index column
 df <- df %>% rowid_to_column("ID")
 ```
@@ -407,7 +443,24 @@ df <- df %>% rowid_to_column("ID")
 
 ```{r}
 flights$tailnum %>% head()
+
+library(nycflights13)
+
+flights
+planes
+
+# What the shared variables between flights and planes? 
+# If you want to join these two tables, how can you do it and why?
+
+install.packages("nycflights13")
+libary(nycflight13)
+
+intersect(names(flights), names(planes))
+
+left_join(flights, planes, by = c("tailnum")) %>% is.na() %>% mean()
+inner_join(flights, planes, by = c("tailnum")) %>% is.na() %>% mean()
 ```
+
 
 For joining, don't be distracted by other details and focus on KEYS!
 
@@ -422,8 +475,8 @@ Using a simple toy example is great because it is easy to see how things work in
 ```{r}
 # Table 1
 x <- tibble(
-  key = c(1:4),
-  val_x = c("x1", "x2", "x3", "x4")
+  key = c(1:4, 6),
+  val_x = c("x1", "x2", "x3", "x4", "x6")
 )
 
 # Table 2
@@ -431,6 +484,9 @@ y <- tibble(
   key = c(1:5),
   val_y = c("y1", "y2", "y3", "y4", "y5")
 )
+
+left_join(x, # first table 
+          y) # second table
 ```
 
 -   Inner Join
@@ -442,6 +498,8 @@ y <- tibble(
 What is going to be the shared keys?
 
 ```{r}
+left_join(y, x)
+
 inner_join(x, y)
 ```
 
@@ -499,8 +557,6 @@ filtered <- flights %>%
 ```{r}
 joined <- flights %>%
   semi_join(top_dest)
-
-head(filtered == joined)
 ```
 
 -   Anti Join

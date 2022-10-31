@@ -15,7 +15,8 @@ output:
 # Setup 
 
 ```{r}
-pacman::p_load(tidyverse, gapminder, nycflights13, ggthemes)
+pacman::p_load(tidyverse, gapminder, nycflights13, ggthemes,
+               coronavirus, babynames, glue, patchwork)
 ```
 
 ## Visualizing (ggplot2)
@@ -81,9 +82,9 @@ No worries about new terms. We're going to learn them by actually plotting.
 - Workflow: 
 
     1. Tidy data 
-    2. Mapping 
+    2. Mapping
     3. Geom 
-    4. Cor_ordinates and scales 
+    4. Corordinates and scales 
     5. Labels and guides
     6. Themes
     7. Save files 
@@ -108,6 +109,11 @@ p + geom_point()
 
 p + geom_point() + geom_smooth() # geom_smooth has calculated a smoothed line;
 # the shaded area is the standard error for the line
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    scale_x_log10() 
 ```
 
 ### Univariate distribution
@@ -119,8 +125,6 @@ p + geom_point() + geom_smooth() # geom_smooth has calculated a smoothed line;
 
 ```{r}
 data(midwest) # load midwest dataset
-
-midwest
 ```
 
 ```{r, eval = FALSE}
@@ -130,10 +134,12 @@ midwest %>%
 ```
 
 ```{r}
-midwest %>%
-  ggplot(aes(x = area)) +
-  geom_histogram() # stat_bin argument picks up 30 bins (or "bucket") by default.
+midwest %>% # tidy data 
+  ggplot(aes(x = area)) + # mapping
+  geom_histogram(binwidth = 0.001) # stat_bin argument picks up 30 bins (or "bucket") by default.
+```
 
+```{r}
 midwest %>%
   ggplot(aes(x = area)) +
   geom_histogram(bins = 10) # only 10 bins.
@@ -142,7 +148,7 @@ ggplot(
   data = subset(midwest, state %in% c("OH", "IN")),
   mapping = aes(x = percollege, fill = state)
 ) +
-  geom_histogram(alpha = 0.7, bins = 20) +
+  geom_histogram(alpha = 0.8, bins = 20) +
   scale_fill_viridis_d()
 ```
 
@@ -202,14 +208,39 @@ ggplot(
 Aesthetics also can be mapped per Geom. 
 
 ```{r}
+p <- ggplot(
+  data = gapminder,
+  mapping = aes(
+    x = gdpPercap, y = lifeExp
+  )
+)
+
 p + geom_point() +
   geom_smooth()
 
 p + geom_point(alpha = 0.3) + # alpha controls transparency
   geom_smooth(color = "red", se = FALSE, size = 2)
 
-p + geom_point(alpha = 0.3) + # alpha controls transparency
-  geom_smooth(color = "red", se = FALSE, size = 2, method = "lm")
+ggplot(
+  data = gapminder,
+  mapping = aes(
+    x = gdpPercap, y = lifeExp
+  )
+) + geom_point(alpha = 0.3) + # alpha controls transparency
+  geom_smooth(color = "red", se = FALSE, size = 2, method = "lm") +
+  scale_x_log10() +
+  scale_y_log10()
+
+gapminder
+```
+Your turn!!
+
+1. Create a scatter (point) plot between pop and gdpPercap across countries.  
+
+```{r}
+gapminder %>%
+    ggplot(aes(x = pop, y = gdpPercap, size = pop)) +
+    geom_point()
 ```
 
 ```{r}
@@ -263,12 +294,18 @@ The data is heavily bunched up against the left side.
 ```{r}
 p + geom_point() # without scaling
 
-p + geom_point() +
+plot1 <- p + geom_point() +
   scale_x_log10() # scales the axis of a plot to a log 10 basis
 
-p + geom_point() +
+plot2 <- p + geom_point() +
   geom_smooth(method = "lm") +
   scale_x_log10()
+
+library(patchwork)
+
+plot1 + plot2 + patchwork::plot_annotation(tag_levels = c('A', '1'))
+    
+?plot_annotation    
 ```
 
 
@@ -320,5 +357,131 @@ figure_example <- p + geom_point(alpha = 0.3) +
   ) +
   theme_economist()
 
-ggsave(figure_example, here("outputs", "figure_example.png"))
+figure_example
+
+ggsave(here("outputs", "figure_example.png"),
+       )
+
+?ggsave
+```
+
+## Exercises
+
+### Coronavirus
+
+1. Calculate the total number of cases per each country and continent 
+
+2. Display the information in 1 using scatter plot 
+
+3. Change the scale of x and y axis using log transformation 
+
+4. Create mini plots of the plot in 3 using `facet_wrap(~continent_name)`
+
+5. Fit a linear model to these mini plots using `geom_smooth(method = "lm")`
+
+```{r}
+options(scipen = 100)
+
+coronavirus
+
+coronavirus %>%
+    filter(country == "Korea, South") %>%
+    filter(cases > 0) %>%
+    filter(type == "confirmed") %>%
+    ggplot(aes(x = date, y = cases)) +
+    geom_line(alpha = 0.7, col = "red") +
+    ggthemes::theme_base()
+```
+
+```{r}
+options(scipen = 100)
+
+coronavirus %>% 
+    group_by(continent_name, country, population) %>%
+    summarize(sum = sum(cases)) %>%
+    filter(!is.na(continent_name)) %>%
+    ggplot(aes(x = population, y = sum)) +
+    geom_point() +
+    scale_x_log10() +
+    scale_y_log10() +
+    geom_smooth(method = "lm") +
+    facet_wrap(~continent_name) 
+```
+
+### Babynames
+
+```{r}
+babynames
+```
+
+Copied the following code from here: https://github.com/AbdoulMa/TidyTuesday/blob/main/2022_w12/tidytuesday_2022_w12.R
+
+```{r}
+popular_unisex_names <- c("Jessie","Marion","Jackie","Alva","Ollie",
+                          "Jody","Cleo","Kerry","Frankie","Guadalupe",
+                          "Carey","Tommie","Angel","Hollis","Sammie",
+                          "Jamie","Kris","Robbie","Tracy","Merrill",
+                          "Noel","Rene","Johnnie","Ariel","Jan",
+                          "Devon","Cruz","Michel","Gale","Robin",
+                          "Dorian","Casey","Dana","Kim","Shannon"
+)
+
+
+babynames_df <- babynames %>% 
+  select(-prop) %>%
+  filter(name %in% popular_unisex_names) %>% 
+  filter(year > 1925)
+
+unisex_babynames <- babynames_df %>% 
+  pivot_wider(names_from = sex, values_from = n) %>% 
+  drop_na(`F`,`M`) %>% 
+  mutate(
+    prop_f = `F`/(`F`+`M`), # Proportion of girls
+    prop_m = `M`/(`F`+`M`) # Proportion of boys 
+  )
+
+
+# Compute Proportions distance Means for order names 
+(most_unisex_props_means <-  unisex_babynames %>% 
+    mutate(prop_dist = abs(prop_f-prop_m)) %>% 
+    group_by(name) %>% 
+    summarise(prop_dist_mean = mean(prop_dist)) %>% 
+    mutate(rank = rank(prop_dist_mean)) %>% 
+    arrange(rank))
+
+# Order names by proortion distance means 
+unisex_babynames <- unisex_babynames %>% 
+  left_join(most_unisex_props_means, by = "name") %>% 
+  mutate(
+    name_ranked = glue("{rank}. {name}"),
+    name_ranked = fct_reorder(name_ranked,rank)
+  )
+
+# Determine most unisex year for each name 
+most_unisex_year <- unisex_babynames  %>% 
+  mutate(prop_dist = abs(prop_f-prop_m)) %>% 
+  group_by(name_ranked) %>% 
+  slice_min(prop_dist,n=1, with_ties = F) %>% 
+  ungroup() 
+
+# Function for normalize between range ( I use that inside grobs for panels annotations )
+range_between <-  function(x,range){ (x-min(range)) / (max(range)-min(range)) }
+
+plot <- unisex_babynames %>%   
+   ggplot(aes(year)) + 
+   geom_ribbon(aes(ymin = 0, ymax = prop_f), fill = "#E3837D")+
+   geom_ribbon(aes(ymin = prop_f, ymax = 1), fill = "#96CBFE")+
+   geom_line(aes(y=prop_f), size = 0.35) +
+   
+   facet_wrap(~name_ranked, ncol = 7, scales ='free_x')+
+   scale_x_continuous(
+     name = NULL,
+     breaks = c(1940,1960,1980,2000),
+     labels = c(1940,"'60","'80",2000)
+   )+
+   scale_y_continuous(
+     name = NULL, 
+     breaks = c(0,0.5,1),
+     labels = scales::percent
+   )
 ```

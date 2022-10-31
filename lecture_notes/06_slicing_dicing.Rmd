@@ -14,17 +14,16 @@ output:
 
 # Manipulating (dplyr)
 
-## Setup 
+# Setup
 
 ```{r}
 pacman::p_load(tidyverse, 
                gapminder) # dataset 
 ```
 
-## Big ideas 
+# Big ideas
 
-![Concept map for dplyr. By Monica Alonso, Greg Wilson.](https://education.rstudio.com/blog/2020/09/concept-maps/dplyr.png)
-selecting columns 
+![Concept map for dplyr. By Monica Alonso, Greg Wilson.](https://education.rstudio.com/blog/2020/09/concept-maps/dplyr.png) selecting columns
 
 ```{r}
 
@@ -32,19 +31,23 @@ names(gapminder)
  
 gapminder[,1] # index number
 gapminder$country # country 
-
 ```
 
-filtering rows 
+filtering rows
 
 ```{r}
-gapminder[1,]
+gapminder[, # filtering rows 
+          1:3] # selecting columns
+
+gapminder %>% 
+  select() %>%
+  filter()
 ```
 
 `dplyr` is better than the base R approaches to data processing:
 
-- fast to run (due to the C++ backed) and intuitive to type
-- works well with tidy data and databases (thanks to [`dbplyr`](https://dbplyr.tidyverse.org/))
+-   fast to run (due to the C++ backed) and intuitive to type
+-   works well with tidy data and databases (thanks to [`dbplyr`](https://dbplyr.tidyverse.org/))
 
 ## Rearranging
 
@@ -67,19 +70,20 @@ df <- tibble(y = c(2011, 2012, 2013),
 
 df %>%
   rename(
-    Year = y,
-    Country = x
+    Year = y, # new col name = old col name 
+    Country = x, 
+    city = z
   ) 
 ```
 
-### Subset observations (rows)
+## Subset observations (rows)
 
 -   Choose row by logical condition
 -   Single condition
 
 ```{r}
 starwars %>%
-    filter(gender == "feminine")
+    filter(gender != "feminine") # logical
 ```
 
 ```{r}
@@ -87,19 +91,18 @@ starwars[1,]
 ```
 
 ```{r}
-starwars[starwars$height == 172,]
+starwars[starwars$height == 172 , ]
 ```
 
 ```{r}
 starwars %>%
-    filter(height == 172)
-
-starwars
+    filter(height == 172) 
 ```
 
 ```{r}
 fair_starwards <- starwars[starwars$skin_color == "fair",]
-fair_blong_starwards <- fair_starwards[fair_starwards$hair_color == "blond",]
+
+fair_blond_starwards <- fair_starwards[fair_starwards$hair_color == "blond",]
 ```
 
 ```{r}
@@ -129,7 +132,7 @@ starwars %>%
 ```
 
 ```{r}
-# Not same as above
+# Not the same as above
 starwars %>%
   dplyr::filter(height < 180 | height > 160) %>%
   nrow()
@@ -138,6 +141,12 @@ starwars %>%
 **Challenge**
 
 (1) Use `filter(between())` to find characters whose heights are between 180 and 160 and (2) count the number of these observations.
+
+```{r}
+starwars %>%
+  filter(between(height, 160, 180)) %>%
+  nrow()
+```
 
 -   Minimum reproducible example
 
@@ -181,7 +190,7 @@ Use `str_detect()` to find characters whose names include "Han".
 ```{r}
 # Your turn 
 starwars %>%
-    filter(str_detect(name, "Han"))
+  filter(str_detect(name, "Han"))
 ```
 
 -   Choose row by position (row index)
@@ -238,11 +247,7 @@ starwars %>%
   slice_max(height, n = 10) # Variable first, Argument second
 ```
 
-### Subset variables (columns)
-
-```{r}
-msleep
-```
+## Subset variables (columns)
 
 -   Select only numeric columns
 
@@ -257,7 +262,7 @@ msleep %>%
 Use `select(where())` to find only non-numeric columns
 
 ```{r}
-# Your turn)
+# Your turn
 msleep %>%
   dplyr::select(where(!is.numeric))
 ```
@@ -286,12 +291,17 @@ msleep %>%
 
 -   Select the columns that include either "sleep" or "wt" in their names
 
+```{r}
+msleep %>% 
+  select(matches("sleep|wt"))
+```
+
 -   Basic R way
 
 `grepl` is one of the R base pattern matching functions.
 
 ```{r}
-msleep[grepl("sleep|wt", names(msleep))]
+msleep[grepl("sleep", names(msleep))]
 ```
 
 **Challenge**
@@ -300,7 +310,7 @@ Use `select(match())` to find columns whose names include either "sleep" or "wt"
 
 ```{r}
 msleep %>%
-    select(matches("sleep|wt"))
+    select(matches("sleep&rem"))
 ```
 
 -   Select the columns that start with "b"
@@ -323,7 +333,8 @@ The key idea is you can use Boolean operators (`!`, `&`, `|`)to combine differen
 
 ```{r}
 msleep %>%
-  dplyr::select(starts_with("b") | ends_with("wt")) %>%
+  select(starts_with("b") | 
+           ends_witßh("wt")) %>%
   ncol()
 ```
 
@@ -333,6 +344,19 @@ msleep %>%
 # By specifying a column
 msleep %>%
   dplyr::select(everything())
+
+msleep %>%
+  select(order, vore, everything())
+```
+
+```{r}
+# solution
+msleep %>%
+  #dplyr::select(order, everything())
+
+# another use case
+mtcars %>%
+  pivot_longer(cols = everything())
 ```
 
 -   Select variables from a character vector.
@@ -340,6 +364,16 @@ msleep %>%
 ```{r}
 msleep %>%
   dplyr::select(any_of(c("name", "order"))) %>%
+  colnames()
+
+# case1: any_of()
+msleep %>%
+  dplyr::select(any_of(c("name", "ord"))) %>%
+  colnames()
+
+# case2: the difference between any_of() and all_of()
+msleep %>%
+  dplyr::select(all_of(c("name", "ord"))) %>%
   colnames()
 ```
 
@@ -381,7 +415,7 @@ pacman::p_load(janitor)
 janitor::clean_names(messy_df)
 ```
 
-`janitor::tabyl()` is helpful for doing crosstabulation and a nice alternative to `table()` function. 
+`janitor::tabyl()` is helpful for doing crosstabulation and a nice alternative to `table()` function.
 
 ```{r}
 # Frequency table; The default output class is table
@@ -398,7 +432,7 @@ gapminder %>%
   adorn_pct_formatting(digits = 0, affix_sign = TRUE)
 ```
 
-# Creating variables 
+## Creating variables
 
 ```{r include=FALSE, eval=FALSE}
 mutate(
@@ -415,12 +449,13 @@ mtcars$laura <- "cool"
 mtcars %>%
     dplyr::mutate(sys = 1,
                   puy = "cool",
-                  laura = "cool")
+                  laura = "cool") %>%
+  select(sys, puy, laura, everything())
 ```
 
-## Change values using conditions 
+## Change values using conditions
 
-You can think of `case_when()` (multiple conditions) as an extended version of `ifelse()` (binary conditions). 
+You can think of `case_when()` (multiple conditions) as an extended version of `ifelse()` (binary conditions).
 
 ```{r}
 mtcars <- mtcars %>%
@@ -432,15 +467,15 @@ mtcars <- mtcars %>%
   )) # else condition
 ```
 
-## Change values manually 
+## Change values manually
 
 ```{r}
 mtcars %>%
-  mutate(cyl_dummy = recode(
+  mutate(cyl_num = recode(
       cyl_dummy, # Target column
     "High" = "2", # Old - New
     "Low" = "0",
     "Median" = "1"
-  )) %>%
-    pull(cyl_dummy)
+  )) 
 ```
+

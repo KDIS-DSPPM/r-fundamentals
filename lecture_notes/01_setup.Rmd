@@ -113,10 +113,9 @@ USweird <- "Why use lb for pound!" # Use this
 Nonetheless, *can* does not mean you *should*. It is good practice to use `<-` for assignments. `=` should only be used to specify the values of arguments of functions. This is what Google and Hadley Wickham recommend as well. If they don't convince you enough, here's [a real example](https://csgillespie.wordpress.com/2010/11/16/assignment-operators-in-r-vs/).
 
 ```{r}
-mean(x = 1:10) # Does it save x?
-rm(x)
-mean(x <- 1:10) # Does it save x?
-rm(x)
+mean(x = 1:10) # Does it save 
+
+mean(x <- 1:10) # Does it save
 ```
 
 **Printing**
@@ -135,6 +134,8 @@ help(mean)
 # The above three will do the same. 
 example(ls) # provides an example(s) for how to use ls 
 help.search("visualization") # search functions and packages that have "visualization" in their descriptions
+
+x <- c(1,2,3)
 ```
 
 ## Environment 
@@ -187,6 +188,7 @@ gc()
 ```{r, eval = FALSE}
 # From CRAN
 install.packages("dplyr") 
+
 # Load package 
 library(dplyr)
 

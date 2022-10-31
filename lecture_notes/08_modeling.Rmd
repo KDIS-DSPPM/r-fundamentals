@@ -44,7 +44,6 @@ The following example comes from [R for Data Science](https://r4ds.had.co.nz/man
 Why did we use `country` and `continent` for nesting variables in the following example?
 
 ```{r}
-
 nested <- gapminder %>%
   group_by(country, continent) %>%
   nest()
@@ -69,8 +68,6 @@ lm_model <- function(df) {
 
 nested <- nested %>%
   mutate(models = map(data, lm_model)) # Add the list object as a new column
-
-head(nested)
 ```
 
 S3 is part of R's object-oriented systems. If you need further information, check out [this section](http://adv-r.had.co.nz/S3.html) in Hadley's Advanced R.
@@ -90,7 +87,6 @@ S3 is part of R's object-oriented systems. If you need further information, chec
 ![Broom: Converting Statistical Models to Tidy Data Frames by David Robinson](https://www.youtube.com/watch?v=7VGPUBWGv6g&ab_channel=Work-Bench)
 
 ```{r}
-
 glanced <- nested %>%
   mutate(glance = map(models, broom::glance))
 
@@ -101,6 +97,8 @@ glanced$glance %>% pluck(1)
 glanced$glance %>%
   pluck(1) %>%
   pull(p.value)
+
+glanced$glance[[1]]
 ```
 
 `unnest()` unpacks the list objects stored in the `glanced` column
@@ -120,26 +118,42 @@ glanced %>%
 - tidy() 
 
 ```{r}
+# nested data 
 nested <- gapminder %>%
-  group_by(continent) %>%
+  group_by(country) %>%
   nest()
 
-nested <- nested %>%
-  mutate(models = map(data, ~ lm(lifeExp ~ year + country, data = .)))
+lm_ols <- function(df) { 
+    
+    out <- lm(y ~x, data = df)
+    return(out)
+}
 
+# apply lm model
+nested <- nested %>%
+  mutate(models = map(data, ~lm(lifeExp ~ year + country, data = .)))
+
+# apply tidy
 tidied <- nested %>%
   mutate(tidied = map(models, broom::tidy))
 
 model_out <- tidied %>%
   unnest(tidied) %>%
-  mutate(term = str_replace(term, "country", "")) %>%
+  mutate(term = str_replace(term, "country", ""))  %>%
   dplyr::select(continent, term, estimate, p.value) %>%
-  mutate(p_threshold = ifelse(p.value < 0.05, 1, 0))
+  mutate(p_threshold = ifelse(p.value < 0.05, # condition 
+                              1, # true 
+                              0)) # false
 
+map(.x, .f)
+```
+
+```{r}
 model_out %>%
   dplyr::filter(p_threshold == 1) %>%
   pull(term) %>%
   unique()
+
 model_out %>%
   dplyr::filter(p_threshold == 0) %>%
   pull(term) %>%
@@ -151,14 +165,21 @@ model_out %>%
 We tasted a bit of how `map()` function works. Let's dig into it more in-depth, as this family of functions is useful. See Rebecca Barter's excellent tutorial on the `purrr` package for more information. In her words, this is "the tidyverse's answer to apply functions for iteration". `map()` function can take a vector (of any type), a list, and a dataframe for input.
 
 ```{r}
-multiply <- function(x) {
-  x * x
+multiply <- function(x, y) {
+  x * y
 }
 
 df <- list(
   first_obs = rnorm(7, 1, sd = 1),
   second_obs = rnorm(7, 2, sd = 2)
 ) # normal distribution
+
+df$first_obs
+df$second_obs
+
+map2(df$first_obs, 
+     df$second_obs, 
+     multiply)
 ```
 
 **Challenge**

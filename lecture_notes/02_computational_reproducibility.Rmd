@@ -14,7 +14,7 @@ output:
 
 # Computational reproducibility
 
-## Motivation 
+## Motivation
 
 Why do you need to make your research computationally reproducible?:
 
@@ -22,88 +22,86 @@ Why do you need to make your research computationally reproducible?:
 
 ## Key ideas
 
-* Replication = code + data 
+-   Replication = code + data
 
-* Computational reproducibility = code + data + environment + distribution 
+-   Computational reproducibility = code + data + environment + distribution
 
-* Reproducibility checklist by [Roger D. Peng (biostatistics professor at Johns Hopkins)](http://www.biostat.jhsph.edu/~rpeng/)
+-   Reproducibility checklist by [Roger D. Peng (biostatistics professor at Johns Hopkins)](http://www.biostat.jhsph.edu/~rpeng/)
 
-    1. Start with science (avoid vague questions and concepts)
-    
-    2. Don't do things by hand (not only about automation but also documentation)
-    
-    3. Don't point and click (same problem)
-    
-    4. Teach a computer (automation also solves documentation to some extent)
-    
-    5. Use some version control 
-    
-    6. Don't save output (instead, keep the input and code)
-    
-    7. Set your seed 
-    
-    8. Think about the entire pipeline 
+    1.  Start with science (avoid vague questions and concepts)
+
+    2.  Don't do things by hand (not only about automation but also documentation)
+
+    3.  Don't point and click (same problem)
+
+    4.  Teach a computer (automation also solves documentation to some extent)
+
+    5.  Use some version control
+
+    6.  Don't save output (instead, keep the input and code)
+
+    7.  Set your seed
+
+    8.  Think about the entire pipeline
 
 ![](https://GitHub.com/dlab-berkeley/efficient-reproducible-project-management-in-R/blob/master/misc/screenshot.png?raw=true)
 
-## Organizing files 
+## Organizing files
 
-You won't be able to reproduce your project unless it is efficiently organized. 
+You won't be able to reproduce your project unless it is efficiently organized.
 
 Step 1. [**Environment**](https://environments.rstudio.com/) is part of your project. If someone can't reproduce your environment, they won't be able to run your code.
 
-- Launch R Studio. Tools > Global Options. You **should not** check Restore .RData into workspace at startup. Also, set the saving workspace option to **NEVER.**
+-   Launch R Studio. Tools \> Global Options. You **should not** check Restore .RData into workspace at startup. Also, set the saving workspace option to **NEVER.**
 
-Step 2. For each project, create a project directory named after the project. 
+Step 2. For each project, create a project directory named after the project.
 
-name_of_the_project 
+name_of_the_project
 
-- data: 
-  - raw 
-  - processed (all processed, cleaned, and tided)
-- figures 
-- packrat (optional) 
-- reports (PDF, HTML, TEX, etc.,) 
-- results (model outcomes, etc.,)
-- scripts (i.e., functions)
-- .gitignore (for Git)
-- name_of_project.Rproj (for R)
-- README.md (for Git) 
-
+-   data:
+    -   raw
+    -   processed (all processed, cleaned, and tided)
+-   figures
+-   packrat (optional)
+-   reports (PDF, HTML, TEX, etc.,)
+-   results (model outcomes, etc.,)
+-   scripts (i.e., functions)
+-   .gitignore (for Git)
+-   name_of_project.Rproj (for R)
+-   README.md (for Git)
 
 ```{r eval = FALSE}
 
 # Don't name it a project. Instead, use a more informative name. For instance, `world_bank_2022`, not `my_project.`
 
 dir.create("../world_bank_2022")
-
 ```
 
-Step 3. Launch R Studio. Choose File > New project > Browse existing directories > Create project. This allows each project has its workspace. 
+Step 3. Launch R Studio. Choose File \> New project \> Browse existing directories \> Create project. This allows each project has its workspace.
 
 Step 4. Organize files by putting them in separate subdirectories and sensibly naming them.
 
-- Treat raw data as read-only (raw data should be RAW!) and put it in the `data` subdirectory.
+-   Treat raw data as read-only (raw data should be RAW!) and put it in the `data` subdirectory.
 
 **Challenge**
 
-Set a project structure for a project named "starwars." 
+Set a project structure for a project named "starwars."
 
-## Setting file paths 
+## Setting file paths
 
-- In addition to environment, **workflow** is an essential component of project efficiency and reproducibility. 
+-   In addition to environment, **workflow** is an essential component of project efficiency and reproducibility.
 
-- If you care about computational reproducibility, you might be interested in using RStudio project and `here` package. The key idea is what should be treated as permanent (i.e., READ-ONLY raw data) and what should be treated as disposable (e.g., sessions, outputs). 
+-   If you care about computational reproducibility, you might be interested in using RStudio project and `here` package. The key idea is what should be treated as permanent (i.e., READ-ONLY raw data) and what should be treated as disposable (e.g., sessions, outputs).
 
-- First, I will demonstrate how RStudio project works and then how you should set up your RStudio global settings for workspace.
+-   First, I will demonstrate how RStudio project works and then how you should set up your RStudio global settings for workspace.
 
-- Second, I will explain why `here()` is a better option than using `getwd()`.
+-   Second, I will explain why `here()` is a better option than using `getwd()`.
 
-- Below is what a typical R script looks like. 
+-   Below is what a typical R script looks like.
 
-- `setwd()`: set a working directory. 
+-   `setwd()`: set a working directory.
 
-- Note that using `setwd()` is not a reproducible way to set up your project. For instance, none will be able to run the following code except me.
+-   Note that using `setwd()` is not a reproducible way to set up your project. For instance, none will be able to run the following code except me.
 
 ```{r eval = FALSE}
 # Remove objects 
@@ -113,7 +111,9 @@ rm(list = ls())
 setwd("/media/jae/backup/r-fundamentals")
 
 dir.create("/media/jae/backup/r-fundamentals/outputs")
+```
 
+```{r}
 # Do something 
 ggplot(mtcars, aes(x = mpg, y = wt)) +
    geom_point() +
@@ -125,10 +125,11 @@ ggplot(mtcars, aes(x = mpg, y = wt)) +
 
 ggsave("/media/jae/backup/r-fundamentals/outputsexample.png") # This is called relative path 
 ```
-- Instead, learn how to use `here()`'.
 
-   - Key idea: separate workflow (e.g., workspace information) from products (code and data). For more information, please read Jenny Bryan's excellent piece on [project-oriented workflow](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/).
-   - Example 
+-   Instead, learn how to use `here()`'.
+
+    -   Key idea: separate workflow (e.g., workspace information) from products (code and data). For more information, please read Jenny Bryan's excellent piece on [project-oriented workflow](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/).
+    -   Example
 
 ```{r eval = FALSE}
 # Remove objects 
@@ -146,36 +147,47 @@ ggplot(mtcars, aes(x = mpg, y = wt)) +
 # The same as above 
 ggsave(here::here("outputs", # depth 1 
                   "example.png")) # depth 2
+
+here("outputs", "example.png")
+
+here("outputs", "pngs")
 ```
 
-- How `here` works 
+-   How `here` works
 
-   `here()` function shows what's the top-level project directory. 
+    `here()` function shows what's the top-level project directory.
 
 ```{r eval = FALSE}
 
 here::here()
 
 ```
-   - Build a path including subdirectories 
+
+-   Build a path including subdirectories
 
 ```{r eval = FALSE}
 
 here::here("project", "outputs")
            #depth 1   #depth 2
 ```
-   - How `here` defines the top-level project directory. For example, the following list came from [the here package vignette](https://GitHub.com/jennybc/here_here)).
 
-      - Is a file named .here present?
-      - Is this an RStudio Project? (**Note that we already set up an RStudio Project!** So, if you use RStudio's project feature, then you are ready to use `here`.)
-      - Is this an R package? Does it have a DESCRIPTION file?
-      - Is this a remake project? Does it have a file named `remake.yml`?
-      - Is this a projectile project? Does it have a file named `.projectile`?
-      - Is this a checkout from a version control system? Does it have a directory named `.git` or `.svn`? Currently, only Git and Subversion are supported.
+-   How `here` defines the top-level project directory. For example, the following list came from [the here package vignette](https://GitHub.com/jennybc/here_here)).
 
-      - If there's no match then use `set_here()` to create an empty `.here` file. 
+    -   Is a file named .here present?
+
+    -   Is this an RStudio Project? (**Note that we already set up an RStudio Project!** So, if you use RStudio's project feature, then you are ready to use `here`.)
+
+    -   Is this an R package? Does it have a DESCRIPTION file?
+
+    -   Is this a remake project? Does it have a file named `remake.yml`?
+
+    -   Is this a projectile project? Does it have a file named `.projectile`?
+
+    -   Is this a checkout from a version control system? Does it have a directory named `.git` or `.svn`? Currently, only Git and Subversion are supported.
+
+    -   If there's no match then use `set_here()` to create an empty `.here` file.
 
 **Challenge**
 
-1. Can you define computational reproducibility? 
-2. Can you explain why sharing code and data is not enough for computational reproducibility?
+1.  Can you define computational reproducibility?
+2.  Can you explain why sharing code and data is not enough for computational reproducibility?

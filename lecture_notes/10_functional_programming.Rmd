@@ -12,7 +12,7 @@ output:
     toc: yes
 ---
 
-# Setup 
+# Setup
 
 ```{r}
 # Install packages
@@ -26,13 +26,20 @@ pacman::p_load(
   tictoc, # performance test
   broom, # tidy modeling
   glue, # paste string and objects
-  furrr, # parallel processing
+  purrr, # functional programming 
+  furrr, # functional programming + parallel processing
   rvest, # web scraping
   devtools, # dev tools 
   usethis, # workflow     
   roxygen2, # documentation 
   testthat, # testing 
-  patchwork) # arranging ggplots 
+  patchwork) # arranging ggplots
+```
+
+```{r}
+name <- c("yunye", "dohui")
+
+glue::glue("some students' name: {name}")
 ```
 
 # Automating repeated things {#functional_programming}
@@ -71,6 +78,7 @@ x <- 5
 if (x < 0) { # Condition 
   print("x is negative") # Do something 
 }
+
 ```
 
 
@@ -89,7 +97,7 @@ x <- 5
 
 if (x < 0) {
   print("x is negative")
-} else{
+} else {
   print("x is positive")
 }
 ```
@@ -123,9 +131,19 @@ function = input + computation (begin -> end) + output
 
 ```{r}
 simple.function <- function(x){
-  print(x + 1)
+  
+  out <- x + 1
+
+  return(out)  
+  #return(out)
+  
+  out + 1
 }
 
+simple.function(x = 2)
+```
+
+```{r}
 simple.function(x = 2)
 
 less.simple.function <- function(x, y){
@@ -323,17 +341,29 @@ Loops in R also work the same way as in Python, with just a few adjustments.  Fi
 ```{r}
 fruits <- c("apples", "oranges", "pears", "bananas")
 
+fruits_large <- rep(fruits, 100)
+
 # a while loop
 i <- 1
+
 while (i <= length(fruits)) {
   print(fruits[i])
   i <- i + 1
 }
 
 # a for loop
-for (i in 1:length(fruits)) {
-  print(fruits[i])
+
+library(tictoc)
+
+tic()
+for (i in 1:length(fruits_large)) {
+  print(fruits_large[i])
 }
+toc()
+
+tic()
+map(fruits_large, print)
+toc()
 ```
 
 ### apply family 
@@ -352,7 +382,6 @@ make.plural <- function(x){
 }
 
 make.plural('apple')
-
 ```
 
 * `apply()` : loop over the margins (1 = row, 2 = column) of an array 
@@ -374,14 +403,20 @@ map(fruit, make.plural) # type consistent
 ```{r}
 # Why sapply is bad 
 
-sapply(1:100, paste) # return character 
+sapply(1:100,
+       paste) # return character 
 
 sapply(integer(), paste) # return list!
 
 library(purrr)
-map(1:100, paste) # return list
+map(1:100, paste)
 
 map(integer(), paste) # return list
+
+map(, 
+    )
+
+# the default output data type is always list 
 ```
 
 ## purrr 
@@ -418,6 +453,8 @@ df <- tibble(
   "c" = sample(c(-99, 1:3), size = 5, replace = TRUE),
   "d" = sample(c(-99, 1:3), size = 5, replace = TRUE)
 )
+
+df
 ```
 
 ```{r}
@@ -451,10 +488,10 @@ function(input){
 ```{r}
 
 # Function
-
+   
 fix_missing <- function(x) {
   x[x == -99] <- NA
-  x
+  return(x)
 }
 
 # Apply function to each column (vector)
@@ -463,9 +500,6 @@ df$a <- fix_missing(df$a)
 df$b <- fix_missing(df$b)
 df$c <- fix_missing(df$c)
 df$d <- fix_missing(df$d)
-
-df
-
 ```
 
 - **Challenge** Why is using function more efficient than 100% copying and pasting? Can you think about a way we can automate the process?
@@ -477,10 +511,7 @@ df
 - The power and joy of one-liner. 
 
 ```{r}
-
 df <- purrr::map_df(df, fix_missing)
-
-df
 ```
 
 `map()` is a [higher-order function](https://en.wikipedia.org/wiki/Map_(higher-order_function)) that applies a given function to each element of a list/vector. 
@@ -513,7 +544,9 @@ map(df, fix_missing)
 
 # Built-in data
 data("airquality")
+```
 
+```{r}
 tic()
 
 # Placeholder
@@ -537,6 +570,7 @@ toc()
 tic()
 out1 <- airquality %>% map_dbl(mean, na.rm = TRUE)
 toc()
+
 ```
 
 - In short, `map()` is more readable, faster, and easily extendable with other data science tasks (e.g., wrangling, modeling, and visualization) using `%>%`. 
@@ -580,28 +614,33 @@ lm_E <- lm(y ~ x, subset(data, subgroup == "group_E"))
 ```{r}
 # Function
 lm_model <- function(df) {
-  lm(Temp ~ Ozone, data = df)
+  out <- lm(Temp ~ Ozone, data = df)
+  return(out)
 }
+```
 
+```{r}
 # Map
 models <- airquality %>%
   group_by(Month) %>%
-  nest() %>% # Create list-columns
-  mutate(ols = map(data, lm_model)) # Map
-models$ols[1]
-
+  nest() %>%
+  mutate(ols = map(.x = data, 
+                   .f = lm_model ))
+         
 # Add tidying
 tidy_lm_model <- purrr::compose( # compose multiple functions
   broom::tidy, # convert lm objects into tidy tibbles
   lm_model
 )
+```
 
+```{r}
 tidied_models <- airquality %>%
   group_by(Month) %>%
   nest() %>% # Create list-columns
   mutate(ols = map(data, tidy_lm_model))
 
-tidied_models$ols[1]
+tidied_models$ols[[1]]
 ```
 
 2. Simulations 
@@ -634,7 +673,9 @@ qplot(y_means) +
 
 ```{r}
 
-small_n <- 100 ; k <- 1000; mu <- 500 ; sigma <- 20 
+k <- 1000
+
+small_n <- 100 ; mu <- 500 ; sigma <- 20 
 
 y_tidy <- rerun(k, rnorm(small_n, mu, sigma)) 
 
