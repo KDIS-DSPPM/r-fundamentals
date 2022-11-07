@@ -28,7 +28,7 @@ pacman::p_load(
   glue, # paste string and objects
   purrr, # functional programming 
   furrr, # functional programming + parallel processing
-  rvest, # web scraping
+  #rvest, # web scraping
   devtools, # dev tools 
   usethis, # workflow     
   roxygen2, # documentation 
@@ -36,51 +36,42 @@ pacman::p_load(
   patchwork) # arranging ggplots
 ```
 
-```{r}
-name <- c("yunye", "dohui")
-
-glue::glue("some students' name: {name}")
-```
-
 # Automating repeated things {#functional_programming}
 
 ## The Big Picture
 
-> Anything that can be automated should be automated. Do as little as possible by hand. Do as much as possible with functions. 
-- Hadley Wickham
+> Anything that can be automated should be automated. Do as little as possible by hand. Do as much as possible with functions. - Hadley Wickham
 
 The `purrr` package provides easy-to-use tools to automate repeated things in your entire R workflow (e.g., wrangling, modeling, and visualization). The result is cleaner, faster, more readable, and extendable code.
 
 ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmywiiOutD0NPieYCKxaD2wN9Fbt2I3iS87A&usqp=CAU)
 
-## Objectives 
+## Objectives
 
-1.  How to use control flow in R using `if_`, `for loop`, and `apply` 
-2.  How to use `map()` to automate workflow in a cleaner, faster, and more extendable way  
+1.  How to use control flow in R using `if_`, `for loop`, and `apply`
+2.  How to use `map()` to automate workflow in a cleaner, faster, and more extendable way
 
 ## Flow control {#flow}
 
-* Control structures = putting logic in code to control flow (e.g., `if`, `else`, `for`, `while`, `repeat`, `break`, `next`)
+-   Control structures = putting logic in code to control flow (e.g., `if`, `else`, `for`, `while`, `repeat`, `break`, `next`)
 
-* Almost all the conditional operators used in Python also work in R. The basic loop setup is also very similar, with some small syntax adjustments. 
+-   Almost all the conditional operators used in Python also work in R. The basic loop setup is also very similar, with some small syntax adjustments.
 
-* ```if()``` is a function whose arguments must be specified inside parentheses.
+-   `if()` is a function whose arguments must be specified inside parentheses.
 
-* ```else```, however, is a reserved operator that takes no arguments. Note that there is no ```elif``` option --- one simply writes ```else if()```.  
+-   `else`, however, is a reserved operator that takes no arguments. Note that there is no `elif` option --- one simply writes `else if()`.
 
-* Whereas operations to be executed after conditional evaluations in Python come after a ```:```, R operations must only be enclosed in curly brackets: ```{}```.  Furthermore, there is no requirement for indentation. 
+-   Whereas operations to be executed after conditional evaluations in Python come after a `:`, R operations must only be enclosed in curly brackets: `{}`. Furthermore, there is no requirement for indentation.
 
-### if (one condition) 
+### if (one condition)
 
 ```{r}
 x <- 5
 
-if (x < 0) { # Condition 
+if (x < 0) { # Condition == FALSE
   print("x is negative") # Do something 
 }
-
 ```
-
 
 ```{r}
 x <- -5
@@ -93,21 +84,20 @@ if (x < 0) {
 ### if + else (two conditions)
 
 ```{r}
-x <- 5
-
-if (x < 0) {
-  print("x is negative")
-} else {
-  print("x is positive")
+if (x < 0) { # condition one 
+  print("x is negative") # computation = print()
+} else { # condition two 
+  print("x is positive or zero") # computation = print()
 }
 ```
 
 ### if + else if + else (three conditions)
 
 ```{r}
-x <- 0
+tell_me_num <- function(x) {
 
-if (x < 0) { # Condition 
+  if (x < 0) { # Condition 
+  
   print("x is negative") # Do something 
 
   } else if (x == 0) { 
@@ -116,18 +106,30 @@ if (x < 0) { # Condition
 
     } else {print("x is positive") # Do something else 
 
-      }
+    }
+  
+}
 
+tell_me_num(-15)
+
+add_nums <- function(x, y){
+  
+  out <- x + y
+  
+  return(out)
+}
+
+add_nums(x = 2, y = 4 )
 ```
 
-- In general, it's not a good idea to write nested code (lots of `else_if()` or `ifelse()`). It is not easy to read, debug, modulize, and extend. 
-- Instead, write functions and, if necessary, use `if()` only. We'll come back to this later.
+-   In general, it's not a good idea to write nested code (lots of `else_if()` or `ifelse()`). It is not easy to read, debug, modulize, and extend.
+-   Instead, write functions and, if necessary, use `if()` only. We'll come back to this later.
 
-### Functions 
+### Functions
 
-While functions are defined in Python using the ```def``` reserved operator, R sees functions as just another type of named object.  Thus, they require explicit assignment to an object.  This is done using the function ```function()```, which creates a function taking the arguments specified in parentheses.  
+While functions are defined in Python using the `def` reserved operator, R sees functions as just another type of named object. Thus, they require explicit assignment to an object. This is done using the function `function()`, which creates a function taking the arguments specified in parentheses.
 
-function = input + computation (begin -> end) + output 
+function = input + computation (begin -\> end) + output
 
 ```{r}
 simple.function <- function(x){
@@ -153,7 +155,7 @@ less.simple.function <- function(x, y){
 less.simple.function(x = 2, y = 10)
 ```
 
-Concerning returning function output, most of the same rules apply to Python. Be sure to remember that ```return()``` will only process a single object, so multiple items must usually be returned as a list. Note that your ordering of the functions matters, too. 
+Concerning returning function output, most of the same rules apply to Python. Be sure to remember that `return()` will only process a single object, so multiple items must usually be returned as a list. Note that your ordering of the functions matters, too.
 
 ```{r}
 dumbfun <- function(x){
@@ -192,22 +194,18 @@ less.simple.function(x = 2)
 less.simple.function(x = 2, y = 10)
 ```
 
-Concerning specifying arguments, one can either use argument **position** specifications (i.e., the order) or argument **name** specifications.  The latter is strongly preferred, as it is straightforward to specify incorrect argument values accidentally.
+Concerning specifying arguments, one can either use argument **position** specifications (i.e., the order) or argument **name** specifications. The latter is strongly preferred, as it is straightforward to specify incorrect argument values accidentally.
 
 ```{r}
 send <- function(message, recipient, cc=NULL, bcc=NULL){
+  
   print(paste(message, recipient, sep = ", "))
+  
   print(paste("CC:", cc, sep = " "))
+  
   print(paste("BCC:", bcc, sep = " "))
+  
 }
-
-send(message = "Hello", recipient = "World", cc = "Sun", bcc = "Jane")
-
-send("Hello", "World", "Sun", "Jane")
-
-send("Hello", "Sun", "Jane", "World")
-
-send(message = "Hello", cc = "Sun", bcc = c("Jane", "Rochelle"), recipient = "World")
 ```
 
 Also, note that functions don't have what CS people called side-effects. Functions only define local variables = They don't change objects stored in the global environment. (Consider the difference between `<-` and `=` for assignments.) That's why you can use functions for reusable tasks since it does not interrupt other essential things in your system.
@@ -237,13 +235,13 @@ g(2) # a equals still 1
 
 **Additional tips**
 
-* Nonstandard evaluation 
+-   Nonstandard evaluation
 
-Nonstandard evaluation is an advanced subject. If you feel overwhelmed, you are more than welcome to skip this. But if you are serious about R programming, this is something you want to check out. For a deeper understanding of this issue, I recommend reading [Ren Kun's very informative blog post](https://renkun.me/2014/12/03/tips-on-non-standard-evaluation-in-r/) carefully. 
+Nonstandard evaluation is an advanced subject. If you feel overwhelmed, you are more than welcome to skip this. But if you are serious about R programming, this is something you want to check out. For a deeper understanding of this issue, I recommend reading [Ren Kun's very informative blog post](https://renkun.me/2014/12/03/tips-on-non-standard-evaluation-in-r/) carefully.
 
-This part draws on one of the [the dplyr package articles](https://dplyr.tidyverse.org/articles/programming.html.
+This part draws on one of the [the dplyr package articles](<https://dplyr.tidyverse.org/articles/programming.html>.
 
-In tidyverse, calling a variable with or without quotation mark (string or not) makes little difference because tidyeval is a non-standard evaluation. 
+In tidyverse, calling a variable with or without quotation mark (string or not) makes little difference because tidyeval is a non-standard evaluation.
 
 ```{r eval = FALSE}
 
@@ -255,7 +253,7 @@ mtcars %>% select("mpg")
 
 ```
 
-Data and env-variables 
+Data and env-variables
 
 ```{r}
 # df = environment variable 
@@ -269,7 +267,7 @@ df$x
 df$y
 ```
 
-- Problem 
+-   Problem
 
 ```{r}
 x <- NULL 
@@ -283,7 +281,7 @@ var_summary <- function(env_var, data_var){
 
 ```
 
-You may expect that the output is mean = 2.5 ... but 
+You may expect that the output is mean = 2.5 ... but
 
 It's because the mean() function doesn't take `df$x` for data_var but `x.` So it would be best if you linked x with the environment variable.
 
@@ -293,8 +291,7 @@ var_summary(df, x)
 
 ```
 
-This is how you can fix this. 
-
+This is how you can fix this.
 
 ```{r}
 
@@ -318,7 +315,7 @@ vs_fix_enhanced(df, x)
 
 ```
 
-If you have a character vector input ... 
+If you have a character vector input ...
 
 ```{r}
 mtcars_count <- mtcars %>%
@@ -328,15 +325,14 @@ mtcars_count <- mtcars %>%
 mtcars_count[[1]]
 ```
 
+### for loop
 
-### for loop 
+![Concept map for a for loop. Source: <https://teachtogether.tech/en/index.html#s:memory-concept-maps>](https://teachtogether.tech/en/figures/for-loop.svg)
 
-![Concept map for a for loop. Source: https://teachtogether.tech/en/index.html#s:memory-concept-maps](https://teachtogether.tech/en/figures/for-loop.svg)
+Loops in R also work the same way as in Python, with just a few adjustments. First, recall that index positions in R start at 1. Second, `while()` and `for()` are functions rather than reserved operators, meaning they must take arguments in parentheses. Third, just like `else`, the `in` operator *is* reserved and takes no arguments in parentheses. Fourth, the conditional execution must appear between curly brackets. Finally, indentation is meaningless, but each new operation must appear on a new line.
 
-Loops in R also work the same way as in Python, with just a few adjustments.  First, recall that index positions in R start at 1.  Second, ```while()``` and ```for()``` are functions rather than reserved operators, meaning they must take arguments in parentheses.  Third, just like ```else```, the ```in``` operator *is* reserved and takes no arguments in parentheses.  Fourth, the conditional execution must appear between curly brackets.  Finally, indentation is meaningless, but each new operation must appear on a new line.
-
-- `while()`: when we have no idea how many times loop needs to be executed.
-- `for()`: when we know how many times loop needs to be executed. This is likely to be the loop you will use most frequently. 
+-   `while()`: when we have no idea how many times loop needs to be executed.
+-   `for()`: when we know how many times loop needs to be executed. This is likely to be the loop you will use most frequently.
 
 ```{r}
 fruits <- c("apples", "oranges", "pears", "bananas")
@@ -346,7 +342,7 @@ fruits_large <- rep(fruits, 100)
 # a while loop
 i <- 1
 
-while (i <= length(fruits)) {
+while (i <= length(fruits)) { # condition
   print(fruits[i])
   i <- i + 1
 }
@@ -356,19 +352,19 @@ while (i <= length(fruits)) {
 library(tictoc)
 
 tic()
-for (i in 1:length(fruits_large)) {
+for (i in 1:length(fruits_large)) { # range
   print(fruits_large[i])
 }
 toc()
 
 tic()
-map(fruits_large, print)
+map(.x = fruits_large, .f = print)
 toc()
 ```
 
-### apply family 
+### apply family
 
-While and for loops in R can be very slow. For this reason, R has many built-in iteration methods to speed up execution times. In many cases, packages will have "behind-the-scenes" ways to avoid `for loops`, but what if you need to write your function? 
+While and for loops in R can be very slow. For this reason, R has many built-in iteration methods to speed up execution times. In many cases, packages will have "behind-the-scenes" ways to avoid `for loops`, but what if you need to write your function?
 
 A common method of getting around for loops is the **apply** family of functions. These take a data structure and a function and apply a function over all the object elements.
 
@@ -384,12 +380,11 @@ make.plural <- function(x){
 make.plural('apple')
 ```
 
-* `apply()` : loop over the margins (1 = row, 2 = column) of an array 
-* `lapply()` : loop over a list then returns a list 
-* `sapply()` : loop over a list then returns a named vector 
-* `tapply()`: loop over subsets of a vector 
-* `mapply()`: multivariate version of `lapply()`. Use this if you have a function that takes in 2 or more arguments.
-
+-   `apply()` : loop over the margins (1 = row, 2 = column) of an array
+-   `lapply()` : loop over a list then returns a list
+-   `sapply()` : loop over a list then returns a named vector
+-   `tapply()`: loop over subsets of a vector
+-   `mapply()`: multivariate version of `lapply()`. Use this if you have a function that takes in 2 or more arguments.
 
 ```{r}
 # apply that function to every element
@@ -408,39 +403,35 @@ sapply(1:100,
 
 sapply(integer(), paste) # return list!
 
-library(purrr)
 map(1:100, paste)
 
 map(integer(), paste) # return list
 
-map(, 
-    )
-
 # the default output data type is always list 
 ```
 
-## purrr 
+## purrr
 
-### Why map? 
+### Why map?
 
-#### Objectives 
+#### Objectives
 
-- How to use `purrr` to automate workflow in a cleaner, faster, and more extendable way
+-   How to use `purrr` to automate workflow in a cleaner, faster, and more extendable way
 
-#### Copy-and-paste programming 
+#### Copy-and-paste programming
 
-> Copy-and-paste programming, sometimes referred to as just pasting, is the production of highly repetitive computer programming code, as produced by copy and paste operations. It is primarily a pejorative term; those who use the term are often implying a lack of programming competence. It may also be the result of technology limitations (e.g., an insufficiently expressive development environment) as subroutines or libraries would normally be used instead. However, there are occasions when copy-and-paste programming is considered acceptable or necessary, such as for boilerplate, loop unrolling (when not supported automatically by the compiler), or certain programming idioms, and it is supported by some source code editors in the form of snippets. - Wikipedia 
+> Copy-and-paste programming, sometimes referred to as just pasting, is the production of highly repetitive computer programming code, as produced by copy and paste operations. It is primarily a pejorative term; those who use the term are often implying a lack of programming competence. It may also be the result of technology limitations (e.g., an insufficiently expressive development environment) as subroutines or libraries would normally be used instead. However, there are occasions when copy-and-paste programming is considered acceptable or necessary, such as for boilerplate, loop unrolling (when not supported automatically by the compiler), or certain programming idioms, and it is supported by some source code editors in the form of snippets. - Wikipedia
 
-- The following exercise was inspired by [Wickham's example](http://adv-r.had.co.nz/Functional-programming.html).
+-   The following exercise was inspired by [Wickham's example](http://adv-r.had.co.nz/Functional-programming.html).
 
-- Let's imagine `df` is a survey dataset. 
+-   Let's imagine `df` is a survey dataset.
 
-    - `a, b, c, d` = Survey questions 
+    -   `a, b, c, d` = Survey questions
 
-    - `-99`: non-responses 
-    
-    - Your goal: replace `-99` with `NA` 
-    
+    -   `-99`: non-responses
+
+    -   Your goal: replace `-99` with `NA`
+
 ```{r}
 
 # Data
@@ -453,8 +444,6 @@ df <- tibble(
   "c" = sample(c(-99, 1:3), size = 5, replace = TRUE),
   "d" = sample(c(-99, 1:3), size = 5, replace = TRUE)
 )
-
-df
 ```
 
 ```{r}
@@ -468,22 +457,19 @@ df$d[df$d == -99] <- NA
 df
 ```
 
-- **Challenge**. Explain why this solution is not very efficient (Hint: If `df$a[df$a == -99] <- NA` has an error, how will you fix it? A solution is not scalable if it's not automatable.
+-   **Challenge**. Explain why this solution is not very efficient (Hint: If `df$a[df$a == -99] <- NA` has an error, how will you fix it? A solution is not scalable if it's not automatable.
 
-#### Using a function 
+#### Using a function
 
-- Let's recall what's function in R: `input + computation + output` 
+-   Let's recall what's function in R: `input + computation + output`
 
-- If you write a function, you gain efficiency because you don't need to copy and paste the computation part. 
+-   If you write a function, you gain efficiency because you don't need to copy and paste the computation part.
 
-`
-function(input){
-  
-  computation 
-  
-  return(output)
-}
-`
+\` function(input){
+
+computation
+
+return(output) } \`
 
 ```{r}
 
@@ -502,29 +488,29 @@ df$c <- fix_missing(df$c)
 df$d <- fix_missing(df$d)
 ```
 
-- **Challenge** Why is using function more efficient than 100% copying and pasting? Can you think about a way we can automate the process?
+-   **Challenge** Why is using function more efficient than 100% copying and pasting? Can you think about a way we can automate the process?
 
-- Many options for automation in R: `for loop`, `apply` family, etc. 
+-   Many options for automation in R: `for loop`, `apply` family, etc.
 
-- Here's a tidy solution that comes from the `purrr` package.
+-   Here's a tidy solution that comes from the `purrr` package.
 
-- The power and joy of one-liner. 
+-   The power and joy of one-liner.
 
 ```{r}
 df <- purrr::map_df(df, fix_missing)
 ```
 
-`map()` is a [higher-order function](https://en.wikipedia.org/wiki/Map_(higher-order_function)) that applies a given function to each element of a list/vector. 
+`map()` is a [higher-order function](https://en.wikipedia.org/wiki/Map_(higher-order_function)) that applies a given function to each element of a list/vector.
 
 ![This is how map() works. It's easier to understand with a picture.](https://d33wubrfki0l68.cloudfront.net/f0494d020aa517ae7b1011cea4c4a9f21702df8b/2577b/diagrams/functionals/map.png)
 
     - Input: Takes a vector/list. 
-    
+
     - Computation: Calls the function once for each element of the vector 
-  
+
     - Output: Returns in a list or whatever data format you prefer (e.g., `_df helper: dataframe`)
 
-- **Challenge** If you run the code below, what will be the data type of the output?
+-   **Challenge** If you run the code below, what will be the data type of the output?
 
 ```{r}
 
@@ -532,14 +518,14 @@ map(df, fix_missing)
 
 ```
 
-- Why `map()` is a good alternative to `for loop`. 
+-   Why `map()` is a good alternative to `for loop`.
+
 ```{=html}
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bzUmK0Y07ck" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <p>The Joy of Functional Programming (for Data Science) - Hadley Wickham</p>
 ```
-
 ```{r}
 
 # Built-in data
@@ -563,7 +549,6 @@ toc()
 ```
 
 `map` is faster because it applies function to the items on the list/vector in parallel. Also, using `map_dbl` reduces an extra step you need to take. Hint: `map_dbl(x, mean, na.rm = TRUE)` = `vapply(x, mean, na.rm = TRUE, FUN.VALUE = double(1))`
- 
 
 ```{r}
 
@@ -573,16 +558,20 @@ toc()
 
 ```
 
-- In short, `map()` is more readable, faster, and easily extendable with other data science tasks (e.g., wrangling, modeling, and visualization) using `%>%`. 
+```{r}
+df %>%
+  map_df(~sum(is.na(.x))) # one more trick 
+```
 
-- Final point: Why not base R `apply` family? 
+-   In short, `map()` is more readable, faster, and easily extendable with other data science tasks (e.g., wrangling, modeling, and visualization) using `%>%`.
 
-- Short answer: `purrr::map()` is simpler to write. 
+-   Final point: Why not base R `apply` family?
+
+-   Short answer: `purrr::map()` is simpler to write.
 
 **Additional tips**
 
-Performance testing (profiling) is an important part of programming. `tictoc()` measures the time needed to run a target function for once. If you want a more robust measure of timing as well as information on memory (**speed** and **space** both matter for performance testing), consider using the [`bench` package](https://github.com/r-lib/bench) that is designed for high precision timing of R expressions. 
-
+Performance testing (profiling) is an important part of programming. `tictoc()` measures the time needed to run a target function for once. If you want a more robust measure of timing as well as information on memory (**speed** and **space** both matter for performance testing), consider using the [`bench` package](https://github.com/r-lib/bench) that is designed for high precision timing of R expressions.
 
 ```{r}
 map_mark <- bench::mark(
@@ -594,11 +583,11 @@ map_mark <- bench::mark(
 map_mark
 ```
 
-#### Applications 
+#### Applications
 
-1. Many models
+1.  Many models
 
-- One popular application of `map()` is to run regression models (or whatever model you want to run) on list-columns. No more copying and pasting for running many regression models on subgroups!
+-   One popular application of `map()` is to run regression models (or whatever model you want to run) on list-columns. No more copying and pasting for running many regression models on subgroups!
 
 ```{r eval = FALSE}
 # Have you ever tried this?
@@ -609,7 +598,7 @@ lm_D <- lm(y ~ x, subset(data, subgroup == "group_D"))
 lm_E <- lm(y ~ x, subset(data, subgroup == "group_E"))
 ```
 
-- For more information on this technique, read the Many Models subchapter of the [R for Data Science](https://r4ds.had.co.nz/many-models.html#creating-list-columns).
+-   For more information on this technique, read the Many Models subchapter of the [R for Data Science](https://r4ds.had.co.nz/many-models.html#creating-list-columns).
 
 ```{r}
 # Function
@@ -643,11 +632,11 @@ tidied_models <- airquality %>%
 tidied_models$ols[[1]]
 ```
 
-2. Simulations 
+2.  Simulations
 
-A good friend of `map()` function is `rerun()` function. This combination is really useful for simulations. Consider the following example. 
+A good friend of `map()` function is `rerun()` function. This combination is really useful for simulations. Consider the following example.
 
-* Base R approach 
+-   Base R approach
 
 ```{r}
 
@@ -669,7 +658,7 @@ qplot(y_means) +
    geom_vline(xintercept = 500, linetype = "dotted", color = "red")
 ```
 
-* rerun() + map()
+-   rerun() + map()
 
 ```{r}
 
