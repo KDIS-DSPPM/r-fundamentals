@@ -15,8 +15,14 @@ output:
 # Setup 
 
 ```{r}
-pacman::p_load(tidyverse, gapminder, nycflights13, ggthemes,
-               coronavirus, babynames, glue, patchwork)
+pacman::p_load(tidyverse, 
+               gapminder, 
+               nycflights13, 
+               ggthemes,
+               coronavirus, 
+               babynames, 
+               glue, 
+               patchwork)
 ```
 
 ## Visualizing (ggplot2)
@@ -98,18 +104,25 @@ No worries about new terms. We're going to learn them by actually plotting.
 ### basic aes (x , y)
 
 ```{r}
+gapminder
+```
+
+```{r}
 p <- ggplot(
-  data = gapminder,
-  mapping = aes(x = gdpPercap, y = lifeExp)
+  gapminder,
+  aes(x = gdpPercap, y = lifeExp)
 ) # ggplot or R in general takes positional arguments too. So, you don't need to name data, mapping each time you use ggplot2.
+```
 
-p
-
+```{r}
 p + geom_point()
 
-p + geom_point() + geom_smooth() # geom_smooth has calculated a smoothed line;
+p + geom_point() + 
+    geom_smooth(method = "lm") # geom_smooth has calculated a smoothed line;
 # the shaded area is the standard error for the line
+```
 
+```{r}
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
     geom_point() +
     geom_smooth(method = "lm") +
@@ -125,11 +138,13 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 
 ```{r}
 data(midwest) # load midwest dataset
+
+midwest
 ```
 
 ```{r, eval = FALSE}
 midwest %>%
-  ggplot(aes(x = area)) +
+  ggplot(aes(x = area) +
   geom_point() # not working.
 ```
 
@@ -156,8 +171,10 @@ ggplot(
 
 ```{r}
 midwest %>%
-  ggplot(aes(x = area, fill = state, color = state)) +
-  geom_density(alpha = 0.3) +
+  ggplot(aes(x = area, 
+             fill = state, 
+             color = state)) +
+  geom_density(alpha = 0.3) 
   scale_color_viridis_d() +
   scale_fill_viridis_d()
 ```
@@ -219,8 +236,10 @@ p + geom_point() +
   geom_smooth()
 
 p + geom_point(alpha = 0.3) + # alpha controls transparency
-  geom_smooth(color = "red", se = FALSE, size = 2)
+    geom_smooth(color = "red", se = FALSE, size = 2)
+```
 
+```{r}
 ggplot(
   data = gapminder,
   mapping = aes(
@@ -230,9 +249,12 @@ ggplot(
   geom_smooth(color = "red", se = FALSE, size = 2, method = "lm") +
   scale_x_log10() +
   scale_y_log10()
+```
 
+```{r}
 gapminder
 ```
+
 Your turn!!
 
 1. Create a scatter (point) plot between pop and gdpPercap across countries.  
@@ -304,8 +326,6 @@ plot2 <- p + geom_point() +
 library(patchwork)
 
 plot1 + plot2 + patchwork::plot_annotation(tag_levels = c('A', '1'))
-    
-?plot_annotation    
 ```
 
 
@@ -339,7 +359,7 @@ p + geom_point(alpha = 0.3) +
     subtitle = "Data points are country-years",
     caption = "Source: Gapminder"
   ) +
-  theme_economist()
+  theme_wsj()
 ```
 
 ### ggsave 
@@ -359,10 +379,7 @@ figure_example <- p + geom_point(alpha = 0.3) +
 
 figure_example
 
-ggsave(here("outputs", "figure_example.png"),
-       )
-
-?ggsave
+ggsave(here("outputs", "figure_example.png"))
 ```
 
 ## Exercises
@@ -381,8 +398,6 @@ ggsave(here("outputs", "figure_example.png"),
 
 ```{r}
 options(scipen = 100)
-
-coronavirus
 
 coronavirus %>%
     filter(country == "Korea, South") %>%
