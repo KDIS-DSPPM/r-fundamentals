@@ -87,17 +87,18 @@ This is a graded class based on the following:
 
 ### Grading rubric
 
-Note that you have 45 points for free. But you should earn the rest of them.
+Note that you have 40 points for free. But you should earn the rest of them.
 
-- A (4.0): 90~
-- A- (3.67): 80~89.9
-- B+ (3.33): 70~79.9
-- B (3.0): 65~69.9
-- B- (2.67): 60~64.9
-- C+ (2.33): 55~59.9
-- C (2.0): 50~54.9
-- C- (1.67): 45~49.9
-- F (0): ~45
+- A (4.0): 95~
+- A- (3.67): 85~89.9
+- B+ (3.33): 75~84.9
+- B (3.0): 70~74.9 (if you get every assignment 100 scored, then you are here before the final, 
+                    if you get every assignment 50 scored and you get the perfect score from the final, then you are here.)
+- B- (2.67): 65~69.9
+- C+ (2.33): 60~64.9
+- C (2.0): 55~59.9
+- C- (1.67): 55~54.9
+- F (0): ~54.9
 
 ### Disciplinary measure
 
