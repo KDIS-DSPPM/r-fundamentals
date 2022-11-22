@@ -90,12 +90,12 @@ This is a graded class based on the following:
 Note that you have 40 points for free. But you should earn the rest of them.
 
 - A (4.0): 95~
-- A- (3.67): 85~89.9
-- B+ (3.33): 75~84.9
-- B (3.0): 70~74.9 (if you get every assignment 100 scored, then you are here before the final;
+- A- (3.67): 90~94.9
+- B+ (3.33): 85~89.9
+- B (3.0): 80~84.9 
+- B- (2.67): 70~79.9 (if you get every assignment 100 scored, then you are here before the final;
                     if you get every assignment 50 scored and you get the perfect score from the final, then you are here.)
-- B- (2.67): 65~69.9
-- C+ (2.33): 60~64.9
+- C+ (2.33): 60~69.9
 - C (2.0): 55~59.9
 - C- (1.67): 55~54.9
 - F (0): ~54.9
