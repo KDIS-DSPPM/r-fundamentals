@@ -92,7 +92,7 @@ Note that you have 40 points for free. But you should earn the rest of them.
 - A (4.0): 95~
 - A- (3.67): 85~89.9
 - B+ (3.33): 75~84.9
-- B (3.0): 70~74.9 (if you get every assignment 100 scored, then you are here before the final, 
+- B (3.0): 70~74.9 (if you get every assignment 100 scored, then you are here before the final;
                     if you get every assignment 50 scored and you get the perfect score from the final, then you are here.)
 - B- (2.67): 65~69.9
 - C+ (2.33): 60~64.9
